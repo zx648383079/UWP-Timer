@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="UWP_Timer.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Timer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListView x:Name="dayBox"
+                  Style="{StaticResource CustomListView}"
+                    SelectionChanged="dayBox_SelectionChanged"
+                    ItemsSource="{x:Bind ViewModel.Items}"
+                    ItemContainerStyle="{StaticResource CustomListItem}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="5" Background="White" Padding="10" MinHeight="80" BorderThickness="2" BorderBrush="#05a6b1">
+                        <Grid>
+                            <TextBlock x:Uid="running_status_label" Text="进行中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status9}}"/>
+                            <TextBlock x:Uid="pause_status_label" Text="暂停中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status8}}"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <CommandBar x:Name="bottomBar" Grid.Row="1">
+            <AppBarButton x:Uid="add_btn" Icon="Add" Label="添加" Click="AppBarButton_Click"/>
+        </CommandBar>
+    </Grid>
+</Page>

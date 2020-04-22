@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="UWP_Timer.Views.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Timer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:LargeHeader x:Uid="feedback_header" Title="留言反馈" Submited="LargeHeader_Submited"/>
+        <ScrollViewer Grid.Row="1">
+            <Grid Padding="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock x:Uid="fk_name_label" Text="您的称呼" VerticalAlignment="Center"/>
+                <TextBox x:Uid="fk_name" x:Name="nameTb" PlaceholderText="请输入您的称呼" Grid.Row="1"/>
+
+                <TextBlock x:Uid="fk_email_label" Text="您的邮箱" Grid.Row="2" VerticalAlignment="Center"/>
+                <TextBox x:Uid="fk_email" x:Name="emailTb" PlaceholderText="请输入您的邮箱" Grid.Row="3"/>
+
+                <TextBlock x:Uid="fk_phone_label" Text="您的联系方式" Grid.Row="4" VerticalAlignment="Center"/>
+                <TextBox x:Uid="fk_phone" x:Name="phoneTb" PlaceholderText="请输入您的联系方式" Grid.Row="5"/>
+
+                <TextBlock x:Uid="fk_content_label" Text="留言内容" Grid.Row="6" VerticalAlignment="Center"/>
+                <TextBox x:Uid="fk_content" x:Name="contentTb"
+                    TextWrapping="Wrap" AcceptsReturn="True"
+                    PlaceholderText="请输入留言内容" Grid.Row="7"/>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
