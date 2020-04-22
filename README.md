@@ -23,3 +23,9 @@ public const string ApiEndpoint = ""; // api 入口
 public const string AppId = "<APP ID>"; // api 验证用的 appid
 public const string Secret = "<APP SECRET>"; // api 验证用的 app secret
 ```
+
+## 下一版本
+
+增加 记账功能
+
+调整 任务记录显示
