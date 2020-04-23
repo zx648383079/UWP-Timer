@@ -4,6 +4,8 @@
 
  [Mini-Timer](https://github.com/zx648383079/Mini-Timer) 的UWP版
 
+ 体验【[Win10 UWP](https://www.microsoft.com/store/apps/9MT2DR6PDFG9)】
+
  ## 预览图
 
  ![](screen/1.jpg)
