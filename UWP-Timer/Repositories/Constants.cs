@@ -24,6 +24,8 @@ namespace UWP_Timer.Repositories
         /// token 保存键
         /// </summary>
         public const string TOKEN_KEY = "token";
+
+        public const string USER_KEY = "user";
         /// <summary>
         /// 设置保存键
         /// </summary>

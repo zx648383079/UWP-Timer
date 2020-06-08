@@ -11,7 +11,7 @@ namespace UWP_Timer.Utils
     {
         public static void Info(string message)
         {
-            Debug.WriteLine("Info: " + message);
+            Debug.WriteLine($"Info[{DateTime.Now}]: " + message);
         }
 
         public static void Info(object message)

@@ -21,7 +21,7 @@ namespace UWP_Timer.Controls
 {
     public sealed partial class RadialProgressBar : UserControl
     {
-        private int _time = 0;
+        private DateTime _startTime;
         private DispatcherTimer _timer;
 
         public RadialProgressBar()
@@ -118,7 +118,7 @@ namespace UWP_Timer.Controls
         /// </summary>
         public void Start()
         {
-            _time = Max * 60 - Value;
+            _startTime = DateTime.Now.AddSeconds(- Value);
             if (_timer != null)
             {
                 _timer.Start();
@@ -129,13 +129,13 @@ namespace UWP_Timer.Controls
             {
                 await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
                 {
-                    _time--;
-                    if (_time < 1 && Max > 0)
+                    var diff = (DateTime.Now - _startTime).TotalSeconds;
+                    if (Max > 0 && diff >= Max * 60)
                     {
                         Stop();
                         return;
                     }
-                    Value++;
+                    Value = Convert.ToInt32(diff);
                     ValueChanged?.Invoke(this, null);
                 });
             });

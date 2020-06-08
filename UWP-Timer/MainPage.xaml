@@ -14,7 +14,7 @@
             IsSettingsVisible="True"
             ItemInvoked="NavigationView_ItemInvoked"
             BackRequested="NavView_BackRequested"
-            IsBackEnabled="{x:Bind AppFrame.CanGoBack, Mode=OneWay}" 
+            IsBackEnabled="{x:Bind AppFrame.CanGoBack, Mode=OneWay}"
             FontFamily="Segoe MDL2 Assets">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="SearchBox" 

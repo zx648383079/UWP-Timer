@@ -33,8 +33,15 @@ namespace UWP_Timer.ViewModels
 
         public User User
         {
-            get { return _user; }
-            set { Set(ref _user, value); }
+            get { return _user;}
+            set {
+                Set(ref _user, value);
+                if (value != null)
+                {
+                    AppData.SetValue(Constants.USER_KEY, JsonConvert.SerializeObject(value));
+                }
+
+            }
         }
 
 
@@ -59,6 +66,16 @@ namespace UWP_Timer.ViewModels
         public void SetSettings(SettingItem item)
         {
             AppData.SetValue(Constants.SETTING_KEY, JsonConvert.SerializeObject(item));
+        }
+
+        public void LoadUser()
+        {
+            var str = AppData.GetValue<string>(Constants.USER_KEY);
+            if (str == null)
+            {
+                return;
+            }
+            User = JsonConvert.DeserializeObject<User>(str);
         }
 
         public async Task LoadTipAsync(string keywords)

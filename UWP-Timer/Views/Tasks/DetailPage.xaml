@@ -24,7 +24,7 @@
             TimeEnd="progressBar_TimeEnd"
             x:Name="progressBar" Grid.Row="1" Inline="Red"/>
         <TextBlock x:Name="nameTb" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center"/>
+        <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
             <controls:IconButton x:Uid="task_play_btn" x:Name="playBtn" Icon="&#xE102;" Label="开始计时"

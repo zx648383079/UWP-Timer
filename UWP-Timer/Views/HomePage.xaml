@@ -36,6 +36,14 @@
                                 <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
                                 <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
                             </StackPanel>
+                            <Border 
+                                CornerRadius="15"
+                                Background="Red"
+                                Width="30"
+                                Height="30"
+                                HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Amount,Converter={StaticResource OverOne}}">
+                                <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                            </Border>
                         </Grid>
                     </Border>
                 </DataTemplate>

@@ -10,6 +10,8 @@
     <converter:PauseStatusConverter x:Key="Status8"/>
     <converter:LogStatusConverter x:Key="LogStatus"/>
     <converter:TaskStatusConverter x:Key="TaskStatus"/>
+    <converter:NoZeroConverter x:Key="NoZero"/>
+    <converter:OverOneConverter x:Key="OverOne"/>
 
     <Style x:Key="CenterLb" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>

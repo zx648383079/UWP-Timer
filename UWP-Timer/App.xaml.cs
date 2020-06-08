@@ -12,6 +12,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -120,6 +121,7 @@ namespace UWP_Timer
                 }
                 Constants.Token = token;
             }
+            ViewModel.LoadUser();
             var user = await Repository.User.GetProfileAsync();
             if (user == null)
             {
@@ -151,6 +153,7 @@ namespace UWP_Timer
             Constants.Token = string.Empty;
             ViewModel.User = null;
             AppData.Remove(Constants.TOKEN_KEY);
+            AppData.Remove(Constants.USER_KEY);
         }
     }
 }
