@@ -26,7 +26,9 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" />
 
-        <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="2"/>
+        <TextBox x:Uid="login_email" x:Name="emailTb"
+                 
+                 PlaceholderText="请输入邮箱" Grid.Row="2"/>
         <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
                      Grid.Row="3"/>
 

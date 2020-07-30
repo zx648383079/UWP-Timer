@@ -195,6 +195,9 @@
   <data name="connect_title.Text" xml:space="preserve">
     <value>Account Link</value>
   </data>
+  <data name="disallow_camera" xml:space="preserve">
+    <value>Disallow use camera!</value>
+  </data>
   <data name="driver_tip.Text" xml:space="preserve">
     <value>Latest login device: Click to view login time</value>
   </data>
@@ -383,6 +386,9 @@
   </data>
   <data name="my_menu.Content" xml:space="preserve">
     <value>My</value>
+  </data>
+  <data name="no_camera_found" xml:space="preserve">
+    <value>No camera device found!</value>
   </data>
   <data name="pause_status_label.Text" xml:space="preserve">
     <value>Suspended</value>

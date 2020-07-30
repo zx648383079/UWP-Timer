@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using UWP_Timer.Repositories;
 using Windows.ApplicationModel;
 using Windows.Devices.Enumeration;
 using Windows.Foundation;
@@ -228,7 +229,7 @@ namespace UWP_Timer.Views
             var cameraDevice = await FindCameraDeviceByPanelAsync(Windows.Devices.Enumeration.Panel.Back);
             if (cameraDevice == null)
             {
-                tbkTip.Text = "No camera device found!";
+                tbkTip.Text = Constants.GetString("no_camera_found");
                 return;
             }
             var settings = new MediaCaptureInitializationSettings
@@ -239,7 +240,18 @@ namespace UWP_Timer.Views
                 VideoDeviceId = cameraDevice.Id
             };
             _mediaCapture = new MediaCapture();
-            await _mediaCapture.InitializeAsync(settings);
+            try
+            {
+                await _mediaCapture.InitializeAsync(settings);
+            } catch (UnauthorizedAccessException)
+            {
+                tbkTip.Text = Constants.GetString("disallow_camera");
+                return;
+            } catch (TaskCanceledException)
+            {
+                Frame.GoBack();
+                return;
+            }
             VideoCapture.Source = _mediaCapture;
 
             await _mediaCapture.StartPreviewAsync();

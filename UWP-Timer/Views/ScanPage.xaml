@@ -44,7 +44,7 @@
                 <!--Tips-->
                 <TextBlock x:Name="tbkTip"
                            x:Uid="scan_tip_label"
-                           Foreground="White" 
+                           Foreground="Red" 
                            VerticalAlignment="Bottom" 
                            HorizontalAlignment="Center" 
                            Margin="36" Text="提示：请将二维码图案放置在取景框内"/>

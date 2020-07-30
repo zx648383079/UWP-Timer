@@ -29,11 +29,11 @@
             </NavigationView.AutoSuggestBox>
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="homeMenu" x:Uid="home_menu" Content="首页" Icon="Home"/>
-                <NavigationViewItem x:Name="scanMenu" x:Uid="scan_menu" Content="扫一扫">
+                <!--<NavigationViewItem x:Name="scanMenu" x:Uid="scan_menu" Content="扫一扫">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE156;"/>
                     </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                </NavigationViewItem>-->
                 <NavigationViewItem x:Name="reviewMenu" x:Uid="review_menu" Content="时间簿">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE787;"/>

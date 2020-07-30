@@ -53,7 +53,7 @@ namespace UWP_Timer
             var label = args.InvokedItemContainer.Name;
             var pageType =
                 args.IsSettingsInvoked ? typeof(SettingPage) :
-                label == "scanMenu" ? typeof(ScanPage) :
+                label == "scanMenu" ? (App.IsLogin() ? typeof(ScanPage) : typeof(Views.Member.LoginPage)) :
                 label == "reviewMenu" ? typeof(Views.Review.IndexPage) :
                 label == "myMenu" ? typeof(Views.Member.IndexPage) :
                 typeof(HomePage);

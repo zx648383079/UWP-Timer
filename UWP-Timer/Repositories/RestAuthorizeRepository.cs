@@ -22,7 +22,9 @@ namespace UWP_Timer.Repositories
         /// <returns></returns>
         public async Task<LoginQr> CheckQrTokenAsync(string token, Action<HttpException> action = null)
         {
-            return await http.GetAsync<LoginQr>("auth/qr", "token", token, action);
+            return await http.PostAsync<LoginQr>("auth/qr", new Dictionary<string, string>() {
+                { "token", token } 
+            }, action);
         }
         /// <summary>
         /// 对二维码进行授权
@@ -46,7 +48,7 @@ namespace UWP_Timer.Repositories
             {
                 data.Add("reject", "true");
             }
-            return await http.GetAsync<LoginQr>("auth/qr/authorize", data);
+            return await http.PostAsync<LoginQr>("auth/qr/authorize", data);
         }
     }
 }

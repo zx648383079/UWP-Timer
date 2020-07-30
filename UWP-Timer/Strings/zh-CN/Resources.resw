@@ -195,6 +195,9 @@
   <data name="connect_title.Text" xml:space="preserve">
     <value>账户关联</value>
   </data>
+  <data name="disallow_camera" xml:space="preserve">
+    <value>无权限访问摄像头</value>
+  </data>
   <data name="driver_tip.Text" xml:space="preserve">
     <value>最新登陆设备：点击可以查看登陆时间</value>
   </data>
@@ -383,6 +386,9 @@
   </data>
   <data name="my_menu.Content" xml:space="preserve">
     <value>我的</value>
+  </data>
+  <data name="no_camera_found" xml:space="preserve">
+    <value>没有发现可用摄像头哦</value>
   </data>
   <data name="pause_status_label.Text" xml:space="preserve">
     <value>暂停中</value>

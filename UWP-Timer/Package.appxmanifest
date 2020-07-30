@@ -8,10 +8,10 @@
 
   <Identity
     Name="32626ZoDream.2310420630E2D"
-    Publisher="CN=ZoDream"
-    Version="1.0.0.0" />
+    Publisher="CN=FF78C939-1E18-4AA8-94E7-1C43CACA4C89"
+    Version="1.0.1.0" />
 
-  <mp:PhoneIdentity PhoneProductId="86d969b8-9bdd-48ec-84ae-1a4bc961af34" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="4c2cc01e-665b-473b-9221-0d70d31267b9" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>我的时间回忆薄</DisplayName>
@@ -48,7 +48,6 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
-    <uap:Capability Name="picturesLibrary"/>
     <DeviceCapability Name="webcam"/>
   </Capabilities>
 </Package>
