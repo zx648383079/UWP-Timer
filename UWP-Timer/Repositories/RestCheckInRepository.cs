@@ -20,14 +20,14 @@ namespace UWP_Timer.Repositories
         /// <param name="action"></param>
         /// <returns></returns>
         public async Task<ResponseDataOne<CheckIn>> GetCanCheckInAsync(Action<HttpException> action = null)
-            => await http.GetAsync<ResponseDataOne<CheckIn>>("check_in", action);
+            => await http.GetAsync<ResponseDataOne<CheckIn>>("checkin", action);
         /// <summary>
         /// 签到
         /// </summary>
         /// <param name="action"></param>
         /// <returns></returns>
         public async Task<ResponseDataOne<CheckIn>> CheckInAsync(Action<HttpException> action = null)
-            => await http.GetAsync<ResponseDataOne<CheckIn>>("check_in/home/check_in", action);
+            => await http.GetAsync<ResponseDataOne<CheckIn>>("checkin/home/check_in", action);
         /// <summary>
         /// 获取当月签到情况
         /// </summary>
@@ -35,7 +35,11 @@ namespace UWP_Timer.Repositories
         /// <param name="action"></param>
         /// <returns></returns>
         public async Task<ResponseData<CheckIn>> GetMonthAsync(string month, Action<HttpException> action = null)
-            => await http.GetAsync<ResponseData<CheckIn>>("check_in/home/month", "month", month, action);
+            => await http.GetAsync<ResponseData<CheckIn>>("checkin/home/month", "month", month, action);
 
+        public async Task<CheckInBatch> BatchAsync(object data, Action<HttpException> action = null)
+        {
+            return await http.PostAsync<CheckInBatch>("checkin/batch", data, action);
+        }
     }
 }

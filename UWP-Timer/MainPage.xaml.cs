@@ -55,6 +55,10 @@ namespace UWP_Timer
                 args.IsSettingsInvoked ? typeof(SettingPage) :
                 label == "scanMenu" ? (App.IsLogin() ? typeof(ScanPage) : typeof(Views.Member.LoginPage)) :
                 label == "reviewMenu" ? typeof(Views.Review.IndexPage) :
+                label == "recordMenu" ? typeof(Views.Review.RecordPage) :
+                label == "shareMenu" ? typeof(Views.Share.IndexPage) :
+                label == "taskMenu" ? typeof(Views.Tasks.IndexPage) :
+                label == "microMenu" ? typeof(Views.Micro.IndexPage) :
                 label == "myMenu" ? typeof(Views.Member.IndexPage) :
                 typeof(HomePage);
             if (pageType != null && pageType != AppFrame.CurrentSourcePageType)

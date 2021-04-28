@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -102,7 +103,8 @@ namespace UWP_Timer.Views.Tasks
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.BatchStopTaskAsync(items);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -118,7 +120,8 @@ namespace UWP_Timer.Views.Tasks
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.BatchAddTaskAsync(items);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)

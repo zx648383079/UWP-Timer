@@ -18,6 +18,9 @@ namespace UWP_Timer.Models
         public uint PerPage { get; set; } = 20;
         public int Status { get; set; }
 
+        public int User { get; set; }
+
+
         public string Sort { get; set; }
 
         public string Type { get; set; }
@@ -45,6 +48,10 @@ namespace UWP_Timer.Models
             if (Category > 0)
             {
                 data.Add("category", Category.ToString());
+            }
+            if (User != 0)
+            {
+                data.Add("user", User.ToString());
             }
             if (Status > 0)
             {

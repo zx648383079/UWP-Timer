@@ -180,7 +180,7 @@ namespace UWP_Timer.Views
                 IsBusy = false;
                 await Task.Delay(50);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 IsBusy = false;
             }

@@ -11,7 +11,7 @@ namespace UWP_Timer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ConverterHeler.VisibleNotEmpty((int)value);
+            return ConverterHelper.VisibleNotEmpty((int)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

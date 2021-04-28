@@ -5,13 +5,47 @@
     xmlns:local="using:UWP_Timer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:converter="using:UWP_Timer.Converters"
     mc:Ignorable="d"
     x:Name="root"
     d:DesignHeight="120"
     d:DesignWidth="400">
+    <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal">
+                    <Storyboard>
+                    <PointerUpThemeAnimation Storyboard.TargetName="root" />
+                </Storyboard>
+                </VisualState>
+                <VisualState x:Name="PointerOver">
+                    <VisualState.Setters>
+                        <Setter Target="Shadow.ShadowOpacity" Value="1" />
+                    </VisualState.Setters>
+                    <Storyboard>
+                    <PointerUpThemeAnimation Storyboard.TargetName="root" />
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Pressed">
+                    <VisualState.Setters>
+                        <Setter Target="Shadow.ShadowOpacity" Value="1" />
+                    <Setter Target="ActionBtn.Background" Value="#1d8686"/>
+                </VisualState.Setters>
 
-    <Grid>
+                    <Storyboard>
+                    <PointerDownThemeAnimation Storyboard.TargetName="root" />
+                    </Storyboard>
+                </VisualState>
+
+                <VisualState x:Name="Disabled">
+                    <VisualState.Setters>
+                        <Setter Target="Shadow.ShadowOpacity" Value="0" />
+                        <Setter Target="ActionBtn.Background" Value="#ccc"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="40"/>
@@ -27,11 +61,20 @@
                        Foreground="White" 
                        FontSize="30" Padding="20 40 0 0"/>
         </Grid>
-        <Border 
-            Visibility="{x:Bind converter:ConverterHeler.VisibleIf(CanSubmit)}"
-            Tapped="Border_Tapped"
-            Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" CornerRadius="20" Background="#1d8686">
-            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE001;" Foreground="White"/>
-        </Border>
+        <controls:DropShadowPanel x:Name="Shadow" Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" 
+                                  BlurRadius="20"
+                                    ShadowOpacity=".5"
+                                    OffsetX="3"
+                                    OffsetY="0"
+                                    Color="#1d8686">
+            <Border 
+                x:Name="ActionBtn"
+                Visibility="{x:Bind converter:ConverterHelper.VisibleIf(CanSubmit)}"
+                Tapped="Border_Tapped"
+                 CornerRadius="20" Background="#05a6b1" Width="40">
+                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE001;" Foreground="White"/>
+            </Border>
+        </controls:DropShadowPanel>
+        
     </Grid>
 </UserControl>

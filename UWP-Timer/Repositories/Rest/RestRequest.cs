@@ -53,6 +53,15 @@ namespace UWP_Timer.Repositories.Rest
             }
         }
 
+        public async Task<TResult> PostAsync<TResult>(string controller, object body, Action<HttpException> action = null)
+        {
+            using (var client = CreatePostHttp())
+            {
+                var obj = await client.AppendPath(controller).SetBody(new JsonStringContent(body)).ExecuteAsync<TResult>(action);
+                return obj;
+            }
+        }
+
         public async Task<TResult> PostAsync<TResult>(string controller, Dictionary<string, string> body, Action<HttpException> action = null)
         {
             using (var client = CreatePostHttp())
@@ -115,6 +124,7 @@ namespace UWP_Timer.Repositories.Rest
                 { "Date", timestamp },
                 { "Content-Type", "application/vnd.api+json" },
                 { "Accept", "application/json" },
+                {  "HTTP_USER_AGENT", "zodream/5.0 UWPTimer/2.0" }
             };
             if (GlobalizationPreferences.Languages.Count > 0)
             {

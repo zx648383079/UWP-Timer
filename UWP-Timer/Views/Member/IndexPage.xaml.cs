@@ -35,11 +35,11 @@ namespace UWP_Timer.Views.Member
             if (!App.IsLogin())
             {
                 nameTb.Text = Constants.GetString("member_no_login_tip");
-                avatarImg.Source = Converters.ConverterHeler.ToImg(string.Empty);
+                avatarImg.Source = Converters.ConverterHelper.ToImg(string.Empty);
             } else if(App.ViewModel.User != null)
             {
                 nameTb.Text = Constants.GetString("member_hi").Replace("{name}", App.ViewModel.User.Name);
-                avatarImg.Source = Converters.ConverterHeler.ToImg(App.ViewModel.User.Avatar);
+                avatarImg.Source = Converters.ConverterHelper.ToImg(App.ViewModel.User.Avatar);
             }
             bulletinBtn.Visibility = 
                 checkBtn.Visibility = 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,7 +61,8 @@ namespace UWP_Timer.Views.Tasks
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.GetTaskDayDetailAsync(id);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null || data.Task == null)
@@ -185,9 +187,10 @@ namespace UWP_Timer.Views.Tasks
 
         private async Task checkAsync()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Task.CheckTaskAsync(ViewModel.Today.Id, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -198,7 +201,7 @@ namespace UWP_Timer.Views.Tasks
                 //_ = checkAsync();
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 ViewModel.Today = data;
                 stop();
@@ -213,9 +216,10 @@ namespace UWP_Timer.Views.Tasks
 
         private async Task startAsync()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Task.PlayTaskAsync(ViewModel.Today.Id, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -224,7 +228,7 @@ namespace UWP_Timer.Views.Tasks
             {
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 ViewModel.Today = data;
                 begin();
@@ -233,9 +237,10 @@ namespace UWP_Timer.Views.Tasks
 
         private async Task pauseAsync()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Task.PauseTaskAsync(ViewModel.Today.Id, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -244,7 +249,7 @@ namespace UWP_Timer.Views.Tasks
             {
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 ViewModel.Today = data;
                 ViewModel.IsRunning = false;
@@ -254,9 +259,10 @@ namespace UWP_Timer.Views.Tasks
 
         private async Task stopAsync()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Task.StopTaskAsync(ViewModel.Today.Id, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -265,11 +271,27 @@ namespace UWP_Timer.Views.Tasks
             {
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 ViewModel.Today = data;
                 stop();
             });
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            progressBar.Dispose();
+            progressBar = null;
+        }
+
+        private void openComment_Click(object sender, RoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = true;
+        }
+
+        private void ClosePanelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = false;
         }
     }
 }

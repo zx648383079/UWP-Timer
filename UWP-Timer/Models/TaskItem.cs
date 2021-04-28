@@ -27,7 +27,7 @@ namespace UWP_Timer.Models
         [JsonProperty(PropertyName = "updated_at")]
         public string UpdatedAt { get; set; }
         [JsonProperty(PropertyName = "start_at")]
-        public int StartAt { get; set; }
+        public string StartAt { get; set; }
 
         [JsonProperty(PropertyName = "last_at")]
         public int LastAt { get; set; }
@@ -54,11 +54,18 @@ namespace UWP_Timer.Models
     /// <summary>
     /// 今日任务
     /// </summary>
-    public class TaskDay
+    public class TaskDay : ViewModels.BindableBase
     {
         public int Id { get; set; }
         public string Today { get; set; }
-        public int Amount { get; set; }
+        private int amount;
+
+        public int Amount
+        {
+            get => amount;
+            set => Set(ref amount, value);
+        }
+
         [JsonProperty(PropertyName = "success_amount")]
         public int SuccessAmount { get; set; }
         [JsonProperty(PropertyName = "pause_amount")]

@@ -48,7 +48,7 @@ namespace UWP_Timer.Repositories
         /// <param name="action"></param>
         /// <returns></returns>
         public async Task<Page<TaskLog>> GetTaskReviewAsync(SearchForm form, Action<HttpException> action = null)
-            => await http.GetAsync<Page<TaskLog>>("task/review", form.ToQueries(), action);
+            => await http.GetAsync<Page<TaskLog>>("task/record", form.ToQueries(), action);
         /// <summary>
         /// 获取任务详情
         /// </summary>
@@ -73,6 +73,10 @@ namespace UWP_Timer.Repositories
         /// <returns></returns>
         public async Task<ResponseDataOne<bool>> BatchAddTaskAsync(int id, Action<HttpException> action = null)
             => await http.PostAsync<ResponseDataOne<bool>>("task/home/batch_add", "{\"id\":" + id + "}", action);
+
+        public async Task<TaskDay> AddTodayTaskAsync(int id, Action<HttpException> action = null)
+            => await http.PostAsync<TaskDay>("task/home/save_day", "{\"task_id\":" + id + "}", action);
+
         /// <summary>
         /// 批量添加任务到今日
         /// </summary>

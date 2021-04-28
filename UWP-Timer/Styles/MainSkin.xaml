@@ -38,6 +38,14 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
     </Style>
 
+    
+    <LinearGradientBrush x:Key="dottedBrush" StartPoint="0,0" EndPoint="2,0"
+                        SpreadMethod="Repeat" MappingMode="Absolute">
+        <GradientStop Color="Transparent" Offset="0" />
+        <GradientStop Color="Transparent" Offset="0.499" />
+        <GradientStop Color="#999" Offset="0.5" />
+    </LinearGradientBrush>
+
     <Style x:Key="PageStyle" TargetType="FrameworkElement">
         <Setter Property="Margin" Value="10,0,10,0"/>
     </Style>

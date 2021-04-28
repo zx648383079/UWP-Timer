@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWP_Timer.Converters
 {
-    public static class ConverterHeler
+    public static class ConverterHelper
     {
         /// <summary>
         /// Returns the reverse of the provided value.

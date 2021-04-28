@@ -2,7 +2,6 @@
     x:Class="UWP_Timer.Views.Article.IndexPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_Timer.Views.Article"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -51,10 +50,10 @@
                             <TextBlock Text="{Binding Path=Title}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
                             <TextBlock Text="{Binding Path=Description}" TextWrapping="WrapWholeWords" FontSize="16" Foreground="#767676" Grid.Row="1"/>
                             <StackPanel Orientation="Horizontal" Grid.Row="2">
-                                <controls:IconTag Icon="&#xE104;" Label="{Binding User.Name}" FontSize="12" Margin="0,0,10,0"/>
-                                <controls:IconTag Icon="&#xE1CB;" Label="{Binding Term.Name}" FontSize="12" Margin="0,0,10,0"/>
-                                <controls:IconTag Icon="&#xE25C;" Label="{Binding CommentCount}" FontSize="12" Margin="0,0,10,0"/>
-                                <controls:IconTag Icon="&#xE19F;" Label="{Binding Recommend}" FontSize="12" Margin="0,0,10,0"/>
+                                <controls:IconTag Icon="&#xE104;" Label="{Binding User.Name}" FontSize="12"/>
+                                <controls:IconTag Icon="&#xE1CB;" Label="{Binding Term.Name}" FontSize="12"/>
+                                <controls:IconTag Icon="&#xE25C;" Label="{Binding CommentCount}" FontSize="12"/>
+                                <controls:IconTag Icon="&#xE19F;" Label="{Binding Recommend}" FontSize="12"/>
                                 <controls:IconTag Icon="&#xE18B;" Label="{Binding ClickCount}" FontSize="12" />
                             </StackPanel>
                         </Grid>

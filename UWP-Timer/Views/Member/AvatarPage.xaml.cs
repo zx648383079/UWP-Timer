@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using System.Collections.Generic;
@@ -52,9 +53,10 @@ namespace UWP_Timer.Views.Member
             var stream = new InMemoryRandomAccessStream();
             await ImageCropper.SaveAsync(stream, BitmapFileFormat.Png);
             App.ViewModel.IsLoading = true;
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.User.UploadAvatarAsync(stream, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message ?? Constants.GetString("unknow_error")).ShowAsync();
@@ -62,7 +64,7 @@ namespace UWP_Timer.Views.Member
 
             });
             stream.Dispose();
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -92,7 +94,8 @@ namespace UWP_Timer.Views.Member
                 await ImageCropper.LoadImageFromFile(file);
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 Frame.GoBack();
             });

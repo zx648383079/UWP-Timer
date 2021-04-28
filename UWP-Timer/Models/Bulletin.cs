@@ -16,6 +16,8 @@ namespace UWP_Timer.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public int Type { get; set; }
+        [JsonProperty(PropertyName = "extra_rule")]
+        public IList<ExtraRule> ExtraRule { get; set; }
         [JsonProperty(PropertyName = "created_at")]
         public string CreatedAt { get; set; }
         [JsonProperty(PropertyName = "updated_at")]

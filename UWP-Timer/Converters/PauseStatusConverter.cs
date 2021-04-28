@@ -14,7 +14,7 @@ namespace UWP_Timer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ConverterHeler.VisibleIf((int)value == 8);
+            return ConverterHelper.VisibleIf((int)value == 8);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

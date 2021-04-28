@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,6 +50,7 @@ namespace UWP_Timer.ViewModels
 
         protected async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             try
             {
                 OnLoadMoreStarted?.Invoke(count);
@@ -60,7 +62,7 @@ namespace UWP_Timer.ViewModels
 
                 if (items != null)
                 {
-                    await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                    await dispatcherQueue.EnqueueAsync(() =>
                     {
                         foreach (var item in items)
                         {
@@ -79,7 +81,7 @@ namespace UWP_Timer.ViewModels
             }
             finally
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     IsBusy = false;
                 });

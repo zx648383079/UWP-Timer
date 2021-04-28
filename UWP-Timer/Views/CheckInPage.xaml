@@ -2,7 +2,6 @@
     x:Class="UWP_Timer.Views.CheckInPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_Timer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:models="using:UWP_Timer.Models"
     xmlns:converter="using:UWP_Timer.Converters"
@@ -12,7 +11,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/CheckSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -30,17 +29,14 @@
                 <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button x:Uid="check_in_btn" Foreground="White" Grid.Row="1" Content="签到" 
-                    Visibility="{x:Bind converter:ConverterHeler.CollapsedIf(ViewModel.IsChecked),Mode=OneWay}"
-                    HorizontalAlignment="Center" 
-                    Tapped="Button_Tapped"
-                    CornerRadius="10" Width="130"/>
-            <Button Grid.Row="1"
-                    Background="Transparent"
-                    BorderBrush="White"
-                    IsTapEnabled="False"
-                Visibility="{x:Bind converter:ConverterHeler.VisibleIf(ViewModel.IsChecked),Mode=OneWay}"
-                HorizontalAlignment="Center" CornerRadius="10" Width="130">
+            <Button x:Uid="check_in_btn" 
+                    Grid.Row="1" Content="签到" 
+                    Visibility="{x:Bind converter:ConverterHelper.CollapsedIf(ViewModel.IsChecked),Mode=OneWay}"
+                    Style="{StaticResource UnCheckButton}" 
+                    Tapped="Button_Tapped"/>
+            <Button Style="{StaticResource CheckButton}" 
+                    Grid.Row="1"
+                    Visibility="{x:Bind converter:ConverterHelper.VisibleIf(ViewModel.IsChecked),Mode=OneWay}">
                 <Button.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -99,12 +95,12 @@
                     <GridView.ItemTemplate>
                         <DataTemplate x:DataType="models:DayItem">
                             <Grid Width="40" Height="40">
-                                <Grid  Visibility="{x:Bind converter:ConverterHeler.CollapsedIf(IsChecked),Mode=OneWay}">
-                                    <TextBlock Text="{x:Bind converter:ConverterHeler.FormatDay(Day)}" Style="{StaticResource CenterLb}"/>
+                                <Grid  Visibility="{x:Bind converter:ConverterHelper.CollapsedIf(IsChecked),Mode=OneWay}">
+                                    <TextBlock Text="{x:Bind converter:ConverterHelper.FormatDay(Day)}" Style="{StaticResource CenterLb}"/>
                                 </Grid>
                                 <Border 
                                     CornerRadius="20"
-                                    Background="#006cff" Visibility="{x:Bind converter:ConverterHeler.VisibleIf(IsChecked),Mode=OneWay}">
+                                    Background="#006cff" Visibility="{x:Bind converter:ConverterHelper.VisibleIf(IsChecked),Mode=OneWay}">
                                     <Grid>
                                         <FontIcon 
                                             FontSize="30"
@@ -113,7 +109,7 @@
                                         </FontIcon>
                                         <TextBlock 
                                         Foreground="White"
-                                        Text="{x:Bind converter:ConverterHeler.FormatDay(Day)}" Style="{StaticResource CenterLb}"/>
+                                        Text="{x:Bind converter:ConverterHelper.FormatDay(Day)}" Style="{StaticResource CenterLb}"/>
                                     </Grid>
                                 </Border>
                             </Grid>

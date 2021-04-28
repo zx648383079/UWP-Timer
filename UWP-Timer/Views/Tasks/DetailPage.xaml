@@ -2,43 +2,90 @@
     x:Class="UWP_Timer.Views.Tasks.DetailPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_Timer.Views.Task"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:UWP_Timer.Controls"
     xmlns:converter="using:UWP_Timer.Converters"
     mc:Ignorable="d"
+    Unloaded="Page_Unloaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/TaskSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <controls:RadialProgressBar 
+        <SplitView x:Name="splitView" PanePlacement="Right" DisplayMode="Overlay">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="ClosePanelBtn"
+                            Style="{StaticResource IconBtn}"
+                            HorizontalAlignment="Right" Click="ClosePanelBtn_Click">
+                        <FontIcon Glyph="&#xE711;" FontWeight="Bold" />
+                    </Button>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="40"/>
+                            <ColumnDefinition Width="40"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Style="{StaticResource CenterTextBoxStyle}"/>
+                        <Button x:Name="sendBtn" Grid.Column="1"
+                            Style="{StaticResource IconBtn}">
+                            <FontIcon Glyph="&#xE725;" />
+                        </Button>
+                        <Button x:Name="uploadBtn" Grid.Column="2"
+                            Style="{StaticResource IconBtn}">
+                            <FontIcon Glyph="&#xE11C;" />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="300"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="openComment" Style="{StaticResource EmptyBtn}"
+                HorizontalAlignment="Right" Click="openComment_Click">
+                    <FontIcon Glyph="&#xEBDB;"/>
+                </Button>
+                <controls:RadialProgressBar 
             TimeEnd="progressBar_TimeEnd"
-            x:Name="progressBar" Grid.Row="1" Inline="Red"/>
-        <TextBlock x:Name="nameTb" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            x:Name="progressBar" Grid.Row="1"/>
+                <TextBlock x:Name="nameTb" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
-            <controls:IconButton x:Uid="task_play_btn" x:Name="playBtn" Icon="&#xE102;" Label="开始计时"
+                <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
+                    <controls:IconButton x:Uid="task_play_btn" x:Name="playBtn" Icon="&#xE102;" Label="开始计时"
                                  Tapped="playBtn_Tapped"
-                                 Visibility="{x:Bind converter:ConverterHeler.CollapsedIf(ViewModel.IsRunning), Mode=OneWay}"/>
-            <controls:IconButton x:Uid="task_pause_btn" x:Name="pauseBtn" Icon="&#xE103;" 
+                                 Visibility="{x:Bind converter:ConverterHelper.CollapsedIf(ViewModel.IsRunning), Mode=OneWay}"/>
+                    <controls:IconButton x:Uid="task_pause_btn" x:Name="pauseBtn" Icon="&#xE103;" 
                                  Label="暂停计时" 
                                  Tapped="playBtn_Tapped"
-                                 Visibility="{x:Bind converter:ConverterHeler.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
-            <controls:IconButton x:Uid="task_stop_btn" x:Name="stopBtn" 
+                                 Visibility="{x:Bind converter:ConverterHelper.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
+                    <controls:IconButton x:Uid="task_stop_btn" x:Name="stopBtn" 
                                  Icon="&#xE15B;" 
                                  Label="停止计时" 
                                  Tapped="playBtn_Tapped"
-                                 Visibility="{x:Bind converter:ConverterHeler.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
-        </StackPanel>
+                                 Visibility="{x:Bind converter:ConverterHelper.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
+                </StackPanel>
+            </Grid>
+        </SplitView>
     </Grid>
 </Page>

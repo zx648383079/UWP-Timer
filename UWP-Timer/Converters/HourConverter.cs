@@ -14,7 +14,7 @@ namespace UWP_Timer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ConverterHeler.FormatHour((int)value);
+            return ConverterHelper.FormatHour((int)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

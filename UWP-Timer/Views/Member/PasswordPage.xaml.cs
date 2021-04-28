@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -63,7 +64,8 @@ namespace UWP_Timer.Views.Member
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.User.PasswordUpdateAsync(form, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();

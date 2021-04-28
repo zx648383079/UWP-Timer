@@ -8,6 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/LoginSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Padding="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -27,28 +36,25 @@
             VerticalAlignment="Center" />
 
         <TextBox x:Uid="login_email" x:Name="emailTb"
-                 
-                 PlaceholderText="请输入邮箱" Grid.Row="2"/>
-        <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
-                     Grid.Row="3"/>
+                 PlaceholderText="请输入邮箱" FontSize="20" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+        <PasswordBox x:Uid="login_pwd" FontSize="20" x:Name="pwdTb" PlaceholderText="请输入密码" 
+                     Grid.Row="3" Style="{StaticResource CenterPasswordBoxStyle}"/>
 
         <TextBlock x:Uid="login_to_reg" x:Name="toRegisterBtn"
                    Tapped="toRegisterBtn_Tapped"
                    Text="注册账号"
                    Grid.Row="4" 
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                   HorizontalAlignment="Left" Style="{StaticResource InputLabel}"/>
         <TextBlock x:Uid="login_to_reset" x:Name="toFindBtn"
                     Tapped="toFindBtn_Tapped"
                     Text="忘记密码" 
                    Grid.Row="4" 
-                   HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                   HorizontalAlignment="Right" Style="{StaticResource InputLabel}"/>
 
         <Button x:Uid="login_btn" x:Name="LoginBtn" 
                 Tapped="LoginBtn_Tapped"
-                Grid.Row="5" 
-                Background="#b4282d"
-                Foreground="White"
+                Grid.Row="5"
                 Content="登录" 
-                HorizontalAlignment="Stretch"/>
+                Style="{StaticResource SubmitBtn}"/>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -56,7 +57,8 @@ namespace UWP_Timer.ViewModels
         public async Task CanCheck()
         {
             var data = await App.Repository.CheckIn.GetCanCheckInAsync();
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 if (data == null || data.Data == null)
                 {
@@ -110,7 +112,8 @@ namespace UWP_Timer.ViewModels
             {
                 items[i++] = DateTime.Parse(item.CreatedAt).Day;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 CheckDay(items);
             });
@@ -138,7 +141,8 @@ namespace UWP_Timer.ViewModels
             {
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 IsChecked = true;
                 Tip = Constants.GetString("check_in_tip").Replace("{day}", data.Data.Running.ToString());

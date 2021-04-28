@@ -8,6 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/LoginSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid Padding="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -28,12 +37,12 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" />
 
-        <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2"/>
-        <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"/>
-        <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
-                     Grid.Row="4"/>
-        <PasswordBox x:Uid="login_re_pwd" x:Name="rePwdTb" PlaceholderText="请确认密码" 
-                     Grid.Row="5"/>
+        <TextBox x:Uid="login_name" FontSize="20" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+        <TextBox x:Uid="login_email" FontSize="20" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
+        <PasswordBox x:Uid="login_pwd" FontSize="20" x:Name="pwdTb" PlaceholderText="请输入密码" 
+                     Grid.Row="4" Style="{StaticResource CenterPasswordBoxStyle}"/>
+        <PasswordBox x:Uid="login_re_pwd" FontSize="20" x:Name="rePwdTb" PlaceholderText="请确认密码" 
+                     Grid.Row="5" Style="{StaticResource CenterPasswordBoxStyle}"/>
         <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
@@ -43,15 +52,13 @@
             <CheckBox x:Uid="login_agree_check" x:Name="agreeTb" Content="同意" VerticalAlignment="Center" MinWidth="60"/>
             <HyperlinkButton x:Uid="login_agreement" Grid.Column="1" Content="本站协议" NavigateUri="https://zodream.cn/agreement"/>
             <TextBlock x:Uid="login_back_login" x:Name="backBtn" Tapped="backBtn_Tapped" Text="返回登录" 
-                   Grid.Column="2" VerticalAlignment="Center"/>
+                   Grid.Column="2" Style="{StaticResource InputLabel}"/>
         </Grid>
 
         <Button x:Uid="login_reg_btn" Grid.Row="7" 
                 x:Name="regBtn"
                 Tapped="regBtn_Tapped"
-                Background="#b4282d"
-                Foreground="White"
                 Content="注册" 
-                HorizontalAlignment="Stretch"/>
+                Style="{StaticResource SubmitBtn}"/>
     </Grid>
 </Page>

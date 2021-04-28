@@ -12,7 +12,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -24,16 +24,28 @@
         </Grid.RowDefinitions>
         <controls:LargeHeader x:Uid="edit_title" Title="编辑个人信息" Submited="LargeHeader_Submited"/>
         <ScrollViewer Grid.Row="1">
-            <StackPanel Margin="10,0,10,0">
-                <TextBox x:Uid="edit_name" x:Name="nameTb" Header="昵称" PlaceholderText="请输入昵称" 
-                         Width="200" HorizontalAlignment="Left"/>
-                <ComboBox x:Uid="edit_sex" x:Name="sexTb" SelectedIndex="0" Header="性别">
+            <Grid Margin="10,0,10,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="昵称" Style="{StaticResource InputLabel}"/>
+                <TextBox x:Uid="edit_name" x:Name="nameTb" PlaceholderText="请输入昵称" 
+                         Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBlock Text="性别" Grid.Row="2" Style="{StaticResource InputLabel}"/>
+                <ComboBox x:Uid="edit_sex" x:Name="sexTb" SelectedIndex="0" Grid.Row="3">
                     <ComboBoxItem x:Uid="edit_sex_0" Content="未知"/>
                     <ComboBoxItem x:Uid="edit_sex_1" Content="男"/>
                     <ComboBoxItem x:Uid="edit_sex_2" Content="女"/>
                 </ComboBox>
-                <CalendarDatePicker x:Uid="edit_birth" x:Name="birthdayTb" Language="zh" FontFamily="微软雅黑" PlaceholderText="选择生日" Header="生日" />
-            </StackPanel>
+                <TextBlock Text="生日" Grid.Row="4" Style="{StaticResource InputLabel}"/>
+                <CalendarDatePicker x:Uid="edit_birth" x:Name="birthdayTb" Language="zh" FontFamily="微软雅黑" PlaceholderText="选择生日" Grid.Row="5" />
+            </Grid>
         </ScrollViewer>
     </Grid>
 </Page>

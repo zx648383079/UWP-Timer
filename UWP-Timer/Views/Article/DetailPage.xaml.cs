@@ -1,13 +1,17 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading.Tasks;
+using UWP_Timer.Utils;
 using UWP_Timer.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -43,7 +47,8 @@ namespace UWP_Timer.Views.Article
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Article.GetArticleAsync(id);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(async () =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -52,9 +57,25 @@ namespace UWP_Timer.Views.Article
                     return;
                 }
                 ViewModel.Article = data;
-                detailWebView.NavigateToString(data.Content);
+                detailWebView.NavigateToString(await RenderHtmlAsync(data.Content));
             });
             
+        }
+
+        private async Task<string> RenderHtmlAsync(string content)
+        {
+            string style;
+            try
+            {
+                var fileUri = new Uri("ms-appx:///Assets/markdown.css", UriKind.Absolute);
+                var file = await StorageFile.GetFileFromApplicationUriAsync(fileUri);
+                style = await FileIO.ReadTextAsync(file);
+            }
+            catch (Exception)
+            {
+                style = string.Empty;
+            }
+            return $"<style>{style}</style><div class=\"markdown\">{content}</div>";
         }
 
         private void detailWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)

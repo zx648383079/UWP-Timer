@@ -1,14 +1,14 @@
 ﻿<Application
     x:Class="UWP_Timer.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_Timer">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
         <ResourceDictionary>
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="微软雅黑"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
+            <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#FFF4F4F4" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

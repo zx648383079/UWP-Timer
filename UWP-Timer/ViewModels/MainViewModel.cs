@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -80,9 +81,10 @@ namespace UWP_Timer.ViewModels
 
         public async Task LoadTipAsync(string keywords)
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Article.GetSuggestionAsync(keywords);
 
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 tips.Clear();
                 foreach (var item in data.Data)

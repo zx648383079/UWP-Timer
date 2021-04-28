@@ -9,6 +9,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
@@ -29,16 +37,16 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock x:Uid="fk_name_label" Text="您的称呼" VerticalAlignment="Center"/>
-                <TextBox x:Uid="fk_name" x:Name="nameTb" PlaceholderText="请输入您的称呼" Grid.Row="1"/>
+                <TextBlock x:Uid="fk_name_label" Text="您的称呼" Style="{StaticResource InputLabel}"/>
+                <TextBox x:Uid="fk_name" x:Name="nameTb" PlaceholderText="请输入您的称呼" Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
 
-                <TextBlock x:Uid="fk_email_label" Text="您的邮箱" Grid.Row="2" VerticalAlignment="Center"/>
-                <TextBox x:Uid="fk_email" x:Name="emailTb" PlaceholderText="请输入您的邮箱" Grid.Row="3"/>
+                <TextBlock x:Uid="fk_email_label" Text="您的邮箱" Grid.Row="2"  Style="{StaticResource InputLabel}"/>
+                <TextBox x:Uid="fk_email" x:Name="emailTb" PlaceholderText="请输入您的邮箱" Grid.Row="3" Style="{StaticResource CenterTextBoxStyle}"/>
 
-                <TextBlock x:Uid="fk_phone_label" Text="您的联系方式" Grid.Row="4" VerticalAlignment="Center"/>
-                <TextBox x:Uid="fk_phone" x:Name="phoneTb" PlaceholderText="请输入您的联系方式" Grid.Row="5"/>
+                <TextBlock x:Uid="fk_phone_label" Text="您的联系方式" Grid.Row="4"  Style="{StaticResource InputLabel}"/>
+                <TextBox x:Uid="fk_phone" x:Name="phoneTb" PlaceholderText="请输入您的联系方式" Grid.Row="5" Style="{StaticResource CenterTextBoxStyle}"/>
 
-                <TextBlock x:Uid="fk_content_label" Text="留言内容" Grid.Row="6" VerticalAlignment="Center"/>
+                <TextBlock x:Uid="fk_content_label" Text="留言内容" Grid.Row="6"  Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="fk_content" x:Name="contentTb"
                     TextWrapping="Wrap" AcceptsReturn="True"
                     PlaceholderText="请输入留言内容" Grid.Row="7"/>

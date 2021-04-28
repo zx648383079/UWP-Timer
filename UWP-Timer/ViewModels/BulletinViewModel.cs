@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,9 +47,39 @@ namespace UWP_Timer.ViewModels
             set { Set(ref items, value); }
         }
 
+        private ObservableCollection<UserItem> userItems = new ObservableCollection<UserItem>();
+
+        public ObservableCollection<UserItem> UserItems
+        {
+            get => userItems;
+            set => Set(ref userItems, value);
+        }
+
+
         public void Load()
         {
-            Refresh();
+            
+            // Refresh();
+            _ = loadUserAsync();
+        }
+
+
+        private async Task loadUserAsync()
+        {
+            var data = await App.Repository.Bulletin.GetUserListAsync();
+            if (data == null)
+            {
+                return;
+            }
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
+            {
+                UserItems.Clear();
+                foreach (var item in data.Data)
+                {
+                    UserItems.Add(item);
+                }
+            });
         }
 
         public void Refresh()
@@ -57,5 +89,23 @@ namespace UWP_Timer.ViewModels
             _ = Items.LoadMoreItemsAsync(search.PerPage);
         }
 
+
+        internal void LoadType(int v)
+        {
+            search.Type = v.ToString();
+            search.User = 0;
+            Refresh();
+        }
+
+        internal void LoadUser(int v)
+        {
+            if (v == 0)
+            {
+                v = -1;
+            }
+            search.Type = null;
+            search.User = v;
+            Refresh();
+        }
     }
 }

@@ -179,7 +179,15 @@ namespace UWP_Timer.Repositories.Rest
             //{
             //    return (T)(object)JObject.Parse(content);
             //}
-            return JsonConvert.DeserializeObject<T>(content);
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(content);
+            }
+            catch (Exception ex)
+            {
+                Log.Info(ex);
+            }
+            return (T)(object)null;
         }
 
         public async Task<string> ExecuteAsync(Action<HttpResponseMessage> succes = null, Action<HttpResponseMessage> failure = null)

@@ -35,7 +35,7 @@ namespace UWP_Timer.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            bottomBar.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
+            addBtn.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
             if (App.IsLogin())
             {
                 ViewModel.Load();
@@ -55,6 +55,26 @@ namespace UWP_Timer.Views
                 return;
             }
             Frame.Navigate(typeof(Tasks.DetailPage), item.Id);
+        }
+
+        private void NewButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = true;
+        }
+
+        private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = ViewModel.LoadTask(args.QueryText);
+        }
+
+        private void AddToDay_Click(object sender, RoutedEventArgs e)
+        {
+            _ = ViewModel.AddToDay((sender as Button).DataContext as TaskItem);
+        }
+
+        private void ClosePanelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            splitView.IsPaneOpen = false;
         }
     }
 }

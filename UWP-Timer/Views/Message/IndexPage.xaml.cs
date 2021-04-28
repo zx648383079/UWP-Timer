@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Models;
 using UWP_Timer.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -29,5 +30,30 @@ namespace UWP_Timer.Views.Message
         }
 
         public BulletinViewModel ViewModel = new BulletinViewModel();
+
+        private void commentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadType(8);
+        }
+
+        private void atBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadType(7);
+        }
+
+        private void agreeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadType(6);
+        }
+
+        private void systemBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LoadUser(0);
+        }
+
+        private void userList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel.LoadUser(((sender as ListView).SelectedItem as UserItem).Id);
+        }
     }
 }

@@ -5,21 +5,21 @@
     xmlns:local="using:UWP_Timer.Views.Account"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/LoginSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
     
     <Grid Padding="10 0 10 0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
@@ -27,11 +27,11 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Uid="cancel_tip" Text="请选择注销原因：" Style="{StaticResource InputLb}"/>
+        <controls:PageTip Tip="请选择注销原因："/>
         <RadioButton x:Uid="cancel_reason_1" Grid.Row="1" GroupName="reason" Content="需要解绑手机" Checked="RadioButton_Checked"/>
         <RadioButton x:Uid="cancel_reason_2" Grid.Row="2" GroupName="reason" Content="需要解绑邮箱" Checked="RadioButton_Checked"/>
         <RadioButton x:Uid="cancel_reason_3" Grid.Row="3" GroupName="reason" Content="安全/隐私顾虑" Checked="RadioButton_Checked"/>
         <RadioButton x:Uid="cancel_reason_4" Grid.Row="4" GroupName="reason" Content="这是多余的账户" Checked="RadioButton_Checked"/>
-        <Button x:Uid="cancel_confirm_btn" Grid.Row="5" Content="确认注销" Style="{StaticResource DangerBtn}" Tapped="Button_Tapped"/>
+        <Button x:Uid="cancel_confirm_btn" Grid.Row="5" Content="确认注销" Style="{StaticResource SubmitBtn}" Tapped="Button_Tapped"/>
     </Grid>
 </Page>

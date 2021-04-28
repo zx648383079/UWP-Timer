@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,7 @@ namespace UWP_Timer.Views
                 Frame.Navigate(typeof(Member.LoginPage));
                 return;
             }
-            avatarImg.Source = Converters.ConverterHeler.ToImg(App.ViewModel.User.Avatar);
+            avatarImg.Source = Converters.ConverterHelper.ToImg(App.ViewModel.User.Avatar);
             token = e.Parameter as string;
             _ = checkTokenAsync(token);
         }
@@ -51,7 +52,8 @@ namespace UWP_Timer.Views
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(v);
             if (model == null)
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
@@ -71,17 +73,18 @@ namespace UWP_Timer.Views
 
         private async Task confirm()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(token, true);
             if (model == null)
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
                 });
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 Frame.Navigate(typeof(HomePage));
             });
@@ -89,17 +92,18 @@ namespace UWP_Timer.Views
 
         private async Task reject()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(token, false, true);
             if (model == null)
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
                 });
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 Frame.GoBack();
             });

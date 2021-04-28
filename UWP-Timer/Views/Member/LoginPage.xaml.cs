@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -67,16 +68,17 @@ namespace UWP_Timer.Views.Member
         {
             App.ViewModel.IsLoading = true;
             LoginBtn.IsTapEnabled = false;
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.User.LoginAsync(form, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
                 
             });
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 LoginBtn.IsTapEnabled = true;

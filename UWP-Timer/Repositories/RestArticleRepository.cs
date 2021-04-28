@@ -29,7 +29,7 @@ namespace UWP_Timer.Repositories
         /// <returns></returns>
         public async Task<ResponseData<ArticleCategory>> GetCategoriesAsync()
         {
-            return await http.GetAsync<ResponseData<ArticleCategory>>("blog/term");
+            return await http.GetAsync<ResponseData<ArticleCategory>>("blog/category");
         }
         /// <summary>
         /// 获取一篇文章

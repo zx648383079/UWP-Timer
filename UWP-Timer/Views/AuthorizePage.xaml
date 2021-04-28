@@ -8,6 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/LoginSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="180"/>
@@ -43,18 +51,14 @@
         <Button x:Name="confirmBtn" x:Uid="confrim_btn"
                 Margin="10 10 10 0"
                 Content="确认授权"
-                Grid.Row="1" 
-                Background="#05a6b1"
-                Foreground="White"
+                Grid.Row="1"
                 Tapped="confirmBtn_Tapped"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                Style="{StaticResource SubmitBtn}"/>
         <Button x:Name="cancelBtn" x:Uid="cancel_btn"
                 Margin="10 10 10 0"
                 Content="取消授权"
                 Grid.Row="2" 
-                Background="#d22222"
-                Foreground="White"
                 Tapped="cancelBtn_Tapped"
-                HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                Style="{StaticResource ResetBtn}"/>
     </Grid>
 </Page>

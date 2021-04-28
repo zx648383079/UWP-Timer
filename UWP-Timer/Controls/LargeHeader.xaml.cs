@@ -22,6 +22,12 @@ namespace UWP_Timer.Controls
         public LargeHeader()
         {
             this.InitializeComponent();
+            PointerEntered += LargeHeader_PointerEntered;
+        }
+
+        private void LargeHeader_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "PointerOver", true);
         }
 
 

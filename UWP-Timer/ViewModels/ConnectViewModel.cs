@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,13 +28,14 @@ namespace UWP_Timer.ViewModels
 
         public async void RefreshAsync()
         {
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() => {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() => {
                 App.ViewModel.IsLoading = true;
                 Items.Clear();
             });
             var data = await App.Repository.Account.GetConnectAsync(async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     if (res.Code == 401)
@@ -47,13 +49,13 @@ namespace UWP_Timer.ViewModels
             {
                 return;
             }
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
              {
                  App.ViewModel.IsLoading = false;
                  foreach (var item in data.Data)
                  {
                      item.Label = item.Id > 0 ? $"已绑({item.Nickname})" : "未绑定";
-                     item.Icon = Converters.ConverterHeler.Icon(item.Icon);
+                     item.Icon = Converters.ConverterHelper.Icon(item.Icon);
                      Items.Add(item);
                  }
              });

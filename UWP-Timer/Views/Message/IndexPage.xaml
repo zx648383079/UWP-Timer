@@ -5,52 +5,97 @@
     xmlns:local="using:UWP_Timer.Views.Message"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/BulletinSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
     
     <Grid>
-        <RefreshContainer>
-            <ListView 
-                Style="{StaticResource CustomListView}"
-                ItemContainerStyle="{StaticResource CustomListItem}"
-                ItemsSource="{x:Bind ViewModel.Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Height="120" Padding="10" Margin="0,0,0,10" Background="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="20"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="20"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="{Binding Bulletin.Icon}" Grid.RowSpan="3" 
+        <SplitView DisplayMode="Inline" IsPaneOpen="True">
+            <SplitView.Pane>
+                <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <controls:IconButton x:Name="commentBtn" Icon="&#xE206;" Label="回复我的" Click="commentBtn_Click"/>
+                        <controls:IconButton x:Name="atBtn" Grid.Column="1" Icon="&#xE168;" Label="@我" Click="atBtn_Click"/>
+                        <controls:IconButton x:Name="agreeBtn" Grid.Column="2" Icon="&#xE19F;" Label="收到的赞" Click="agreeBtn_Click"/>
+                        <controls:IconButton x:Name="systemBtn" Grid.Column="3" Icon="&#xE767;" Label="系统通知" Click="systemBtn_Click"/>
+                    </Grid>
+                    <ListView x:Name="userList"
+                        ItemContainerStyle="{StaticResource CustomListItem}"
+                        ItemsSource="{x:Bind ViewModel.UserItems}" SelectionChanged="userList_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="80" Padding="10" Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.RowSpan="2" CornerRadius="30">
+                                        <Image Source="{Binding Avatar}"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" Grid.Column="1"/>
+                                    <TextBlock Text="" Grid.Column="1" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </SplitView.Pane>
+            <Grid>
+                <RefreshContainer>
+                    <ListView
+                        ItemContainerStyle="{StaticResource CustomListItem}"
+                        ItemsSource="{x:Bind ViewModel.Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="120" Padding="10" Margin="0,0,0,10" Background="White">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding Bulletin.Icon}" Grid.RowSpan="4" 
                                        FontSize="25"
                                        Foreground="#41C4FF"
                                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock x:Uid="message_status_unread" Text="未读"
+                                    <TextBlock x:Uid="message_status_unread" Text="未读"
                                        Visibility="{Binding Status,Converter={StaticResource StatusToggle}}"
                                        HorizontalAlignment="Right" FontSize="20" Foreground="#ccc"/>
-                            <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                <TextBlock Text="{Binding Bulletin.UserName}" FontSize="12" Foreground="#999"/>
-                                <TextBlock Text="{Binding CreatedAt}"  FontSize="12" Foreground="#999"/>
-                            </StackPanel>
-                            <TextBlock Text="{Binding Bulletin.Title}" Grid.Column="1" Grid.Row="1"/>
-                            <TextBlock x:Uid="message_tap_read" Text="点击查看" Grid.Column="1" Grid.Row="2"  FontSize="12" Foreground="#999"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </RefreshContainer>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                        <TextBlock Text="{Binding Bulletin.UserName}" FontSize="12" Foreground="#999"/>
+                                        <TextBlock Text="{Binding CreatedAt}"  FontSize="12" Foreground="#999"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Bulletin.Title}" Grid.Column="1" Grid.Row="1"/>
+                                    <controls:RuleBlock Block="{Binding Bulletin.Content}"  Rules="{Binding Bulletin.ExtraRule}" Grid.Column="1" Grid.Row="2"/>
+                                    <TextBlock x:Uid="message_tap_read" Text="点击查看" Grid.Column="1" Grid.Row="3"  FontSize="12" Foreground="#999"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </RefreshContainer>
+            </Grid>
+        </SplitView>
     </Grid>
 </Page>

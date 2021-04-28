@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -73,16 +74,17 @@ namespace UWP_Timer.Views.Account
         private async Task cancelAsync(CancelForm form)
         {
             App.ViewModel.IsLoading = true;
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Account.CancelUserAsync(form, async res =>
             {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
 
             });
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)

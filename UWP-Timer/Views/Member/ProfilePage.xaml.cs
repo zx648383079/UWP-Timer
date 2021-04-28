@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +40,7 @@ namespace UWP_Timer.Views.Member
                 return;
             }
             var user = App.ViewModel.User;
-            avatarImg.Source = Converters.ConverterHeler.ToImg(user.Avatar);
+            avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
             nameTb.Tip = user.Name;
             sexTb.Tip = user.SexLabel;
             birthdayTb.Tip = user.Birthday;
@@ -86,7 +87,8 @@ namespace UWP_Timer.Views.Member
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.User.LogoutAsync();
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 App.Logout();

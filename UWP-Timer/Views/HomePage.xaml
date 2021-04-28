@@ -5,52 +5,100 @@
     xmlns:local="using:UWP_Timer.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/TaskSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <ListView x:Name="dayBox"
-                  Style="{StaticResource CustomListView}"
+    <Grid Background="#FFF2F2F2">
+        <SplitView x:Name="splitView" DisplayMode="Overlay" PanePlacement="Right">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="ClosePanelBtn"
+                            Style="{StaticResource IconBtn}"
+                            HorizontalAlignment="Right" Click="ClosePanelBtn_Click">
+                        <FontIcon Glyph="&#xE711;" FontWeight="Bold" />
+                    </Button>
+                    <AutoSuggestBox Grid.Row="1" x:Name="SearchBox" PlaceholderText="搜索任务"
+                                QueryIcon="Find"
+                                    QuerySubmitted="SearchBox_QuerySubmitted"/>
+                    <ListView Grid.Row="2" ItemContainerStyle="{StaticResource CustomListItem}" ItemsSource="{x:Bind ViewModel.TaskItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="60"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Description}" VerticalAlignment="Center" Grid.Row="1"/>
+                                    <Button 
+                                        x:Name="AddToDay"
+                                        Grid.Column="1" Grid.RowSpan="2" 
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                         Style="{StaticResource EmptyBtn}" Click="AddToDay_Click">
+                                        <FontIcon Glyph="&#xE710;" FontWeight="Bold" />
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <controls:PageTip Tip="这是今日任务列表"/>
+                <controls:IconButton x:Name="addBtn" Grid.Row="1" Style="{StaticResource NewButton}" Tapped="NewButton_Tapped"/>
+                <ListView x:Name="dayBox"
+                    Grid.Row="2"
                     SelectionChanged="dayBox_SelectionChanged"
                     ItemsSource="{x:Bind ViewModel.Items}"
                     ItemContainerStyle="{StaticResource CustomListItem}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <Border Margin="5" Background="White" Padding="10" MinHeight="80" BorderThickness="2" BorderBrush="#05a6b1">
-                        <Grid>
-                            <TextBlock x:Uid="running_status_label" Text="进行中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status9}}"/>
-                            <TextBlock x:Uid="pause_status_label" Text="暂停中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status8}}"/>
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
-                                <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
-                            </StackPanel>
-                            <Border 
-                                CornerRadius="15"
-                                Background="Red"
-                                Width="30"
-                                Height="30"
-                                HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Amount,Converter={StaticResource OverOne}}">
-                                <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border MinHeight="80"  Style="{StaticResource TaskBorder}">
+                                <Grid>
+                                    <TextBlock x:Uid="running_status_label" Text="进行中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status9}}"/>
+                                    <TextBlock x:Uid="pause_status_label" Text="暂停中" HorizontalAlignment="Right" Foreground="#ccc" Visibility="{Binding Status,Converter={StaticResource Status8}}"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
+                                    </StackPanel>
+                                    <Border 
+                                        CornerRadius="15"
+                                        Background="Red"
+                                        Width="30"
+                                        Height="30"
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom" Visibility="{Binding Amount,Converter={StaticResource OverOne}}">
+                                        <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+                                    </Border>
+                                </Grid>
                             </Border>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <CommandBar x:Name="bottomBar" Grid.Row="1">
-            <AppBarButton x:Uid="add_btn" Icon="Add" Label="添加" Click="AppBarButton_Click"/>
-        </CommandBar>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </SplitView>
     </Grid>
 </Page>

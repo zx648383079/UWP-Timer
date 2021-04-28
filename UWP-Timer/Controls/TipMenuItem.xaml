@@ -26,6 +26,6 @@
         <TextBlock Text="{Binding Label,ElementName=root}" VerticalAlignment="Center" FontSize="{Binding FontSize,ElementName=root}" Margin="10 0"/>
         <TextBlock Text="{Binding Tip,ElementName=root}" VerticalAlignment="Center" Grid.Column="1" FontSize="{Binding FontSize,ElementName=root}"/>
         <FontIcon Glyph="&#xE76C;"  FontSize="{Binding FontSize,ElementName=root}" Grid.Column="2"/>
-        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Fill="Black" Margin="10,0" Visibility="{x:Bind converter:ConverterHeler.VisibleIf(HasBottomBorder)}"/>
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Fill="Black" Margin="10,0" Visibility="{x:Bind converter:ConverterHelper.VisibleIf(HasBottomBorder)}"/>
     </Grid>
 </UserControl>

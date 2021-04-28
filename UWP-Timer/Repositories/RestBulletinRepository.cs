@@ -22,5 +22,8 @@ namespace UWP_Timer.Repositories
         /// <returns></returns>
         public async Task<Page<BulletinUser>> GetBulletinListAsync(SearchForm form, Action<HttpException> action = null)
             => await http.GetAsync<Page<BulletinUser>>("auth/bulletin", form.ToQueries(), action);
+
+        public async Task<ResponseData<UserItem>> GetUserListAsync(Action<HttpException> action = null)
+            => await http.GetAsync<ResponseData<UserItem>>("auth/bulletin/user", action);
     }
 }

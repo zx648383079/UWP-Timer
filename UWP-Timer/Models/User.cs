@@ -29,4 +29,15 @@ namespace UWP_Timer.Models
 
         public string Token { get; set; }
     }
+
+    public class UserItem
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Avatar { get; set; }
+
+        public string Icon { get; set; }
+    }
 }

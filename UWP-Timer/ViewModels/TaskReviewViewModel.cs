@@ -30,7 +30,7 @@ namespace UWP_Timer.ViewModels
                     {
                         return Tuple.Create<IList<TaskLog>, bool>(null, false);
                     }
-                    return Tuple.Create(data.Data, data.Paging.More);
+                    return Tuple.Create(data.Data, data.Paging == null ? false : data.Paging.More);
                 });
             });
         }

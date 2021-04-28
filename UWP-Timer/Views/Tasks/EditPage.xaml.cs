@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
+﻿using Microsoft.Toolkit.Uwp;
+using Microsoft.Toolkit.Uwp.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,7 +54,8 @@ namespace UWP_Timer.Views.Tasks
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.GetTaskDetailAsync(id);
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -88,13 +90,14 @@ namespace UWP_Timer.Views.Tasks
         private async Task save(TaskForm form)
         {
             App.ViewModel.IsLoading = true;
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var data = await App.Repository.Task.SaveTaskAsync(form, async res => {
-                await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+                await dispatcherQueue.EnqueueAsync(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
             });
-            await DispatcherHelper.ExecuteOnUIThreadAsync(() =>
+            await dispatcherQueue.EnqueueAsync(() =>
             {
                 App.ViewModel.IsLoading = false;
                 _ = new MessageDialog(Constants.GetString("task_save_success")).ShowAsync();
