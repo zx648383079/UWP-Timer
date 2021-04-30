@@ -14,7 +14,7 @@
             <RowDefinition Height="180"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Background="#05a6b1">
+        <Grid Background="{StaticResource SystemControlBaseHighAcrylicElementBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="90"/>
@@ -36,11 +36,10 @@
 
             <Ellipse Stroke="#99e3ff" StrokeThickness="2"  Grid.Row="1" Grid.Column="1"/>
 
-            <TextBlock x:Uid="member_no_login" x:Name="nameTb" Text="欢迎您，请登陆~" 
+            <TextBlock x:Uid="member_no_login" x:Name="nameTb" Text="欢迎您，请登录~" 
                        Tapped="nameTb_Tapped"
                        VerticalAlignment="Center"
                        Grid.Row="2" Grid.ColumnSpan="3"
-                       Foreground="White"
                        HorizontalAlignment="Center"/>
         </Grid>
         <ScrollViewer Grid.Row="1" Background="#f4f4f4">

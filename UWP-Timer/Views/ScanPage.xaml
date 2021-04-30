@@ -8,6 +8,7 @@
     xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:Media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:Interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -39,7 +40,8 @@
             <Grid x:Name="ContentPanel" >
 
                 <!--视频流预览-->
-                <CaptureElement x:Name="VideoCapture"/>
+                <controls:CameraPreview x:Name="CameraPreviewControl">
+                </controls:CameraPreview>
 
                 <!--Tips-->
                 <TextBlock x:Name="tbkTip"

@@ -35,34 +35,45 @@
                   ItemsSource="{x:Bind ViewModel.Items}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10">
+                    <Grid Margin="0,10" Background="#fff">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition  Width="80"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="40"/>
-                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition/>
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <PersonPicture ProfilePicture="{Binding User.Avatar}" 
-                                       DisplayName="{Binding User.Name}" Grid.RowSpan="3"/>
-                        <TextBlock Text="{Binding User.Name}" Grid.Column="1"/>
-                        <TextBlock Text="{Binding CreatedAt}" Grid.Column="1" Grid.Row="1"/>
-                        <controls:RuleBlock/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <controls:IconTag Icon="&#xE006;" Label="0"/>
-                            <controls:IconTag Icon="&#xE72D;" Label="0"/>
-                            <controls:IconTag Icon="&#xE134;" Label="0"/>
-                            <controls:IconTag Icon="&#xE19F;" Label="0"/>
-                        </Grid>
+                                       DisplayName="{Binding User.Name}" Grid.RowSpan="3" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding User.Name}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding CreatedAt, Converter={StaticResource AgoConverter}}" 
+                                   Grid.Column="1" Grid.Row="1" FontSize="14" Foreground="#ccc"/>
+                        <StackPanel Grid.Column="1" Grid.Row="2" Padding="0,10,0,10">
+                            <controls:RuleBlock Content="{Binding Content}"  Rules="{Binding ExtraRule}"/>
+                        </StackPanel>
+                        <Border Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#ccc" BorderThickness="0,1,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="#ccc" BorderThickness="0,0,1,0">
+                                    <controls:IconTag Icon="&#xE006;" Label="0" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="1">
+                                    <controls:IconTag Icon="&#xE72D;" Label="0" HorizontalAlignment="Center"/>
+                                </Border>
+                                <Border BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="2">
+                                    <controls:IconTag Icon="&#xE134;" Label="0" HorizontalAlignment="Center"/>
+                                </Border>
+                                <controls:IconTag Icon="&#xE19F;" Label="0" Grid.Column="3" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

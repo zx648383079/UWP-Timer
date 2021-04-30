@@ -22,7 +22,7 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="6*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2" Background="#05a6b1">
+        <Grid Grid.RowSpan="2" Background="{StaticResource SystemControlBaseHighAcrylicElementBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="40"/>
@@ -43,13 +43,12 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
-                        <FontIcon Glyph="&#xEC92;" Foreground="White" />
+                        <FontIcon Glyph="&#xEC92;" />
                         <TextBlock x:Uid="checked_in_label" Text="已签到" Foreground="White"  Grid.Column="1"/>
                     </Grid>
                 </Button.Content>
             </Button>
-            <TextBlock Grid.Row="2" 
-                       Foreground="White"
+            <TextBlock Grid.Row="2"
                        Text="{x:Bind ViewModel.Tip,Mode=OneWay}" HorizontalAlignment="Center"/>
         </Grid>
         <Grid Grid.Row="1" Grid.RowSpan="2">

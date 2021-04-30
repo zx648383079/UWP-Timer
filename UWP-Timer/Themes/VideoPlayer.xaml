@@ -1,0 +1,40 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local2="using:UWP_Timer.Controls">
+
+    <Style TargetType="local2:VideoPlayer">
+        <Setter Property="Height" Value="200"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:VideoPlayer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Target="Cover.Visibility" Value="Visible"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Playing">
+                                    <VisualState.Setters>
+                                        <Setter Target="Cover.Visibility" Value="Collapsed"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid x:Name="Player"></Grid>
+                            <Grid x:Name="Cover" Background="Black" Visibility="Visible">
+                                <FontIcon Glyph="&#xF5B0;" Foreground="#fff" FontSize="40"/>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

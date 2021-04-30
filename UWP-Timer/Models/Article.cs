@@ -29,6 +29,11 @@ namespace UWP_Timer.Models
         public User User { get; set; }
 
         public ArticleCategory Term { get; set; }
+
+        [JsonProperty("video_url")]
+        public string VideoUrl { get; set; }
+        [JsonProperty("audio_url")]
+        public string AudioUrl { get; set; }
     }
 
     /// <summary>

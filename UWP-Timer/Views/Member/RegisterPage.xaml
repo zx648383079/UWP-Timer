@@ -37,11 +37,11 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" />
 
-        <TextBox x:Uid="login_name" FontSize="20" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
-        <TextBox x:Uid="login_email" FontSize="20" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
-        <PasswordBox x:Uid="login_pwd" FontSize="20" x:Name="pwdTb" PlaceholderText="请输入密码" 
+        <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+        <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
+        <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
                      Grid.Row="4" Style="{StaticResource CenterPasswordBoxStyle}"/>
-        <PasswordBox x:Uid="login_re_pwd" FontSize="20" x:Name="rePwdTb" PlaceholderText="请确认密码" 
+        <PasswordBox x:Uid="login_re_pwd"  x:Name="rePwdTb" PlaceholderText="请确认密码" 
                      Grid.Row="5" Style="{StaticResource CenterPasswordBoxStyle}"/>
         <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>

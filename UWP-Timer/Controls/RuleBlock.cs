@@ -1,44 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWP_Timer.Converters;
 using UWP_Timer.Models;
 using UWP_Timer.Utils;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
+// The Templated Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234235
 
 namespace UWP_Timer.Controls
 {
-    public sealed partial class RuleBlock : UserControl
+    [TemplatePart(Name = "Viewer", Type = typeof(RichTextBlock))]
+    public sealed class RuleBlock : Control
     {
         public RuleBlock()
         {
-            this.InitializeComponent();
+            this.DefaultStyleKey = typeof(RuleBlock);
+            Loaded += RuleBlock_Loaded;
+        }
+
+        private void RuleBlock_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Content))
+            {
+                RefreshRule();
+            }
         }
 
         public event TypedEventHandler<RuleBlock, RuleTappedArgs> RuleTapped;
 
-        public string Block
+        public string Content
         {
-            get { return (string)GetValue(BlockProperty); }
-            set { SetValue(BlockProperty, value); }
+            get { return (string)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Content.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty BlockProperty =
-            DependencyProperty.Register("Block", typeof(string), typeof(RuleBlock), new PropertyMetadata(string.Empty, new PropertyChangedCallback(OnContentChange)));
+        public static readonly DependencyProperty ContentProperty =
+            DependencyProperty.Register("Content", typeof(string), typeof(RuleBlock), new PropertyMetadata(string.Empty, new PropertyChangedCallback(OnContentChange)));
 
         private static void OnContentChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -58,12 +64,17 @@ namespace UWP_Timer.Controls
 
         public void RefreshRule()
         {
-            viewer.Blocks.Clear();
-            if (string.IsNullOrWhiteSpace(Block))
+            var viewer = GetTemplateChild("Viewer") as RichTextBlock;
+            if (viewer == null)
             {
                 return;
             }
-            var items = LinkRule.Render(Block, Rules, true);
+            viewer.Blocks.Clear();
+            if (string.IsNullOrWhiteSpace(Content))
+            {
+                return;
+            }
+            var items = LinkRule.Render(Content, Rules, true);
             var paragraph = new Paragraph();
             foreach (var item in items)
             {
@@ -105,6 +116,7 @@ namespace UWP_Timer.Controls
                     {
                         Source = ConverterHelper.ToImg(item.Value as string)
                     };
+                    img.Width = 40;
                     container.Child = img;
                     paragraph.Inlines.Add(container);
                 }

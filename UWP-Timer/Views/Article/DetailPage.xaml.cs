@@ -58,6 +58,12 @@ namespace UWP_Timer.Views.Article
                 }
                 ViewModel.Article = data;
                 detailWebView.NavigateToString(await RenderHtmlAsync(data.Content));
+                if (!string.IsNullOrEmpty(data.VideoUrl))
+                {
+                    Video.Visibility = Visibility.Visible;
+                    Video.Source = data.VideoUrl;
+                }
+
             });
             
         }

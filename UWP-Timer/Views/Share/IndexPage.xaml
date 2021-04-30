@@ -5,11 +5,18 @@
     xmlns:local="using:UWP_Timer.Views.Share"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:AudioPlayer/>
+        <controls:VideoPlayer Grid.Row="1" Source="https://zodream.cn/assets/upload/video/20210407/1617799447239251.mkv"/>
     </Grid>
 </Page>

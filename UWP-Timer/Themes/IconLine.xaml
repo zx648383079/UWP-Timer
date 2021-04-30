@@ -6,7 +6,7 @@
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
         <Setter Property="Padding" Value="10,0"/>
         <Setter Property="BorderBrush" Value="#ccc"/>
-        <Setter Property="Height" Value="50"/>
+        <Setter Property="Height" Value="40"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local2:IconLine">

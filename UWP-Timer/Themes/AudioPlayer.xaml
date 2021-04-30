@@ -1,0 +1,33 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local2="using:UWP_Timer.Controls">
+
+    <Style TargetType="local2:AudioPlayer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local2:AudioPlayer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon x:Name="ActionButton" Glyph="&#xF5B0;" VerticalAlignment="Center"/>
+                            <Slider x:Name="ProgressSlider" Grid.Column="1"/>
+                            <TextBlock x:Name="ProgressLabel" Text="00:00/00:00" Grid.Column="2"  VerticalAlignment="Center" FontFamily="微软雅黑"/>
+                            <FontIcon x:Name="VolumnButton" Glyph="&#xE995;" Grid.Column="3" VerticalAlignment="Center"/>
+                            <Slider x:Name="VolumnSlider" Grid.Column="4"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

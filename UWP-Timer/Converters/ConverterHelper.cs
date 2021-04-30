@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using UWP_Timer.Utils;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -120,6 +122,24 @@ namespace UWP_Timer.Converters
                     break;
             }
             return "";
+        }
+
+        public static string Ago(object value)
+        {
+            var str = value.ToString();
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return "--";
+            }
+            if (Regex.IsMatch(str, @"^\d+$"))
+            {
+                return Time.FormatAgo(str.Length > 10 ? Convert.ToInt32(str) / 1000 : Convert.ToInt32(str));
+            }
+            if (!DateTime.TryParse(str, out DateTime date))
+            {
+                return "--";
+            }
+            return Time.FormatAgo(date);
         }
     }
 }

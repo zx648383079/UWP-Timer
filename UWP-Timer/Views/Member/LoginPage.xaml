@@ -36,8 +36,8 @@
             VerticalAlignment="Center" />
 
         <TextBox x:Uid="login_email" x:Name="emailTb"
-                 PlaceholderText="请输入邮箱" FontSize="20" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
-        <PasswordBox x:Uid="login_pwd" FontSize="20" x:Name="pwdTb" PlaceholderText="请输入密码" 
+                 PlaceholderText="请输入邮箱" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+        <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
                      Grid.Row="3" Style="{StaticResource CenterPasswordBoxStyle}"/>
 
         <TextBlock x:Uid="login_to_reg" x:Name="toRegisterBtn"

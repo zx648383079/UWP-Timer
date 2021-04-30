@@ -6,11 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:UWP_Timer.Controls"
+    xmlns:converter="using:UWP_Timer.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -28,6 +30,7 @@
             <controls:IconTag Icon="&#xE19F;" Label="{x:Bind ViewModel.Article.Recommend, Mode=OneWay}"/>
             <controls:IconTag Icon="&#xE7B3;" Label="{x:Bind ViewModel.Article.ClickCount, Mode=OneWay}"/>
         </StackPanel>
-        <WebView x:Name="detailWebView" Grid.Row="2" NavigationStarting="detailWebView_NavigationStarting"/>
+        <controls:VideoPlayer x:Name="Video" Grid.Row="2"/>
+        <WebView x:Name="detailWebView" Grid.Row="3" NavigationStarting="detailWebView_NavigationStarting"/>
     </Grid>
 </Page>
