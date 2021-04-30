@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using UWP_Timer.Controls;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
 using Windows.Foundation;
@@ -103,6 +104,17 @@ namespace UWP_Timer.Views.Tasks
                 _ = new MessageDialog(Constants.GetString("task_save_success")).ShowAsync();
                 Frame.GoBack();
             });
+        }
+
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _ = showChildAsync();
+        }
+
+        private async Task showChildAsync()
+        {
+            var dialog = new TaskDialog();
+            var data = await dialog.ShowAsync();
         }
     }
 }

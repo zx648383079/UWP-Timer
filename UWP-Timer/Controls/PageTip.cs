@@ -1,30 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
+// The Templated Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234235
 
 namespace UWP_Timer.Controls
 {
-    public sealed partial class PageTip : UserControl
+    [TemplatePart(Name = "ContentBox", Type = typeof(StackPanel))]
+    [TemplatePart(Name = "ToggleIcon", Type = typeof(TextBlock))]
+    public sealed class PageTip : ContentControl
     {
         public PageTip()
         {
-            this.InitializeComponent();
+            this.DefaultStyleKey = typeof(PageTip);
+            Loaded += PageTip_Loaded;
         }
 
+        private void PageTip_Loaded(object sender, RoutedEventArgs e)
+        {
+            var toggleIcon = GetTemplateChild("ToggleIcon") as TextBlock;
+            if (toggleIcon != null)
+            {
+                toggleIcon.Tapped += ToggleIcon_Tapped;
+            }
+            RefreshLines();
+        }
 
+        private void ToggleIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Open = !Open;
+        }
 
         public string Header
         {
@@ -35,8 +47,6 @@ namespace UWP_Timer.Controls
         // Using a DependencyProperty as the backing store for Header.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty HeaderProperty =
             DependencyProperty.Register("Header", typeof(string), typeof(PageTip), new PropertyMetadata("提示"));
-
-
 
 
         public string Tip
@@ -73,6 +83,15 @@ namespace UWP_Timer.Controls
 
         public void RefreshLines()
         {
+            if (string.IsNullOrEmpty(Tip))
+            {
+                return;
+            }
+            var contentBox = GetTemplateChild("ContentBox") as StackPanel;
+            if (contentBox == null)
+            {
+                return;
+            }
             contentBox.Children.Clear();
             var lines = Tip.Replace("\r\n", "\n").Replace('\r', '\n').Split('\n');
             foreach (var line in lines)
@@ -90,23 +109,7 @@ namespace UWP_Timer.Controls
 
         public void RefreshView()
         {
-            if (Open)
-            {
-                toggleIcon.Text = "-";
-                contentBox.Visibility = Visibility.Visible;
-                borderBox.Width = Width;
-                borderBox.HorizontalAlignment = HorizontalAlignment.Stretch;
-                return;
-            }
-            toggleIcon.Text = "+";
-            contentBox.Visibility = Visibility.Collapsed;
-            borderBox.Width = Width < 200 ? Width : 200;
-            borderBox.HorizontalAlignment = HorizontalAlignment.Left;
-        }
-
-        private void toggleIcon_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Open = !Open;
+            VisualStateManager.GoToState(this, Open ? "Normal" : "Min", true);
         }
     }
 }

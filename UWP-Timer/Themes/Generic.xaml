@@ -6,10 +6,15 @@
         <ResourceDictionary Source="ms-appx:///Themes/IconButton.xaml"/>
         <ResourceDictionary Source="ms-appx:///Themes/RadialProgressBar.xaml"/>
         <ResourceDictionary Source="ms-appx:///Themes/IconTag.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Themes/Chart.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Themes/PageTip.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Themes/LargeHeader.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Themes/IconLine.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-
-
+    
 
     
+
+
 </ResourceDictionary>

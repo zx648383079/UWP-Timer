@@ -8,7 +8,7 @@
                 <Setter Property="FontFamily" Value="微软雅黑"/>
                 <Setter Property="FontSize" Value="16"/>
             </Style>
-            <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="#FFF4F4F4" />
+            <!--<SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{ThemeResource SystemColorWindowColor}"/>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

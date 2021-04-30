@@ -17,21 +17,15 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWP_Timer.Controls
 {
-    public sealed partial class LoginDialog : ContentDialog
+    public sealed partial class TaskDialog : ContentDialog
     {
-        public LoginDialog()
+        public TaskDialog()
         {
             this.InitializeComponent();
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            if (string.IsNullOrWhiteSpace(emailTb.Text) || string.IsNullOrWhiteSpace(pwdTb.Password))
-            {
-                args.Cancel = true;
-                return;
-            }
-
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

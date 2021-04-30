@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -129,26 +129,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Chart.cs" />
     <Compile Include="Controls\IconButton.cs" />
-    <Compile Include="Controls\IconMenuItem.xaml.cs">
-      <DependentUpon>IconMenuItem.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\IconLine.cs" />
     <Compile Include="Controls\IconTag.cs" />
-    <Compile Include="Controls\LargeHeader.xaml.cs">
-      <DependentUpon>LargeHeader.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\LargeHeader.cs" />
     <Compile Include="Controls\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PageTip.xaml.cs">
-      <DependentUpon>PageTip.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Controls\PageTip.cs" />
     <Compile Include="Controls\RadialProgressBar.cs" />
     <Compile Include="Controls\RuleBlock.xaml.cs">
       <DependentUpon>RuleBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TipMenuItem.xaml.cs">
-      <DependentUpon>TipMenuItem.xaml</DependentUpon>
+    <Compile Include="Controls\TaskDialog.xaml.cs">
+      <DependentUpon>TaskDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\LogStatusConverter.cs" />
     <Compile Include="Converters\NoZeroConverter.cs" />
@@ -175,6 +170,7 @@
     <Compile Include="Models\LinkRule.cs" />
     <Compile Include="Models\LoginForm.cs" />
     <Compile Include="Models\LoginQr.cs" />
+    <Compile Include="Models\MicroItem.cs" />
     <Compile Include="Models\Paging.cs" />
     <Compile Include="Models\PasswordForm.cs" />
     <Compile Include="Models\ProfileForm.cs" />
@@ -188,6 +184,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Constants.cs" />
     <Compile Include="Repositories\RestAccountRepository.cs" />
+    <Compile Include="Repositories\RestMicroRepository.cs" />
     <Compile Include="Repositories\RestArticleRepository.cs" />
     <Compile Include="Repositories\RestAuthorizeRepository.cs" />
     <Compile Include="Repositories\RestBulletinRepository.cs" />
@@ -213,6 +210,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\IncrementalLoadingCollection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MicroViewModel.cs" />
     <Compile Include="ViewModels\TaskReviewViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\TodayViewModel.cs" />
@@ -297,6 +295,9 @@
     <Compile Include="Views\SettingPage.xaml.cs">
       <DependentUpon>SettingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Share\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Share\IndexPage.xaml.cs">
       <DependentUpon>IndexPage.xaml</DependentUpon>
     </Compile>
@@ -337,19 +338,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Controls\IconMenuItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\LargeHeader.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Controls\LoginDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PageTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,7 +346,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TipMenuItem.xaml">
+    <Page Include="Controls\TaskDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -401,6 +390,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\Chart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -409,7 +402,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\IconLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\IconTag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\LargeHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\PageTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -522,6 +527,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Share\DetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

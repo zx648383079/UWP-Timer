@@ -37,5 +37,10 @@ namespace UWP_Timer.Repositories
         /// </summary>
         public RestUserRepository User => new RestUserRepository();
 
+        /// <summary>
+        /// 微博客
+        /// </summary>
+        public RestMicroRepository Micro => new RestMicroRepository();
+
     }
 }

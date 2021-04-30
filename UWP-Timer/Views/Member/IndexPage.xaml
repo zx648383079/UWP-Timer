@@ -45,13 +45,13 @@
         </Grid>
         <ScrollViewer Grid.Row="1" Background="#f4f4f4">
             <StackPanel Orientation="Vertical">
-                <controls:IconMenuItem x:Uid="member_scan" x:Name="scanBtn" Icon="&#xE156;" Label="扫一扫" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
-                <controls:IconMenuItem x:Uid="member_check_in" x:Name="checkBtn" Icon="&#xE1DC;" Label="签到" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
-                <controls:IconMenuItem x:Name="financeBtn" Icon="&#xE1DC;" Label="我的账本" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
-                <controls:IconMenuItem x:Uid="member_message" x:Name="bulletinBtn" Icon="&#xED0C;" Label="我的消息" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
-                <controls:IconMenuItem x:Uid="member_setting" x:Name="settingBtn" Icon="&#xE115;" Label="设置" Tapped="IconMenuItem_Tapped"/>
-                <controls:IconMenuItem x:Uid="member_help" x:Name="helpBtn" Icon="&#xF22E;" Label="帮助" Tapped="IconMenuItem_Tapped"/>
-                <controls:IconMenuItem x:Uid="member_fk" x:Name="fkBtn" Icon="&#xE15F;" Label="反馈"  Tapped="IconMenuItem_Tapped" HasBottomBorder="False"/>
+                <controls:IconLine x:Uid="member_scan" x:Name="scanBtn" Icon="&#xE156;" Label="扫一扫" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
+                <controls:IconLine x:Uid="member_check_in" x:Name="checkBtn" Icon="&#xE1DC;" Label="签到" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
+                <controls:IconLine x:Name="financeBtn" Icon="&#xE1DC;" Label="我的账本" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
+                <controls:IconLine x:Uid="member_message" x:Name="bulletinBtn" Icon="&#xED0C;" Label="我的消息" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
+                <controls:IconLine x:Uid="member_setting" x:Name="settingBtn" Icon="&#xE115;" Label="设置" Tapped="IconMenuItem_Tapped"/>
+                <controls:IconLine x:Uid="member_help" x:Name="helpBtn" Icon="&#xF22E;" Label="帮助" Tapped="IconMenuItem_Tapped"/>
+                <controls:IconLine x:Uid="member_fk" x:Name="fkBtn" Icon="&#xE15F;" Label="反馈"  Tapped="IconMenuItem_Tapped" BottomBorderHeight="0"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -26,7 +26,6 @@
                  ItemsSource="{x:Bind ViewModel.StatusItems}">
         </ListBox>
         <ListView x:Name="taskBox" Grid.Row="1"
-                 Style="{StaticResource CustomListView}"
                   SelectionChanged="taskBox_SelectionChanged"
                  ItemsSource="{x:Bind ViewModel.Items}"
                  ItemContainerStyle="{StaticResource CustomListItem}">

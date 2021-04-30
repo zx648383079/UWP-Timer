@@ -1,28 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
-//https://go.microsoft.com/fwlink/?LinkId=234236 上介绍了“用户控件”项模板
+// The Templated Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234235
 
 namespace UWP_Timer.Controls
 {
-    public sealed partial class LargeHeader : UserControl
+    [TemplatePart(Name = "ActionBtn", Type = typeof(FrameworkElement))]
+    public sealed class LargeHeader : ContentControl
     {
         public LargeHeader()
         {
-            this.InitializeComponent();
+            this.DefaultStyleKey = typeof(LargeHeader);
+            Loaded += LargeHeader_Loaded;
             PointerEntered += LargeHeader_PointerEntered;
+            PointerExited += LargeHeader_PointerExited;
+        }
+
+        private void LargeHeader_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Normal", true);
         }
 
         private void LargeHeader_PointerEntered(object sender, PointerRoutedEventArgs e)
@@ -30,6 +34,20 @@ namespace UWP_Timer.Controls
             VisualStateManager.GoToState(this, "PointerOver", true);
         }
 
+        private void LargeHeader_Loaded(object sender, RoutedEventArgs e)
+        {
+            var actionBtn = GetTemplateChild("ActionBtn") as FrameworkElement;
+            if (actionBtn != null)
+            {
+                actionBtn.Tapped += ActionBtn_Tapped;
+                RefreshSubmit();
+            }
+        }
+
+        private void ActionBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Submited?.Invoke(this, e);
+        }
 
         /// <summary>
         /// 标题
@@ -56,12 +74,19 @@ namespace UWP_Timer.Controls
 
         // Using a DependencyProperty as the backing store for HasBtn.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanSubmitProperty =
-            DependencyProperty.Register("CanSubmit", typeof(bool), typeof(LargeHeader), new PropertyMetadata(true));
+            DependencyProperty.Register("CanSubmit", typeof(bool), typeof(LargeHeader), new PropertyMetadata(true, new PropertyChangedCallback(OnSubmitToggle)));
 
-        private void Border_Tapped(object sender, TappedRoutedEventArgs e)
+        private static void OnSubmitToggle(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Submited?.Invoke(this, e);
+            (d as LargeHeader).RefreshSubmit();
         }
+
+        private void RefreshSubmit()
+        {
+            var actionBtn = GetTemplateChild("ActionBtn") as FrameworkElement;
+            actionBtn.Visibility = CanSubmit ? Visibility.Visible : Visibility.Collapsed;
+        }
+
 
         /// <summary>
         /// 提交按钮事件

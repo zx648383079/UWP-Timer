@@ -309,5 +309,6 @@
 
     <Style x:Key="InputLabel" TargetType="TextBlock">
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Microsoft YaHei"/>
     </Style>
 </ResourceDictionary>

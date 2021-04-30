@@ -19,6 +19,7 @@ namespace UWP_Timer.Models
         public int Status { get; set; }
 
         public int User { get; set; }
+        public int Topic { get; set; }
 
 
         public string Sort { get; set; }
@@ -52,6 +53,10 @@ namespace UWP_Timer.Models
             if (User != 0)
             {
                 data.Add("user", User.ToString());
+            }
+            if (Topic > 0)
+            {
+                data.Add("topic", Topic.ToString());
             }
             if (Status > 0)
             {

@@ -41,9 +41,9 @@ namespace UWP_Timer.Views.Member
             }
             var user = App.ViewModel.User;
             avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
-            nameTb.Tip = user.Name;
-            sexTb.Tip = user.SexLabel;
-            birthdayTb.Tip = user.Birthday;
+            nameTb.Content = user.Name;
+            sexTb.Content = user.SexLabel;
+            birthdayTb.Content = user.Birthday;
         }
 
         private void nameTb_Tapped(object sender, TappedRoutedEventArgs e)
@@ -66,7 +66,7 @@ namespace UWP_Timer.Views.Member
 
         private void TipMenuItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var label = (sender as TipMenuItem).Name;
+            var label = (sender as IconLine).Name;
             var pageType = label == "pwdBtn" ? typeof(PasswordPage)
                 : label == "connectBtn" ? typeof(Account.ConnectPage)
                 : label == "driverBtn" ? typeof(Account.DriverPage)

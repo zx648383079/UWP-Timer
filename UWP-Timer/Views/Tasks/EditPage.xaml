@@ -35,6 +35,13 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Uid="task_name_label" Text="任务名" Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="task_name" x:Name="nameTb" Grid.Row="1" PlaceholderText="请输入任务名" Style="{StaticResource CenterTextBoxStyle}"/>
@@ -47,6 +54,13 @@
                 <TextBox x:Uid="task_time" x:Name="timeTb" Grid.Row="5"
                          InputScope="Number"
                          PlaceholderText="单次时间" Text="25"  Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBlock Text="单次间隔" Grid.Row="6" Style="{StaticResource InputLabel}"/>
+                <TextBox Grid.Row="7" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBlock Text="每日次数" Grid.Row="8" Style="{StaticResource InputLabel}"/>
+                <TextBox Grid.Row="9" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBlock Text="开始时间" Grid.Row="10" Style="{StaticResource InputLabel}"/>
+                <CalendarDatePicker Language="zh" FontFamily="微软雅黑" PlaceholderText="选择开始时间" Grid.Row="11" />
+                <controls:IconButton x:Name="addBtn" Grid.Row="12" Label="添加子任务" Style="{StaticResource NewButton}" Click="addBtn_Click"/>
             </Grid>
         </ScrollViewer>
     </Grid>

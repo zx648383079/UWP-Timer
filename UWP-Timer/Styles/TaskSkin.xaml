@@ -17,13 +17,32 @@
     <Style x:Key="NewButton" TargetType="controls:IconButton">
         <Setter Property="Icon" Value="&#xE710;"/>
         <Setter Property="Label" Value="添加"/>
-        <Setter Property="BorderBrush" Value="#7fffd4"/>
+        <Setter Property="BorderBrush" Value="#ccc"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="10"/>
     </Style>
-    
-    
+
+    <Style x:Key="tabBox" TargetType="ListBox">
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <TextBlock Text="{Binding Name}"/>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style x:Key="EmptyBtn" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>

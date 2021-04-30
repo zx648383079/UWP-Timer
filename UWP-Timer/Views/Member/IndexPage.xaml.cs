@@ -50,7 +50,7 @@ namespace UWP_Timer.Views.Member
 
         private void IconMenuItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var label = (sender as IconMenuItem).Name;
+            var label = (sender as IconLine).Name;
             var pageType = label == "scanBtn" ? typeof(ScanPage)
                 : label == "checkBtn" ? typeof(CheckInPage)
                 : label == "bulletinBtn" ? typeof(Message.IndexPage)
