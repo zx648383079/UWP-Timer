@@ -9,6 +9,13 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/TaskSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +23,32 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <controls:AudioPlayer/>
-        <controls:VideoPlayer Grid.Row="1" Source="https://zodream.cn/assets/upload/video/20210407/1617799447239251.mkv"/>
+        <controls:PageTip Tip="查看分享"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBox/>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem Content="全部"/>
+                <ComboBoxItem Content="进行中"/>
+                <ComboBoxItem Content="已结束"/>
+            </ComboBox>
+            <Button Content="搜索"/>
+        </StackPanel>
+        <ListView Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border 
+                        BorderBrush="{Binding Status,Converter={StaticResource TaskStatus}}" BorderThickness="2"
+                        Margin="5" Background="White" Padding="10" MinHeight="80">
+                        <Grid>
+                            <TextBlock Text="{Binding TimeLength,Converter={StaticResource FormatHour}}" HorizontalAlignment="Right" Foreground="#ccc"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

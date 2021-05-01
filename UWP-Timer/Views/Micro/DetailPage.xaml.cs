@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +26,18 @@ namespace UWP_Timer.Views.Micro
         public DetailPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            var id = (int)e.Parameter;
+            _ = LoadDetailAsync(id);
+        }
+
+        private async Task LoadDetailAsync(int id)
+        {
+            
         }
     }
 }

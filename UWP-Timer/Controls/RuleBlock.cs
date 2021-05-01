@@ -100,7 +100,7 @@ namespace UWP_Timer.Controls
                     };
                     link.Click += (Hyperlink sender, HyperlinkClickEventArgs e) =>
                     {
-                        RuleTapped.Invoke(this, new RuleTappedArgs(item));
+                        RuleTapped?.Invoke(this, new RuleTappedArgs(item));
                     };
                     link.Inlines.Add(new Run()
                     {

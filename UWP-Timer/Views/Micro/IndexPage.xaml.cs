@@ -36,5 +36,16 @@ namespace UWP_Timer.Views.Micro
             var status = (int)(statusBar.SelectedItem as TabItem).Value;
             ViewModel.Load(status);
         }
+
+        private void NewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(PublishPage));
+        }
+
+        private void CommentBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var item = (sender as Border).DataContext as MicroItem;
+            Frame.Navigate(typeof(DetailPage), item.Id);
+        }
     }
 }

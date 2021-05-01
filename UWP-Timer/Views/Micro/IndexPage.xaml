@@ -29,7 +29,7 @@
         <ListBox x:Name="statusBar" SelectionChanged="statusBar_SelectionChanged" SelectedIndex="0" Style="{StaticResource tabBox}"
                  ItemsSource="{x:Bind ViewModel.StatusItems}">
         </ListBox>
-        <AppBarButton Grid.Column="1" Icon="Add" Label="发布"/>
+        <AppBarButton x:Name="NewBtn" Grid.Column="1" Icon="Add" Label="发布" Click="NewBtn_Click"/>
         <ListView Grid.Row="1" Grid.ColumnSpan="2" 
                   ItemContainerStyle="{StaticResource CustomListItem}"
                   ItemsSource="{x:Bind ViewModel.Items}">
@@ -47,12 +47,17 @@
                             <RowDefinition Height="40"/>
                         </Grid.RowDefinitions>
                         <PersonPicture ProfilePicture="{Binding User.Avatar}" 
-                                       DisplayName="{Binding User.Name}" Grid.RowSpan="3" Width="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                       DisplayName="{Binding User.Name}" 
+                                       Margin="0,10"
+                                       Grid.RowSpan="3" Width="60" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Top"/>
                         <TextBlock Text="{Binding User.Name}" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold"/>
                         <TextBlock Text="{Binding CreatedAt, Converter={StaticResource AgoConverter}}" 
                                    Grid.Column="1" Grid.Row="1" FontSize="14" Foreground="#ccc"/>
                         <StackPanel Grid.Column="1" Grid.Row="2" Padding="0,10,0,10">
                             <controls:RuleBlock Content="{Binding Content}"  Rules="{Binding ExtraRule}"/>
+                            <controls:MediaViewer Items="{Binding Attachment}"/>
                         </StackPanel>
                         <Border Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#ccc" BorderThickness="0,1,0,1">
                             <Grid>
@@ -68,7 +73,7 @@
                                 <Border BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="1">
                                     <controls:IconTag Icon="&#xE72D;" Label="0" HorizontalAlignment="Center"/>
                                 </Border>
-                                <Border BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="2">
+                                <Border x:Name="CommentBtn" BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="2" Tapped="CommentBtn_Tapped">
                                     <controls:IconTag Icon="&#xE134;" Label="0" HorizontalAlignment="Center"/>
                                 </Border>
                                 <controls:IconTag Icon="&#xE19F;" Label="0" Grid.Column="3" HorizontalAlignment="Center"/>

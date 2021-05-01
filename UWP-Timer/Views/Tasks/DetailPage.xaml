@@ -49,6 +49,21 @@
                             <FontIcon Glyph="&#xE11C;" />
                         </Button>
                     </Grid>
+                    <ListView Grid.Row="2">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="auto"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="内容"/>
+                                    <Image/>
+                                    <TextBlock Text="09-09" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </SplitView.Pane>
             <Grid>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Utils;
 using Windows.Media.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -109,15 +110,7 @@ namespace UWP_Timer.Controls
         }
 
         private bool playerType(Uri src) {
-            var map = new string[]{"player.youku.com", "player.bilibili.com", "v.qq.com", "open.iqiyi.com"};
-            foreach (var item in map)
-            {
-                if (item == src.Host)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Arr.Contain(src.Host, new string[] { "player.youku.com", "player.bilibili.com", "v.qq.com", "open.iqiyi.com" });
         }
 }
 }

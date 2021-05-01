@@ -32,10 +32,6 @@
             <ColumnDefinition Width="251*"/>
             <ColumnDefinition Width="249*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="106*"/>
-            <RowDefinition Height="19*"/>
-        </Grid.RowDefinitions>
         <Grid x:Name="LayoutRoot" Grid.ColumnSpan="2">
             <Grid x:Name="ContentPanel" >
 

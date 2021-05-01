@@ -1,15 +1,19 @@
 ﻿using Microsoft.Toolkit.Uwp;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using UWP_Timer.Repositories;
 using UWP_Timer.Utils;
 using Windows.ApplicationModel;
 using Windows.Graphics.Imaging;
 using Windows.Media;
+using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using ZXing;
 
@@ -22,16 +26,12 @@ namespace UWP_Timer.Views
     /// </summary>
     public sealed partial class ScanPage : Page
     {
-        readonly BarcodeReader barcodeReader;
+        BarcodeReader barcodeReader;
         bool IsBusy = false;
+        DispatcherQueue dispatcherQueue;
 
         public ScanPage()
         {
-            barcodeReader = new BarcodeReader
-            {
-                AutoRotate = true,
-                Options = new ZXing.Common.DecodingOptions { TryHarder = true }
-            };
             SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
@@ -85,11 +85,13 @@ namespace UWP_Timer.Views
         private async Task InitCameraAsync()
         {
             UnsubscribeFromEvents();
+            dispatcherQueue = DispatcherQueue.GetForCurrentThread();
             if (CameraPreviewControl != null)
             {
                 CameraPreviewControl.PreviewFailed += CameraPreviewControl_PreviewFailed;
                 await CameraPreviewControl.StartAsync();
                 CameraPreviewControl.CameraHelper.FrameArrived += CameraPreviewControl_FrameArrived;
+                barcodeReader = new BarcodeReader();
             }
 
         }
@@ -161,8 +163,6 @@ namespace UWP_Timer.Views
         {
             try
             {
-                
-                var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
                 await dispatcherQueue.EnqueueAsync(() =>
                 {
                     var result = barcodeReader.Decode(bitmap);

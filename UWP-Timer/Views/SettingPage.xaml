@@ -8,6 +8,14 @@
     xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="120"/>
@@ -24,24 +32,28 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Uid="vibrate_label" 
-                           Text="震动" VerticalAlignment="Center"/>
+                           Text="震动"  Style="{StaticResource InputLabel}"/>
                 <ToggleSwitch x:Name="vibrateTs" 
                               x:Uid="toggle_switch"
                               OffContent="关" OnContent="开" Grid.Column="1"/>
 
                 <TextBlock x:Uid="screen_on_label" 
-                           Text="屏幕常亮" VerticalAlignment="Center" Grid.Row="1"/>
+                           Text="屏幕常亮"  Style="{StaticResource InputLabel}" Grid.Row="1"/>
                 <ToggleSwitch x:Name="screenOnTs" 
                               x:Uid="toggle_switch"
                               OffContent="关" OnContent="开" Grid.Column="1" Grid.Row="1"/>
 
-                <TextBlock x:Uid="full_screen_label" Text="全屏" VerticalAlignment="Center" Grid.Row="2"/>
+                <TextBlock x:Uid="full_screen_label" Text="全屏"  Style="{StaticResource InputLabel}" Grid.Row="2"/>
                 <ToggleSwitch x:Name="fullScreenTs" 
                               x:Uid="toggle_switch"
                               OffContent="关" OnContent="开" Grid.Column="1" Grid.Row="2"/>
+                <TextBlock Text="系统缓存" Grid.Row="3" Style="{StaticResource InputLabel}"/>
+                <Button x:Name="CacheBtn" Grid.Row="4" Content="清除缓存" Click="CacheBtn_Click"/>
             </Grid>
         </ScrollViewer>
     </Grid>

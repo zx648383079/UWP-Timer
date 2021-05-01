@@ -12,7 +12,7 @@
     <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -131,18 +131,30 @@
     </Compile>
     <Compile Include="Controls\AudioPlayer.cs" />
     <Compile Include="Controls\Chart.cs" />
+    <Compile Include="Controls\EmojiBox.xaml.cs">
+      <DependentUpon>EmojiBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconButton.cs" />
     <Compile Include="Controls\IconLine.cs" />
     <Compile Include="Controls\IconTag.cs" />
+    <Compile Include="Controls\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\LargeHeader.cs" />
     <Compile Include="Controls\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MediaViewer.xaml.cs">
+      <DependentUpon>MediaViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\PageTip.cs" />
     <Compile Include="Controls\RadialProgressBar.cs" />
     <Compile Include="Controls\RuleBlock.cs" />
     <Compile Include="Controls\TaskDialog.xaml.cs">
       <DependentUpon>TaskDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TaskShareDialog.xaml.cs">
+      <DependentUpon>TaskShareDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\VideoPlayer.cs" />
     <Compile Include="Converters\AgoConverter.cs" />
@@ -164,9 +176,11 @@
     <Compile Include="Models\Bulletin.cs" />
     <Compile Include="Models\CancelForm.cs" />
     <Compile Include="Models\CheckIn.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Connect.cs" />
     <Compile Include="Models\DayItem.cs" />
     <Compile Include="Models\Driver.cs" />
+    <Compile Include="Models\Emoji.cs" />
     <Compile Include="Models\Feedback.cs" />
     <Compile Include="Models\LinkRule.cs" />
     <Compile Include="Models\LoginForm.cs" />
@@ -196,6 +210,8 @@
     <Compile Include="Repositories\Rest\HttpException.cs" />
     <Compile Include="Repositories\Rest\RestRequest.cs" />
     <Compile Include="Utils\AppData.cs" />
+    <Compile Include="Utils\Arr.cs" />
+    <Compile Include="Utils\Cache.cs" />
     <Compile Include="Utils\Deeplink.cs" />
     <Compile Include="Utils\LinkRule.cs" />
     <Compile Include="Utils\Log.cs" />
@@ -212,6 +228,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\IncrementalLoadingCollection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MicroDetailViewModel.cs" />
     <Compile Include="ViewModels\MicroViewModel.cs" />
     <Compile Include="ViewModels\TaskReviewViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -340,11 +357,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\EmojiBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\LoginDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\MediaViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\TaskDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TaskShareDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
+using UWP_Timer.Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -49,6 +50,13 @@ namespace UWP_Timer.Views
             };
             App.ViewModel.SetSettings(data);
             _ = new MessageDialog(Constants.GetString("setting_save_success")).ShowAsync();
+        }
+
+        private void CacheBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Cache.ClearAsync();
+            Toast.Tip("清除成功！");
+            CacheBtn.IsEnabled = false;
         }
     }
 }

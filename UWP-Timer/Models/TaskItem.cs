@@ -82,4 +82,20 @@ namespace UWP_Timer.Models
 
         public string Tip { get; set; }
     }
+
+    public class TaskShare
+    {
+        public int Id { get; set; }
+
+        public UserItem User { get; set; }
+
+        public TaskItem Task { get; set; }
+
+        public int ShareType { get; set; }
+
+        public string ShareRule { get; set; }
+
+        [JsonProperty(PropertyName = "created_at")]
+        public string CreatedAt { get; set; }
+    }
 }

@@ -9,6 +9,41 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <Grid>
+            
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <PersonPicture Grid.RowSpan="2"/>
+            <TextBox Grid.Column="1" Grid.ColumnSpan="2"/>
+            <FontIcon Glyph="&#xE11D;" Grid.Column="1" Grid.Row="1"/>
+            <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
+                <CheckBox Content="同时转发到我的微博"/>
+                <Button Content="评论"/>
+            </StackPanel>
+        </Grid>
+        <ListView Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

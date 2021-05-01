@@ -15,5 +15,5 @@
         <ResourceDictionary Source="ms-appx:///Themes/VideoPlayer.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    
+
 </ResourceDictionary>
