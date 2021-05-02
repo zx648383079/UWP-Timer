@@ -66,6 +66,15 @@ namespace UWP_Timer.Utils
             return dateTimeStart.Add(toNow);
         }
 
+        public static DateTime TimestampTo(string str)
+        {
+            if (DateTime.TryParse(str, out DateTime date))
+            {
+                return date;
+            }
+            return DateTime.MinValue;
+        }
+
         /// <summary>
         /// 从时间转时间戳，精确到秒
         /// </summary>
@@ -77,6 +86,24 @@ namespace UWP_Timer.Utils
             return Convert.ToInt32((time.Ticks - dateTimeStart.Ticks) / 10000000);
         }
 
+        public static int TimestampFrom(string str)
+        {
+            if (DateTime.TryParse(str, out DateTime date))
+            {
+                return TimestampFrom(date);
+            }
+            return 0;
+        }
+
+        public static int TimestampFrom(int time)
+        {
+            if (time.ToString().Length > 10)
+            {
+                return time / 1000;
+            }
+            return time;
+        }
+
         /// <summary>
         /// 格式化多久之前
         /// </summary>
@@ -84,7 +111,26 @@ namespace UWP_Timer.Utils
         /// <returns></returns>
         public static string FormatAgo(DateTime date)
         {
-            var now = DateTime.Now;
+            return FormatAgo(date, DateTime.Now);
+        }
+
+        /// <summary>
+        /// 格式化多久之前
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <returns></returns>
+        public static string FormatAgo(int timestamp)
+        {
+            return FormatAgo(TimestampTo(timestamp));
+        }
+
+        public static string FormatAgo(int timestamp, int now)
+        {
+            return FormatAgo(TimestampTo(timestamp), TimestampTo(now));
+        }
+
+        public static string FormatAgo(DateTime date, DateTime now)
+        {
             var diff = now - date;
             if (diff.TotalSeconds < 1)
             {
@@ -114,13 +160,30 @@ namespace UWP_Timer.Utils
         }
 
         /// <summary>
-        /// 格式化多久之前
+        /// 秒的差额
         /// </summary>
-        /// <param name="timestamp"></param>
+        /// <param name="time"></param>
+        /// <param name="now"></param>
         /// <returns></returns>
-        public static string FormatAgo(int timestamp)
+        public static int SecondDiffer(int time, int now)
         {
-            return FormatAgo(TimestampTo(timestamp));
+            return Math.Abs(time - now);
+        }
+
+        public static int SecondDiffer(int time, DateTime now)
+        {
+            return SecondDiffer(TimestampTo(time), now);
+        }
+
+        public static int SecondDiffer(string time, DateTime now)
+        {
+            return SecondDiffer(TimestampTo(time), now);
+        }
+
+        public static int SecondDiffer(DateTime time, DateTime now)
+        {
+            var diff = now - time;
+            return Convert.ToInt32(Math.Abs(diff.TotalSeconds));
         }
     }
 }

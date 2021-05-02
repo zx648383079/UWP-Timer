@@ -131,6 +131,9 @@
     </Compile>
     <Compile Include="Controls\AudioPlayer.cs" />
     <Compile Include="Controls\Chart.cs" />
+    <Compile Include="Controls\CommentItem.xaml.cs">
+      <DependentUpon>CommentItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmojiBox.xaml.cs">
       <DependentUpon>EmojiBox.xaml</DependentUpon>
     </Compile>
@@ -147,6 +150,13 @@
     <Compile Include="Controls\MediaViewer.xaml.cs">
       <DependentUpon>MediaViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MessageContainer.xaml.cs">
+      <DependentUpon>MessageContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageItem.xaml.cs">
+      <DependentUpon>MessageItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageTime.cs" />
     <Compile Include="Controls\PageTip.cs" />
     <Compile Include="Controls\RadialProgressBar.cs" />
     <Compile Include="Controls\RuleBlock.cs" />
@@ -185,6 +195,7 @@
     <Compile Include="Models\LinkRule.cs" />
     <Compile Include="Models\LoginForm.cs" />
     <Compile Include="Models\LoginQr.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\MicroItem.cs" />
     <Compile Include="Models\Paging.cs" />
     <Compile Include="Models\PasswordForm.cs" />
@@ -198,6 +209,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Constants.cs" />
+    <Compile Include="Repositories\RestFileRepository.cs" />
+    <Compile Include="Repositories\RestInterceptor.cs" />
+    <Compile Include="Repositories\RequestInterceptor.cs" />
     <Compile Include="Repositories\RestAccountRepository.cs" />
     <Compile Include="Repositories\RestMicroRepository.cs" />
     <Compile Include="Repositories\RestArticleRepository.cs" />
@@ -205,6 +219,8 @@
     <Compile Include="Repositories\RestBulletinRepository.cs" />
     <Compile Include="Repositories\RestCheckInRepository.cs" />
     <Compile Include="Repositories\RestRepository.cs" />
+    <Compile Include="Repositories\RestRepositoryBase.cs" />
+    <Compile Include="Repositories\RestSiteRepository.cs" />
     <Compile Include="Repositories\RestTaskRepository.cs" />
     <Compile Include="Repositories\RestUserRepository.cs" />
     <Compile Include="Repositories\Rest\HttpException.cs" />
@@ -229,6 +245,7 @@
     <Compile Include="ViewModels\IncrementalLoadingCollection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MicroDetailViewModel.cs" />
+    <Compile Include="ViewModels\MicroPublishViewModel.cs" />
     <Compile Include="ViewModels\MicroViewModel.cs" />
     <Compile Include="ViewModels\TaskReviewViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -357,6 +374,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\CommentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EmojiBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -370,6 +391,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MediaViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -446,6 +475,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\LargeHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MessageTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

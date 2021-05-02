@@ -13,7 +13,6 @@
         <ResourceDictionary Source="ms-appx:///Themes/RuleBlock.xaml"/>
         <ResourceDictionary Source="ms-appx:///Themes/AudioPlayer.xaml"/>
         <ResourceDictionary Source="ms-appx:///Themes/VideoPlayer.xaml"/>
+        <ResourceDictionary Source="ms-appx:///Themes/MessageTime.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-
-
 </ResourceDictionary>

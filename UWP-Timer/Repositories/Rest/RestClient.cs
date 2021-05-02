@@ -171,10 +171,10 @@ namespace UWP_Timer.Repositories.Rest
         {
             var content = await ExecuteAsync(succes, failure);
             Log.Info(content);
-            //if (typeof(T) == typeof(string))
-            //{
-            //    return (T)(object)content;
-            //}
+            if (typeof(T) == typeof(string))
+            {
+                return (T)(object)content;
+            }
             //if (typeof(T) == typeof(JObject))
             //{
             //    return (T)(object)JObject.Parse(content);

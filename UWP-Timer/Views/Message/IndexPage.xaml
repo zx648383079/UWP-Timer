@@ -34,7 +34,7 @@
                         <controls:IconButton x:Name="systemBtn" Grid.Column="3" Icon="&#xE767;" Label="系统通知" Click="systemBtn_Click"/>
                     </Grid>
                     <ListView x:Name="userList"
-                        ItemContainerStyle="{StaticResource CustomListItem}"
+                        ItemContainerStyle="{StaticResource UserListItem}"
                         ItemsSource="{x:Bind ViewModel.UserItems}" SelectionChanged="userList_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -74,7 +74,6 @@
                                         <RowDefinition Height="20"/>
                                         <RowDefinition Height="40"/>
                                         <RowDefinition Height="*"/>
-                                        <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Text="{Binding Bulletin.Icon}" Grid.RowSpan="4" 
                                        FontSize="25"
@@ -89,7 +88,6 @@
                                     </StackPanel>
                                     <TextBlock Text="{Binding Bulletin.Title}" Grid.Column="1" Grid.Row="1"/>
                                     <controls:RuleBlock Content="{Binding Bulletin.Content}"  Rules="{Binding Bulletin.ExtraRule}" Grid.Column="1" Grid.Row="2"/>
-                                    <TextBlock x:Uid="message_tap_read" Text="点击查看" Grid.Column="1" Grid.Row="3"  FontSize="12" Foreground="#999"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

@@ -13,7 +13,11 @@ namespace UWP_Timer.Repositories
     /// </summary>
     public class RestBulletinRepository
     {
-        private readonly RestRequest http = new RestRequest();
+        public RestBulletinRepository(RestRequest client)
+        {
+            http = client;
+        }
+        private readonly RestRequest http;
         /// <summary>
         /// 获取通知列表
         /// </summary>

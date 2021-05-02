@@ -13,7 +13,11 @@ namespace UWP_Timer.Repositories
     /// </summary>
     public class RestMicroRepository
     {
-        private readonly RestRequest http = new RestRequest();
+        public RestMicroRepository(RestRequest client)
+        {
+            http = client;
+        }
+        private readonly RestRequest http;
         /// <summary>
         /// 文章列表
         /// </summary>
@@ -23,7 +27,21 @@ namespace UWP_Timer.Repositories
         {
             return await http.GetAsync<Page<MicroItem>>("micro", data.ToQueries());
         }
-        
+
+        public async Task<MicroItem> GetAsync(int id)
+        {
+            return await http.GetAsync<MicroItem>("micro/home/detail", "id", id);
+        }
+
+        public async Task<Page<CommentBase>> GetCommentAsync(SearchForm data)
+        {
+            return await http.GetAsync<Page<CommentBase>>("micro/comment", data.ToQueries());
+        }
+
+        public async Task<MicroItem> CreateAsync(object data)
+        {
+            return await http.PostAsync<MicroItem>("micro/home/create", data);
+        }
 
     }
 }

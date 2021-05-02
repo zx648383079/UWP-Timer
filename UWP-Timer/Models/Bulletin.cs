@@ -26,6 +26,8 @@ namespace UWP_Timer.Models
         public string UserName { get; set; }
         public string Icon { get; set; }
 
+        public UserItem User { get; set; }
+
         public int Status { get; set; }
     }
     /// <summary>

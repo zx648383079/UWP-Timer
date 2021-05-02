@@ -13,7 +13,11 @@ namespace UWP_Timer.Repositories
     /// </summary>
     public class RestAuthorizeRepository
     {
-        private readonly RestRequest http = new RestRequest();
+        public RestAuthorizeRepository(RestRequest client)
+        {
+            http = client;
+        }
+        private readonly RestRequest http;
         /// <summary>
         /// 验证二维码是否有效
         /// </summary>

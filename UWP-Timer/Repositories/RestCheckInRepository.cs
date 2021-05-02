@@ -13,7 +13,11 @@ namespace UWP_Timer.Repositories
     /// </summary>
     public class RestCheckInRepository
     {
-        private readonly RestRequest http = new RestRequest();
+        public RestCheckInRepository(RestRequest client)
+        {
+            http = client;
+        }
+        private readonly RestRequest http;
         /// <summary>
         /// 判断今天是否签到
         /// </summary>

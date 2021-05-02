@@ -11,23 +11,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Button HorizontalAlignment="Right">
-            <FontIcon Glyph="&#xE10A;"/>
-        </Button>
-        <GridView Grid.Row="1">
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <TextBlock Text="^^"/>
-                        <Image Width="50" Height="50"/>
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
-        <ListBox Grid.Row="2"/>
+        <GridView x:Name="ItemBox" SelectionChanged="ItemBox_SelectionChanged"/>
+        <ListBox x:Name="CatBox" Grid.Row="1" SelectionChanged="CatBox_SelectionChanged"
+                 ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>

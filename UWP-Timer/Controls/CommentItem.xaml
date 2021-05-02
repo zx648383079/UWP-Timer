@@ -1,0 +1,38 @@
+﻿<UserControl
+    x:Class="UWP_Timer.Controls.CommentItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Timer.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="200"
+    d:DesignWidth="400">
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <PersonPicture Grid.RowSpan="3" VerticalAlignment="Top"/>
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock/>
+            <TextBlock/>
+        </StackPanel>
+        <local:RuleBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+            <TextBlock Text="展开"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+            <TextBlock Text="举报"/>
+            <TextBlock Text="支持(0)"/>
+            <TextBlock Text="回复"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

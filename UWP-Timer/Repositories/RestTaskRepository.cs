@@ -16,7 +16,11 @@ namespace UWP_Timer.Repositories
     /// </summary>
     public class RestTaskRepository
     {
-        private readonly RestRequest http = new RestRequest();
+        public RestTaskRepository(RestRequest client)
+        {
+            http = client;
+        }
+        private readonly RestRequest http;
         /// <summary>
         /// 获取今天任务
         /// </summary>

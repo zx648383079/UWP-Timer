@@ -127,7 +127,7 @@ namespace UWP_Timer.Controls
 
     public class RuleTappedArgs
     {
-        public BlockItem Block { get; set; }
+        public readonly BlockItem Block;
 
         public RuleTappedArgs()
         {

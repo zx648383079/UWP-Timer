@@ -13,7 +13,15 @@ namespace UWP_Timer.Utils
         public static async Task<T> GetOrSetAsync<T>(string name, Func<Task<string>> func)
         {
             var folder = ApplicationData.Current.LocalFolder;
-            var file = await folder.GetFileAsync(name);
+            StorageFile file;
+            try
+            {
+                file = await folder.GetFileAsync(name);
+            }
+            catch (Exception)
+            {
+                file = null;
+            }
             string content;
             if (file != null)
             {

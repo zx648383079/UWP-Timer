@@ -19,7 +19,7 @@ namespace UWP_Timer.Models
 
     public class EmojiCategory
     {
-        public IEnumerable<Emoji> Items { get; set; }
+        public IList<Emoji> Items { get; set; }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Icon { get; set; }
