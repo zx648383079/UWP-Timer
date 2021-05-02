@@ -5,6 +5,7 @@
     xmlns:local="using:UWP_Timer.Views.Member"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -16,49 +17,71 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    
-    <Grid Padding="10 0 10 0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <Image
-            Grid.Row="1"
-            Width="88"
-            Height="88"
-            Source="/Assets/Square150x150Logo.scale-200.png" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" />
 
-        <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
-        <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
-        <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualState x:Name="MinStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainView.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MainView.Width" Value="auto"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainView.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MainView.Width" Value="400"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="MainView" Padding="10 0 10 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <controls:Logo
+                x:Name="LogoImg"
+                Grid.Row="1"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" />
+
+            <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+            <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
+            <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
                      Grid.Row="4" Style="{StaticResource CenterPasswordBoxStyle}"/>
-        <PasswordBox x:Uid="login_re_pwd"  x:Name="rePwdTb" PlaceholderText="请确认密码" 
+            <PasswordBox x:Uid="login_re_pwd"  x:Name="rePwdTb" PlaceholderText="请确认密码" 
                      Grid.Row="5" Style="{StaticResource CenterPasswordBoxStyle}"/>
-        <Grid Grid.Row="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <CheckBox x:Uid="login_agree_check" x:Name="agreeTb" Content="同意" VerticalAlignment="Center" MinWidth="60"/>
-            <HyperlinkButton x:Uid="login_agreement" Grid.Column="1" Content="本站协议" NavigateUri="https://zodream.cn/agreement"/>
-            <TextBlock x:Uid="login_back_login" x:Name="backBtn" Tapped="backBtn_Tapped" Text="返回登录" 
+            <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <CheckBox x:Uid="login_agree_check" x:Name="agreeTb" Content="同意" VerticalAlignment="Center" MinWidth="60"/>
+                <HyperlinkButton x:Uid="login_agreement" Grid.Column="1" Content="本站协议" NavigateUri="https://zodream.cn/agreement"/>
+                <TextBlock x:Uid="login_back_login" x:Name="backBtn" Tapped="backBtn_Tapped" Text="返回登录" 
                    Grid.Column="2" Style="{StaticResource InputLabel}"/>
-        </Grid>
+            </Grid>
 
-        <Button x:Uid="login_reg_btn" Grid.Row="7" 
+            <Button x:Uid="login_reg_btn" Grid.Row="7" 
                 x:Name="regBtn"
                 Tapped="regBtn_Tapped"
                 Content="注册" 
                 Style="{StaticResource SubmitBtn}"/>
+        </Grid>
     </Grid>
 </Page>

@@ -61,9 +61,9 @@
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Style="{StaticResource EmptyBtn}" HorizontalAlignment="Right">
-                    <FontIcon Glyph="&#xE115;"/>
-                </Button>
+                <Button Style="{StaticResource IconBtn}" 
+                        Content="&#xE115;"
+                        HorizontalAlignment="Right"/>
                 <TextBlock Text="00:00" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60"/>
                 <TextBlock Text="说明" Grid.Row="2"/>
                 <Grid Grid.Row="3">
@@ -74,13 +74,11 @@
                     </Grid.ColumnDefinitions>
                     <TextBox Style="{StaticResource CenterTextBoxStyle}"/>
                     <Button x:Name="sendBtn" Grid.Column="1"
-                            Style="{StaticResource IconBtn}">
-                        <FontIcon Glyph="&#xE725;" />
-                    </Button>
+                            Content="&#xE725;"
+                            Style="{StaticResource FullIconBtn}"/>
                     <Button x:Name="uploadBtn" Grid.Column="2"
-                            Style="{StaticResource IconBtn}">
-                        <FontIcon Glyph="&#xE11C;" />
-                    </Button>
+                            Content="&#xE11C;"
+                            Style="{StaticResource FullIconBtn}"/>
                 </Grid>
                 <ListView Grid.Row="4">
                     <ListView.ItemTemplate>

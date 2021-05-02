@@ -90,5 +90,15 @@ namespace UWP_Timer.Views.Member
                 Frame.GoBack();
             });
         }
+
+        private void pwdTb_GotFocus(object sender, RoutedEventArgs e)
+        {
+            LogoImg.Status = Controls.LogoStatus.INIT;
+        }
+
+        private void pwdTb_LostFocus(object sender, RoutedEventArgs e)
+        {
+            LogoImg.Status = Controls.LogoStatus.NONE;
+        }
     }
 }

@@ -29,10 +29,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Button x:Name="ClosePanelBtn"
+                            Content="&#xE711;"
                             Style="{StaticResource IconBtn}"
-                            HorizontalAlignment="Right" Click="ClosePanelBtn_Click">
-                        <FontIcon Glyph="&#xE711;" FontWeight="Bold" />
-                    </Button>
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Stretch"
+                            Click="ClosePanelBtn_Click"/>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -41,13 +42,11 @@
                         </Grid.ColumnDefinitions>
                         <TextBox Style="{StaticResource CenterTextBoxStyle}"/>
                         <Button x:Name="sendBtn" Grid.Column="1"
-                            Style="{StaticResource IconBtn}">
-                            <FontIcon Glyph="&#xE725;" />
-                        </Button>
+                                Content="&#xE725;"
+                            Style="{StaticResource FullIconBtn}"/>
                         <Button x:Name="uploadBtn" Grid.Column="2"
-                            Style="{StaticResource IconBtn}">
-                            <FontIcon Glyph="&#xE11C;" />
-                        </Button>
+                                Content="&#xE11C;"
+                            Style="{StaticResource FullIconBtn}"/>
                     </Grid>
                     <ListView Grid.Row="2">
                         <ListView.ItemTemplate>
@@ -76,10 +75,9 @@
                     <RowDefinition Height="60"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button x:Name="openComment" Style="{StaticResource EmptyBtn}"
-                HorizontalAlignment="Right" Click="openComment_Click">
-                    <FontIcon Glyph="&#xEBDB;"/>
-                </Button>
+                <Button x:Name="openComment" Style="{StaticResource IconBtn}"
+                        Content="&#xEBDB;"
+                HorizontalAlignment="Right" Click="openComment_Click"/>
                 <controls:RadialProgressBar 
             TimeEnd="progressBar_TimeEnd"
             x:Name="progressBar" Grid.Row="1"/>

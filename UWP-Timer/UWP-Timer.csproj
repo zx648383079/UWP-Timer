@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UWP_Timer</RootNamespace>
     <AssemblyName>UWP-Timer</AssemblyName>
-    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <DefaultLanguage>zh-Hans</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
@@ -147,11 +147,17 @@
     <Compile Include="Controls\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Logo.xaml.cs">
+      <DependentUpon>Logo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MediaViewer.xaml.cs">
       <DependentUpon>MediaViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageContainer.xaml.cs">
       <DependentUpon>MessageContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MessageInput.xaml.cs">
+      <DependentUpon>MessageInput.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageItem.xaml.cs">
       <DependentUpon>MessageItem.xaml</DependentUpon>
@@ -227,6 +233,7 @@
     <Compile Include="Repositories\Rest\RestRequest.cs" />
     <Compile Include="Utils\AppData.cs" />
     <Compile Include="Utils\Arr.cs" />
+    <Compile Include="Utils\AudioRecorder.cs" />
     <Compile Include="Utils\Cache.cs" />
     <Compile Include="Utils\Deeplink.cs" />
     <Compile Include="Utils\LinkRule.cs" />
@@ -390,11 +397,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Logo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\MediaViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MessageInput.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -655,12 +670,6 @@
     <PackageReference Include="ZXing.Net">
       <Version>0.16.6</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\en\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\zh-Hans\Resources.resw" />

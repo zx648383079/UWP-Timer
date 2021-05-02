@@ -11,6 +11,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="ThumbBox" TargetType="ListBox">
                 <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
                 <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
@@ -49,9 +52,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
-            <Button x:Name="ToggleBtn" HorizontalAlignment="Right" VerticalAlignment="Center" Click="ToggleBtn_Click">
-                <FontIcon Glyph="&#xE10A;"/>
-            </Button>
+            <Button x:Name="ToggleBtn" Content="&#xE10A;" Style="{StaticResource IconBtn}" 
+                    HorizontalAlignment="Right" VerticalAlignment="Center" Click="ToggleBtn_Click"/>
             <Image x:Name="LargeImage" Stretch="UniformToFill" Grid.Row="1"/>
             <ListBox x:Name="LargeThumb" Grid.Row="2" Style="{StaticResource ThumbBox}" SelectionChanged="LargeThumb_SelectionChanged"/>
         </Grid>

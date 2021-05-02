@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/BulletinSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -59,40 +60,29 @@
                 </StackPanel>
             </SplitView.Pane>
             <Grid>
-                <RefreshContainer>
-                    <ListView
-                        ItemContainerStyle="{StaticResource CustomListItem}"
-                        ItemsSource="{x:Bind ViewModel.Items}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="120" Padding="10" Margin="0,0,0,10" Background="White">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="80"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20"/>
-                                        <RowDefinition Height="40"/>
-                                        <RowDefinition Height="*"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding Bulletin.Icon}" Grid.RowSpan="4" 
-                                       FontSize="25"
-                                       Foreground="#41C4FF"
-                                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                    <TextBlock x:Uid="message_status_unread" Text="未读"
-                                       Visibility="{Binding Status,Converter={StaticResource StatusToggle}}"
-                                       HorizontalAlignment="Right" FontSize="20" Foreground="#ccc"/>
-                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                        <TextBlock Text="{Binding Bulletin.UserName}" FontSize="12" Foreground="#999"/>
-                                        <TextBlock Text="{Binding CreatedAt,Converter={StaticResource AgoConverter}}"  FontSize="12" Foreground="#999"/>
-                                    </StackPanel>
-                                    <TextBlock Text="{Binding Bulletin.Title}" Grid.Column="1" Grid.Row="1"/>
-                                    <controls:RuleBlock Content="{Binding Bulletin.Content}"  Rules="{Binding Bulletin.ExtraRule}" Grid.Column="1" Grid.Row="2"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </RefreshContainer>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center"/>
+                <Button HorizontalAlignment="Right" 
+                        Content="&#xE10C;"
+                        Style="{StaticResource IconBtn}">
+                    <Button.Flyout>
+                        <Flyout>
+                            <StackPanel>
+                                <Button Content="置顶聊天" Style="{StaticResource LineBtn}"/>
+                                <Button Content="开启免打扰" Style="{StaticResource LineBtn}"/>
+                                <Button Content="加入黑名单" Style="{StaticResource LineBtn}"/>
+                                <Button Content="举报该用户" Style="{StaticResource LineBtn}"/>
+                                <Button Content="不接受推送" Style="{StaticResource LineBtn}"/>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+                <controls:MessageContainer Grid.Row="1"/>
+                <controls:MessageInput Grid.Row="2"/>
             </Grid>
         </SplitView>
     </Grid>

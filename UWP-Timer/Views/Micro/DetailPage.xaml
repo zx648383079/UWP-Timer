@@ -8,6 +8,15 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/MicroSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -30,7 +39,7 @@
             </Grid.ColumnDefinitions>
             <PersonPicture Grid.RowSpan="2"/>
             <TextBox Grid.Column="1" Grid.ColumnSpan="2"/>
-            <FontIcon Glyph="&#xE11D;" Grid.Column="1" Grid.Row="1"/>
+            <Button Content="&#xE11D;" Style="{StaticResource IconBtn}" Grid.Column="1" Grid.Row="1"/>
             <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
                 <CheckBox Content="同时转发到我的微博"/>
                 <Button Content="评论"/>

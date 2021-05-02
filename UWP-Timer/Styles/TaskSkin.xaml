@@ -44,16 +44,6 @@
         </Setter>
     </Style>
 
-    <Style x:Key="EmptyBtn" TargetType="Button">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-    </Style>
-
-    <Style x:Key="IconBtn" TargetType="Button" BasedOn="{StaticResource EmptyBtn}">
-        <Setter Property="Width" Value="40"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-    </Style>
-
     <Style x:Key="TaskBorder" TargetType="Border">
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="Background" Value="#fff"/>

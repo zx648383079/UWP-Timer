@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/MicroSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -28,13 +29,13 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
-        <Button Style="{StaticResource EmptyBtn}">
+        <Button Style="{StaticResource FullIconBtn}"
+                Content="&#xE11D;">
             <Button.Flyout>
                 <Flyout x:Name="emojiFlyout">
                     <controls:EmojiBox Width="400" Height="300" SelectionChanged="EmojiBox_SelectionChanged"/>
                 </Flyout>
             </Button.Flyout>
-            <FontIcon Glyph="&#xE11D;"/>
         </Button>
         <Button x:Name="PublishBtn" Click="PublishBtn_Click" Grid.Column="2" Content="发布"  Style="{StaticResource EmptyBtn}"/>
         <TextBox x:Name="ContentTb" Text="{x:Bind ViewModel.Content,Mode=TwoWay}" 
@@ -56,15 +57,14 @@
                     <DataTemplate>
                         <Grid Width="150" Height="120">
                             <Image Source="{Binding Thumb}"/>
-                            <Button x:Name="RemoveFileBtn" Style="{StaticResource EmptyBtn}"
+                            <Button x:Name="RemoveFileBtn" Style="{StaticResource IconBtn}"
                                     CornerRadius="15"
                                     Width="30" Height="30"
                                     Background="Gray"
-                                    
+                                    Content="&#xE106;"
+                                    FontSize="10"
                                     HorizontalAlignment="Right" 
-                                    VerticalAlignment="Top" Click="RemoveFileBtn_Click">
-                                <FontIcon Glyph="&#xE106;" FontSize="10"/>
-                            </Button>
+                                    VerticalAlignment="Top" Click="RemoveFileBtn_Click"/>
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

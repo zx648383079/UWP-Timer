@@ -311,4 +311,18 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontFamily" Value="Microsoft YaHei"/>
     </Style>
+
+    <Style x:Key="EmptyBtn" TargetType="Control">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="IconBtn" TargetType="Control" BasedOn="{StaticResource EmptyBtn}">
+        <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+    </Style>
+
+    <Style x:Key="FullIconBtn" TargetType="Control" BasedOn="{StaticResource IconBtn}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
 </ResourceDictionary>
