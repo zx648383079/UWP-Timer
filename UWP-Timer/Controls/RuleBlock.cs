@@ -96,7 +96,7 @@ namespace UWP_Timer.Controls
                 {
                     var link = new Hyperlink()
                     {
-                        NavigateUri = new Uri(item.Value as string),
+                        // NavigateUri = new Uri(item.Value as string),
                     };
                     link.Click += (Hyperlink sender, HyperlinkClickEventArgs e) =>
                     {
@@ -116,11 +116,12 @@ namespace UWP_Timer.Controls
                     {
                         Source = ConverterHelper.ToImg(item.Value as string)
                     };
-                    img.Width = 40;
+                    img.Width = 1.5 * FontSize;
                     container.Child = img;
                     paragraph.Inlines.Add(container);
                 }
             }
+            viewer.TextWrapping = TextWrapping.Wrap;
             viewer.Blocks.Add(paragraph);
         }
     }

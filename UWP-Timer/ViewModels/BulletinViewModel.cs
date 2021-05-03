@@ -17,31 +17,31 @@ namespace UWP_Timer.ViewModels
             {
                 Page = 0
             };
-            Items = new IncrementalLoadingCollection<BulletinUser>(count =>
-            {
-                return Task.Run(async () =>
-                {
-                    if (!App.IsLogin())
-                    {
-                        return Tuple.Create<IList<BulletinUser>, bool>(null, false);
-                    }
-                    search.Page++;
-                    var data = await App.Repository.Bulletin.GetBulletinListAsync(search);
-                    if (data == null)
-                    {
-                        return Tuple.Create<IList<BulletinUser>, bool>(null, false);
-                    }
-                    return Tuple.Create(data.Data, data.Paging.More);
-                });
-            });
+            //Items = new IncrementalLoadingCollection<Bulletin>(count =>
+            //{
+            //    return Task.Run(async () =>
+            //    {
+            //        if (!App.IsLogin())
+            //        {
+            //            return Tuple.Create<IList<Bulletin>, bool>(null, false);
+            //        }
+            //        search.Page++;
+            //        var data = await App.Repository.Bulletin.GetBulletinListAsync(search);
+            //        if (data == null)
+            //        {
+            //            return Tuple.Create<IList<Bulletin>, bool>(null, false);
+            //        }
+            //        return Tuple.Create(data.Data, data.Paging.More);
+            //    });
+            //});
             Load();
         }
 
         private SearchForm search;
 
-        private IncrementalLoadingCollection<BulletinUser> items;
+        private ObservableCollection<MessageBase> items = new ObservableCollection<MessageBase>();
 
-        public IncrementalLoadingCollection<BulletinUser> Items
+        public ObservableCollection<MessageBase> Items
         {
             get { return items; }
             set { Set(ref items, value); }
@@ -85,8 +85,8 @@ namespace UWP_Timer.ViewModels
         public void Refresh()
         {
             search.Page = 0;
-            items.Clear();
-            _ = Items.LoadMoreItemsAsync(search.PerPage);
+            Items.Clear();
+            _ = LoadItemsAsync();//Items.LoadMoreItemsAsync(search.PerPage);
         }
 
 
@@ -106,6 +106,25 @@ namespace UWP_Timer.ViewModels
             search.Type = null;
             search.User = v;
             Refresh();
+        }
+
+        public async Task LoadItemsAsync()
+        {
+            Items.Clear();
+            var data = await App.Repository.Bulletin.GetBulletinListAsync(search);
+            if (data == null)
+            {
+                return;
+            }
+            for (int i = data.Data.Count - 1; i >= 0; i--)
+            {
+                var item = data.Data[i];
+                if (item.Bulletin == null)
+                {
+                    continue;
+                }
+                Items.Add(item.Bulletin.ToMessage());
+            }
         }
     }
 }

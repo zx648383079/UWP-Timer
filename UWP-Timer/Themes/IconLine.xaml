@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local2="using:UWP_Timer.Controls">
     <Style TargetType="local2:IconLine">
-        <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="Padding" Value="10,0"/>
         <Setter Property="BorderBrush" Value="#ccc"/>
         <Setter Property="Height" Value="40"/>

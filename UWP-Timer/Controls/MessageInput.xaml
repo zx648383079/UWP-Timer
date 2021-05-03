@@ -32,7 +32,7 @@
                 Style="{StaticResource IconBtn}" 
                 HorizontalAlignment="Stretch" 
                 VerticalAlignment="Stretch" Click="RecordBtn_Click"/>
-        <TextBox x:Name="ContentTb" Grid.Column="1" Style="{StaticResource CenterTextBoxStyle}"/>
+        <TextBox x:Name="ContentTb" Grid.Column="1" Style="{StaticResource CenterTextBoxStyle}" KeyDown="ContentTb_KeyDown"/>
         <Button x:Name="EmojiBtn" Grid.Column="2" Content="&#xE11D;" Style="{StaticResource IconBtn}" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                 Click="EmojiBtn_Click"/>
@@ -41,11 +41,11 @@
                 VerticalAlignment="Stretch"
                 Click="MoreBtn_Click"/>
         <Grid Grid.Row="1" Grid.ColumnSpan="4">
-            <local:EmojiBox x:Name="EmojiBox" Visibility="Collapsed" MaxHeight="300"/>
+            <local:EmojiBox x:Name="EmojiBox" Visibility="Collapsed" MaxHeight="300" SelectionChanged="EmojiBox_SelectionChanged"/>
             <GridView x:Name="MoreBox" Visibility="Collapsed" MaxHeight="300">
-                <local:IconButton Icon="&#xE158;" Label="图片" Width="50"/>
-                <local:IconButton Icon="&#xE116;" Label="视频" Width="50"/>
-                <local:IconButton Icon="&#xE1A5;" Label="文件" Width="50"/>
+                <local:IconButton x:Name="ImageBtn" Icon="&#xE158;" Label="图片" Width="50" Click="ImageBtn_Click"/>
+                <local:IconButton x:Name="VideoBtn" Icon="&#xE116;" Label="视频" Width="50" Click="VideoBtn_Click"/>
+                <local:IconButton x:Name="FileBtn" Icon="&#xE1A5;" Label="文件" Width="50" Click="FileBtn_Click"/>
             </GridView>
         </Grid>
     </Grid>

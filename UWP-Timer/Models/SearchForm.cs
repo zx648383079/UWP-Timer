@@ -75,4 +75,24 @@ namespace UWP_Timer.Models
             return data;
         }
     }
+
+    public class Queries
+    {
+        public string Keywords { get; set; } = "";
+        public uint Page { get; set; } = 1;
+        public uint PerPage { get; set; } = 20;
+    }
+
+    public class MicroQueries: Queries
+    {
+        public int User { get; set; }
+        public int Topic { get; set; }
+
+        public int Status { get; set; }
+    }
+
+    public class MicroCommentQueries: Queries
+    {
+        public int Id { get; set; }
+    }
 }

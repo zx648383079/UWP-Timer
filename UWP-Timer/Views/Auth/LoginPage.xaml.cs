@@ -17,11 +17,12 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
-namespace UWP_Timer.Views.Member
+namespace UWP_Timer.Views.Auth
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
@@ -33,13 +34,25 @@ namespace UWP_Timer.Views.Member
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            if (imageAnimation != null)
+            {
+                imageAnimation.TryStart(LogoImg);
+            }
+        }
+
         private void toRegisterBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("logo", LogoImg);
             Frame.Navigate(typeof(RegisterPage));
         }
 
         private void toFindBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("logo", LogoImg);
             Frame.Navigate(typeof(FindPage));
         }
 
@@ -99,6 +112,12 @@ namespace UWP_Timer.Views.Member
         private void pwdTb_LostFocus(object sender, RoutedEventArgs e)
         {
             LogoImg.Status = Controls.LogoStatus.NONE;
+        }
+
+        private void QrBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("logo", LogoImg);
+            Frame.Navigate(typeof(QrPage));
         }
     }
 }

@@ -23,9 +23,9 @@ namespace UWP_Timer.Repositories
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public async Task<Page<MicroItem>> GetPageAsync(SearchForm data)
+        public async Task<Page<MicroItem>> GetPageAsync(MicroQueries data)
         {
-            return await http.GetAsync<Page<MicroItem>>("micro", data.ToQueries());
+            return await http.GetAsync<Page<MicroItem>>("micro", data);
         }
 
         public async Task<MicroItem> GetAsync(int id)
@@ -33,15 +33,19 @@ namespace UWP_Timer.Repositories
             return await http.GetAsync<MicroItem>("micro/home/detail", "id", id);
         }
 
-        public async Task<Page<CommentBase>> GetCommentAsync(SearchForm data)
+        public async Task<Page<CommentBase>> GetCommentAsync(MicroCommentQueries data)
         {
-            return await http.GetAsync<Page<CommentBase>>("micro/comment", data.ToQueries());
+            return await http.GetAsync<Page<CommentBase>>("micro/comment", data);
         }
 
-        public async Task<MicroItem> CreateAsync(object data)
+        public async Task<MicroItem> CreateAsync(MicroForm data)
         {
             return await http.PostAsync<MicroItem>("micro/home/create", data);
         }
 
+        internal async Task<CommentBase> CreateCommentAsync(MicroCommentForm form)
+        {
+            return await http.PostAsync<CommentBase>("micro/comment/save", form);
+        }
     }
 }

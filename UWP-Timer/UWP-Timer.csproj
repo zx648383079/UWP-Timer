@@ -134,6 +134,9 @@
     <Compile Include="Controls\CommentItem.xaml.cs">
       <DependentUpon>CommentItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CommentListBox.xaml.cs">
+      <DependentUpon>CommentListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EmojiBox.xaml.cs">
       <DependentUpon>EmojiBox.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,9 @@
       <DependentUpon>MessageItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MessageTime.cs" />
+    <Compile Include="Controls\MicroViewer.xaml.cs">
+      <DependentUpon>MicroViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\PageTip.cs" />
     <Compile Include="Controls\RadialProgressBar.cs" />
     <Compile Include="Controls\RuleBlock.cs" />
@@ -239,6 +245,7 @@
     <Compile Include="Utils\LinkRule.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Repositories\Rest\RestClient.cs" />
+    <Compile Include="Utils\Str.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="Utils\Toast.cs" />
     <Compile Include="ViewModels\ArticleDetailViewModel.cs" />
@@ -281,6 +288,9 @@
     <Compile Include="Views\AuthorizePage.xaml.cs">
       <DependentUpon>AuthorizePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Auth\QrPage.xaml.cs">
+      <DependentUpon>QrPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CheckInPage.xaml.cs">
       <DependentUpon>CheckInPage.xaml</DependentUpon>
     </Compile>
@@ -296,13 +306,13 @@
     <Compile Include="Views\Member\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Member\FindPage.xaml.cs">
+    <Compile Include="Views\Auth\FindPage.xaml.cs">
       <DependentUpon>FindPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Member\IndexPage.xaml.cs">
       <DependentUpon>IndexPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Member\LoginPage.xaml.cs">
+    <Compile Include="Views\Auth\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Member\PasswordPage.xaml.cs">
@@ -311,7 +321,7 @@
     <Compile Include="Views\Member\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Member\RegisterPage.xaml.cs">
+    <Compile Include="Views\Auth\RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Message\IndexPage.xaml.cs">
@@ -364,6 +374,7 @@
     <Content Include="Assets\icon\help.png" />
     <Content Include="Assets\icon\warning.png" />
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\logo.png" />
     <Content Include="Assets\markdown.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -382,6 +393,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\CommentItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CommentListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -414,6 +429,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MessageItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MicroViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,6 +564,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Auth\QrPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CheckInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -565,7 +588,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Member\FindPage.xaml">
+    <Page Include="Views\Auth\FindPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -573,7 +596,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Member\LoginPage.xaml">
+    <Page Include="Views\Auth\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -585,7 +608,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Member\RegisterPage.xaml">
+    <Page Include="Views\Auth\RegisterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

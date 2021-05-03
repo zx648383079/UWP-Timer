@@ -19,5 +19,11 @@ namespace UWP_Timer.Utils
             }
             return false;
         }
+
+        public static Dictionary<string, string> ToMap(object data)
+        {
+            return data.GetType().GetProperties()
+                .ToDictionary(q => Str.UnStudly(q.Name), q => q.GetValue(data).ToString());
+        }
     }
 }

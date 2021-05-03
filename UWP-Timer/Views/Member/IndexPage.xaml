@@ -10,8 +10,30 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualState x:Name="MinStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MenuGrid.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MenuGrid.Width" Value="auto"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MenuGrid.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MenuGrid.Width" Value="600"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid.RowDefinitions>
-            <RowDefinition Height="180"/>
+            <RowDefinition Height="250"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Background="{StaticResource SystemControlBaseHighAcrylicElementBrush}">
@@ -38,12 +60,13 @@
 
             <TextBlock x:Uid="member_no_login" x:Name="nameTb" Text="欢迎您，请登录~" 
                        Tapped="nameTb_Tapped"
-                       VerticalAlignment="Center"
+                       Margin="0,20"
+                       VerticalAlignment="Top"
                        Grid.Row="2" Grid.ColumnSpan="3"
                        HorizontalAlignment="Center"/>
         </Grid>
         <ScrollViewer Grid.Row="1" Background="#f4f4f4">
-            <StackPanel Orientation="Vertical">
+            <StackPanel x:Name="MenuGrid" Orientation="Vertical">
                 <controls:IconLine x:Uid="member_scan" x:Name="scanBtn" Icon="&#xE156;" Label="扫一扫" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
                 <controls:IconLine x:Uid="member_check_in" x:Name="checkBtn" Icon="&#xE1DC;" Label="签到" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>
                 <controls:IconLine x:Name="financeBtn" Icon="&#xE1DC;" Label="我的账本" Tapped="IconMenuItem_Tapped" Visibility="Collapsed"/>

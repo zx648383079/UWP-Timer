@@ -19,20 +19,22 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <PersonPicture Grid.RowSpan="3" VerticalAlignment="Top"/>
+        <PersonPicture x:Name="AvatarImg" Grid.RowSpan="3" VerticalAlignment="Top" Width="60"/>
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <TextBlock/>
-            <TextBlock/>
+            <TextBlock x:Name="UserTb"/>
+            <TextBlock x:Name="TimeTb"/>
         </StackPanel>
-        <local:RuleBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+        <local:RuleBlock x:Name="ContentTb" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-            <TextBlock Text="展开"/>
+            <TextBlock x:Name="ExpandBtn" Text="展开" Tapped="ExpandBtn_Tapped"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
             <TextBlock Text="举报"/>
             <TextBlock Text="支持(0)"/>
             <TextBlock Text="回复"/>
         </StackPanel>
+        <local:CommentListBox x:Name="ChildrenBox" Grid.Row="3" Grid.ColumnSpan="3"/>
     </Grid>
 </UserControl>

@@ -31,6 +31,12 @@ namespace UWP_Timer.Views.Micro
 
         public MicroViewModel ViewModel = new MicroViewModel();
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            NewBtn.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         private void statusBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var status = (int)(statusBar.SelectedItem as TabItem).Value;
@@ -42,10 +48,9 @@ namespace UWP_Timer.Views.Micro
             Frame.Navigate(typeof(PublishPage));
         }
 
-        private void CommentBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        private void MicroViewer_CommentTapped(Controls.MicroViewer sender, object args)
         {
-            var item = (sender as Border).DataContext as MicroItem;
-            Frame.Navigate(typeof(DetailPage), item.Id);
+            Frame.Navigate(typeof(DetailPage), sender.Source.Id);
         }
     }
 }

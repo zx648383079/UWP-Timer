@@ -45,8 +45,8 @@ namespace UWP_Timer.Utils
 
         public void Dispose()
         {
-            mediaCapture.Dispose();
-            Stream.Dispose();
+            mediaCapture?.Dispose();
+            Stream?.Dispose();
         }
     }
 }

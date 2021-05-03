@@ -138,19 +138,15 @@ namespace UWP_Timer.Utils
             }
             if (diff.TotalSeconds < 60)
             {
-                return $"{diff.TotalSeconds}秒前";
+                return $"{Convert.ToInt32(diff.TotalSeconds)}秒前";
             }
             if (diff.TotalMinutes < 60)
             {
-                return $"{diff.TotalSeconds}分钟前";
-            }
-            if (diff.TotalMinutes < 60)
-            {
-                return $"{diff.TotalMinutes}分钟前";
+                return $"{Convert.ToInt32(diff.TotalMinutes)}分钟前";
             }
             if (diff.TotalHours < 24)
             {
-                return date.Day == now.Day ? $"{diff.TotalHours}小时前" : date.ToString("MM-dd");
+                return date.Day == now.Day ? $"{Convert.ToInt32(diff.TotalHours)}小时前" : date.ToString("MM-dd");
             }
             if (date.Year == now.Year)
             {

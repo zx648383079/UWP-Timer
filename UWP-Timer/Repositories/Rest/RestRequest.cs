@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using UWP_Timer.Utils;
 using Windows.System.UserProfile;
 using Windows.Web.Http;
 
@@ -43,6 +44,15 @@ namespace UWP_Timer.Repositories.Rest
             using (var client = CreateHttp())
             {
                 var obj = await client.AppendPath(controller).AddQueries(parameters).ExecuteAsync<TResult>(action);
+                return obj;
+            }
+        }
+
+        public async Task<TResult> GetAsync<TResult>(string controller, object parameters, Action<HttpException> action = null)
+        {
+            using (var client = CreateHttp())
+            {
+                var obj = await client.AppendPath(controller).AddQueries(Arr.ToMap(parameters)).ExecuteAsync<TResult>(action);
                 return obj;
             }
         }
@@ -134,26 +144,5 @@ namespace UWP_Timer.Repositories.Rest
             client.Method = HttpMethod.Post;
             return client;
         }
-
-        public static string ToBase64String(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return "";
-            }
-            var bytes = Encoding.UTF8.GetBytes(value);
-            return Convert.ToBase64String(bytes);
-        }
-
-        public static string UnBase64String(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return "";
-            }
-            var bytes = Convert.FromBase64String(value);
-            return Encoding.UTF8.GetString(bytes);
-        }
-
     }
 }

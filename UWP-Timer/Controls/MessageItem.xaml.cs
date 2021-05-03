@@ -23,6 +23,12 @@ namespace UWP_Timer.Controls
         public MessageItem()
         {
             this.InitializeComponent();
+            SizeChanged += MessageItem_SizeChanged;
+        }
+
+        private void MessageItem_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ContentBox.MaxWidth = e.NewSize.Width - 100;
         }
 
         public MessageBase Source
@@ -49,13 +55,23 @@ namespace UWP_Timer.Controls
             ContentBox.Children.Clear();
             AvatarImage.ProfilePicture = Converters.ConverterHelper.ToImg(Source.User.Avatar);
             AvatarImage.DisplayName = Source.User.Name;
-            if (Source.Type < 1)
+            switch (Source.Type)
             {
-                ContentBox.Children.Add(new RuleBlock()
-                {
-                    Content = Source.Content,
-                    Rules = Source.ExtraRule
-                });
+                case MessageType.IMAGE:
+                    break;
+                case MessageType.VIDEO:
+                    break;
+                case MessageType.VOICE:
+                    break;
+                case MessageType.FILE:
+                    break;
+                default:
+                    ContentBox.Children.Add(new RuleBlock()
+                    {
+                        Content = Source.Content,
+                        Rules = Source.ExtraRule
+                    });
+                    break;
             }
         }
     }

@@ -39,7 +39,7 @@ namespace UWP_Timer.Views
             base.OnNavigatedTo(e);
             if (!App.IsLogin())
             {
-                Frame.Navigate(typeof(Member.LoginPage));
+                Frame.Navigate(typeof(Auth.LoginPage));
                 return;
             }
             avatarImg.Source = Converters.ConverterHelper.ToImg(App.ViewModel.User.Avatar);

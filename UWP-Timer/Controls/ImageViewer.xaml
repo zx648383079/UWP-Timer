@@ -48,12 +48,13 @@
                   ItemTemplate="{StaticResource ImageTemplate}" SelectionChanged="PreviewBox_SelectionChanged"/>
         <Grid x:Name="LargeBox" Visibility="Collapsed">
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="44"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="80"/>
             </Grid.RowDefinitions>
             <Button x:Name="ToggleBtn" Content="&#xE10A;" Style="{StaticResource IconBtn}" 
-                    HorizontalAlignment="Right" VerticalAlignment="Center" Click="ToggleBtn_Click"/>
+                    Margin="0,0,20,0" Width="44"
+                    HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="ToggleBtn_Click"/>
             <Image x:Name="LargeImage" Stretch="UniformToFill" Grid.Row="1"/>
             <ListBox x:Name="LargeThumb" Grid.Row="2" Style="{StaticResource ThumbBox}" SelectionChanged="LargeThumb_SelectionChanged"/>
         </Grid>

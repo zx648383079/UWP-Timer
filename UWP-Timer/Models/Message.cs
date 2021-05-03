@@ -13,7 +13,7 @@ namespace UWP_Timer.Models
 
         public UserItem User { get; set; }
 
-        public int Type { get; set; }
+        public MessageType Type { get; set; } = MessageType.TEXT;
 
         public string Content { get; set; }
 
@@ -22,5 +22,14 @@ namespace UWP_Timer.Models
 
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
+    }
+
+    public enum MessageType
+    {
+        TEXT,
+        IMAGE,
+        VIDEO,
+        VOICE,
+        FILE
     }
 }

@@ -46,8 +46,33 @@ namespace UWP_Timer.Models
 
     public class MicroAttachment
     {
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
+        [JsonProperty(PropertyName = "thumb")]
         public string Thumb { get; set; }
+        [JsonProperty(PropertyName = "file")]
         public string File { get; set; }
+    }
+
+    public class MicroForm
+    {
+        [JsonProperty(PropertyName = "content")]
+        public string Conent { get; set; }
+        [JsonProperty(PropertyName = "open_type")]
+        public int OpenType { get; set; }
+        [JsonProperty(PropertyName = "file")]
+        public IList<MicroAttachment> File { get; set; }
+    }
+
+    public class MicroCommentForm
+    {
+        [JsonProperty(PropertyName = "content")]
+        public string Conent { get; set; }
+        [JsonProperty(PropertyName = "micro_id")]
+        public int MicroId { get; set; }
+        [JsonProperty(PropertyName = "parent_id")]
+        public int ParentId { get; set; }
+        [JsonProperty(PropertyName = "is_forward")]
+        public bool IsForward { get; set; }
     }
 }

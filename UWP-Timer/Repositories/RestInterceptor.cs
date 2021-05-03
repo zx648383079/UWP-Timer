@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UWP_Timer.Repositories.Rest;
+using UWP_Timer.Utils;
 using Windows.System.UserProfile;
 
 namespace UWP_Timer.Repositories
@@ -52,28 +53,13 @@ namespace UWP_Timer.Repositories
             }
             client.BaseUri = ApiEndpoint;
             client.AddQuery("appid", AppId).AddQuery("timestamp", timestamp)
-                .AddQuery("sign", EncryptWithMD5(AppId + timestamp + Secret)).AddHeaders(headers);
+                .AddQuery("sign", Str.MD5Encode(AppId + timestamp + Secret)).AddHeaders(headers);
             return client;
         }
 
         public T Response<T>(object data)
         {
             return (T)data;
-        }
-
-        public static string EncryptWithMD5(string source)
-        {
-            var sor = Encoding.UTF8.GetBytes(source);
-            var md5 = MD5.Create();
-            var result = md5.ComputeHash(sor);
-            md5.Dispose();
-            var strbul = new StringBuilder(40);
-            for (int i = 0; i < result.Length; i++)
-            {
-                strbul.Append(result[i].ToString("x2"));//加密结果"x2"结果为32位,"x3"结果为48位,"x4"结果为64位
-
-            }
-            return strbul.ToString();
         }
     }
 }

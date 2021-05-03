@@ -43,6 +43,14 @@
       <uap:ApplicationContentUriRules>
         <uap:Rule Type="include" Match="https://*.zodream.cn" WindowsRuntimeAccess="none"/>
       </uap:ApplicationContentUriRules>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="zodream">
+            <uap:Logo>Assets\logo.png</uap:Logo>
+            <uap:DisplayName>zodrem timer</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 

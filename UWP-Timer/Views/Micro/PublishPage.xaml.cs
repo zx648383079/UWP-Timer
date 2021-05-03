@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -90,6 +91,27 @@ namespace UWP_Timer.Views.Micro
                 return;
             }
             PublishBtn.IsEnabled = false;
+            _ = CreateAsync(new MicroForm()
+            {
+                Conent = ViewModel.Content,
+                OpenType = OpenCb.SelectedIndex,
+                File = ViewModel.FileItems
+            });
+        }
+
+        private async Task CreateAsync(MicroForm form)
+        {
+            var data = await App.Repository.Micro.CreateAsync(form);
+            if (data == null)
+            {
+                return;
+            }
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            await dispatcherQueue.EnqueueAsync(() =>
+            {
+                Toast.Tip("发布成功");
+                Frame.GoBack();
+            });
         }
     }
 }

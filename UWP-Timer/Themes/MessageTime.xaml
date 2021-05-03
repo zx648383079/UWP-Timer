@@ -4,6 +4,7 @@
     xmlns:local2="using:UWP_Timer.Controls">
 
     <Style TargetType="local2:MessageTime">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local2:MessageTime">
@@ -11,7 +12,10 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{TemplateBinding Text}" FontFamily="{TemplateBinding FontFamily}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{TemplateBinding Text}" FontFamily="{TemplateBinding FontFamily}" 
+                                   Padding="0,10"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

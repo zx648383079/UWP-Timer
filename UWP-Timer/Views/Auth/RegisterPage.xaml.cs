@@ -17,20 +17,31 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
-namespace UWP_Timer.Views.Member
+namespace UWP_Timer.Views.Auth
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class FindPage : Page
+    public sealed partial class RegisterPage : Page
     {
-        public FindPage()
+        public RegisterPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("logo");
+            if (imageAnimation != null)
+            {
+                imageAnimation.TryStart(LogoImg);
+            }
         }
 
         private void backBtn_Tapped(object sender, TappedRoutedEventArgs e)
@@ -38,29 +49,24 @@ namespace UWP_Timer.Views.Member
             Frame.GoBack();
         }
 
-        private void sendBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        private void regBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var isSend = findBox.Visibility == Visibility.Collapsed;
             var form = new RegisterForm()
             {
+                Name = nameTb.Text.Trim(),
                 Email = emailTb.Text,
-                Code = codeTb.Text,
                 Password = pwdTb.Password,
-                RePassword = rePwdTb.Password
+                RePassword = rePwdTb.Password,
+                Agree = agreeTb.IsChecked == true
             };
+            if (!form.Agree)
+            {
+                _ = new MessageDialog(Constants.GetString("login_agreement_error")).ShowAsync();
+                return;
+            }
             if (!form.VerifyEmail())
             {
                 _ = new MessageDialog(Constants.GetString("login_email_error")).ShowAsync();
-                return;
-            }
-            if (isSend)
-            {
-                _ = SendEmail(form.Email);
-                return;
-            }
-            if (form.Code.Length < 4)
-            {
-                _ = new MessageDialog(Constants.GetString("login_code_error")).ShowAsync();
                 return;
             }
             if (!form.VerifyPassword())
@@ -73,14 +79,15 @@ namespace UWP_Timer.Views.Member
                 _ = new MessageDialog(Constants.GetString("login_re_pwd_error")).ShowAsync();
                 return;
             }
-            _ = ResetPassword(form);
+            _ = Register(form);
         }
 
-        private async Task ResetPassword(RegisterForm form)
+        private async Task Register(RegisterForm form)
         {
+            regBtn.IsTapEnabled = false;
             App.ViewModel.IsLoading = true;
             var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.User.ResetAsync(form, async res =>
+            var data = await App.Repository.User.RegisterAsync(form, async res =>
             {
                 await dispatcherQueue.EnqueueAsync(() =>
                 {
@@ -91,42 +98,27 @@ namespace UWP_Timer.Views.Member
             });
             await dispatcherQueue.EnqueueAsync(() =>
             {
+                regBtn.IsTapEnabled = true;
                 App.ViewModel.IsLoading = false;
                 if (data == null)
                 {
                     return;
                 }
-                _ = new MessageDialog(Constants.GetString("login_reset_success_tip")).ShowAsync();
-                Frame.GoBack();
+                App.Login(data);
+                _ = new MessageDialog(Constants.GetString("login_reg_success_tip")).ShowAsync();
+                Frame.Navigate(typeof(HomePage));
             });
             
         }
 
-        private async Task SendEmail(string email)
+        private void pwdTb_GotFocus(object sender, RoutedEventArgs e)
         {
-            App.ViewModel.IsLoading = true;
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.User.SendFindEmailAsync(email, async res =>
-            {
-                await dispatcherQueue.EnqueueAsync(() =>
-                {
-                    App.ViewModel.IsLoading = false;
-                    _ = new MessageDialog(res.Message).ShowAsync();
-                });
+            LogoImg.Status = Controls.LogoStatus.INIT;
+        }
 
-            });
-
-            await dispatcherQueue.EnqueueAsync(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                if (data == null || !data.Data)
-                {
-                    return;
-                }
-                _ = new MessageDialog(Constants.GetString("login_send_success_tip")).ShowAsync();
-                findBox.Visibility = Visibility.Visible;
-                sendBtn.Content = Constants.GetString("login_reset_label");
-            });
+        private void pwdTb_LostFocus(object sender, RoutedEventArgs e)
+        {
+            LogoImg.Status = Controls.LogoStatus.NONE;
         }
     }
 }

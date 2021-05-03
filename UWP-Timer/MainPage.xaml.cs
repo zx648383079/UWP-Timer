@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
+using UWP_Timer.Utils;
 using UWP_Timer.ViewModels;
 using UWP_Timer.Views;
 using Windows.Foundation;
@@ -53,7 +54,7 @@ namespace UWP_Timer
             var label = args.InvokedItemContainer.Name;
             var pageType =
                 args.IsSettingsInvoked ? typeof(SettingPage) :
-                label == "scanMenu" ? (App.IsLogin() ? typeof(ScanPage) : typeof(Views.Member.LoginPage)) :
+                label == "scanMenu" ? (App.IsLogin() ? typeof(ScanPage) : typeof(Views.Auth.LoginPage)) :
                 label == "reviewMenu" ? typeof(Views.Review.IndexPage) :
                 label == "recordMenu" ? typeof(Views.Review.RecordPage) :
                 label == "shareMenu" ? typeof(Views.Share.IndexPage) :
@@ -85,6 +86,11 @@ namespace UWP_Timer
             {
                 AppFrame.GoBack();
             }
+        }
+
+        internal void NavigateWithDeeplink(Uri uri)
+        {
+            Deeplink.OpenLink(AppFrame, uri);
         }
 
         private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)

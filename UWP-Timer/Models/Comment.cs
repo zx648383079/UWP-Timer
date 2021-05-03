@@ -26,6 +26,9 @@ namespace UWP_Timer.Models
 
         [JsonProperty("created_at")]
         public string CreatedAt { get; set; }
+
+        [JsonProperty("replies")]
+        public IList<CommentBase> Children { get; set; }
     }
 
     public class TaskComment

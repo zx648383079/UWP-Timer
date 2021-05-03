@@ -29,6 +29,18 @@ namespace UWP_Timer.Models
         public UserItem User { get; set; }
 
         public int Status { get; set; }
+
+        internal MessageBase ToMessage()
+        {
+            return new MessageBase()
+            {
+                Id = Id,
+                User = User,
+                Content = $"{Title}\n{Content}",
+                ExtraRule = ExtraRule,
+                CreatedAt = CreatedAt
+            };
+        }
     }
     /// <summary>
     /// 通知接收状态

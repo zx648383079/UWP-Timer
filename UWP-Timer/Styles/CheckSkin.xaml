@@ -5,7 +5,7 @@
     <Style x:Key="UnCheckButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>
-        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderBrush" Value="#777"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="CornerRadius" Value="10"/>
         <Setter Property="Width" Value="130"/>
@@ -47,7 +47,7 @@
     <Style x:Key="CheckButton" TargetType="Button">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BackgroundSizing" Value="OuterBorderEdge"/>
-        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderBrush" Value="#777"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="IsTapEnabled" Value="False"/>
         <Setter Property="CornerRadius" Value="10"/>

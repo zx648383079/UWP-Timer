@@ -16,8 +16,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <PersonPicture x:Name="AvatarImage" VerticalAlignment="Top" Width="60"/>
-        <Border Grid.Column="1" CornerRadius="0,10,10,10" Background="White" >
-            <StackPanel x:Name="ContentBox"></StackPanel>
+        <Border Grid.Column="1" CornerRadius="0,10,10,10" Background="White">
+            <StackPanel x:Name="ContentBox" Margin="10"></StackPanel>
         </Border>
     </Grid>
 </UserControl>

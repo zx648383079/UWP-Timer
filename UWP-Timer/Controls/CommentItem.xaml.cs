@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Converters;
 using UWP_Timer.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,8 +26,6 @@ namespace UWP_Timer.Controls
             this.InitializeComponent();
         }
 
-
-
         public CommentBase Source
         {
             get { return (CommentBase)GetValue(SourceProperty); }
@@ -42,12 +41,63 @@ namespace UWP_Timer.Controls
             (d as CommentItem).RefreshView();
         }
 
+
+
+        public bool IsOpen
+        {
+            get { return (bool)GetValue(IsOpenProperty); }
+            set { SetValue(IsOpenProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsOpen.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsOpenProperty =
+            DependencyProperty.Register("IsOpen", typeof(bool), typeof(CommentItem), new PropertyMetadata(true, OnOpenChange));
+
+        private static void OnOpenChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as CommentItem).RefreshChildrenView();
+        }
+
+        private void RefreshChildrenView()
+        {
+            if (IsOpen)
+            {
+                ChildrenBox.Visibility = Visibility.Visible;
+                ExpandBtn.Text = "收起";
+            } else
+            {
+                ChildrenBox.Visibility = Visibility.Collapsed;
+                ExpandBtn.Text = "展开";
+            }
+        }
+
         private void RefreshView()
         {
             if (Source == null)
             {
                 return;
             }
+            TimeTb.Text = ConverterHelper.Ago(Source.CreatedAt);
+            if (Source.User != null)
+            {
+                AvatarImg.ProfilePicture = ConverterHelper.ToImg(Source.User.Avatar);
+                UserTb.Text = AvatarImg.DisplayName = Source.User.Name;
+            }
+            ContentTb.Content = Source.Content;
+            ContentTb.Rules = Source.ExtraRule;
+            if (Source.Children != null && Source.Children.Count > 0)
+            {
+                ExpandBtn.Visibility = Visibility.Visible;
+                ChildrenBox.Items = Source.Children;
+            } else
+            {
+                ExpandBtn.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ExpandBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            IsOpen = !IsOpen;
         }
     }
 }

@@ -20,12 +20,13 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="44"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="44"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="150"/>
         </Grid.RowDefinitions>
@@ -37,10 +38,18 @@
                 </Flyout>
             </Button.Flyout>
         </Button>
-        <Button x:Name="PublishBtn" Click="PublishBtn_Click" Grid.Column="2" Content="发布"  Style="{StaticResource EmptyBtn}"/>
+        <ComboBox x:Name="OpenCb" Grid.Column="2" SelectedIndex="0" 
+                  BorderThickness="0"
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ComboBoxItem Content="公开"/>
+            <ComboBoxItem Content="吐槽"/>
+            <ComboBoxItem Content="私人"/>
+        </ComboBox>
+        <Button x:Name="PublishBtn" Click="PublishBtn_Click" Grid.Column="3" Content="发布" 
+                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
         <TextBox x:Name="ContentTb" Text="{x:Bind ViewModel.Content,Mode=TwoWay}" 
-            Grid.Row="1" Grid.ColumnSpan="3" TextWrapping="Wrap" AcceptsReturn="True"/>
-        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+            Grid.Row="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <Grid Grid.Row="2" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition/>

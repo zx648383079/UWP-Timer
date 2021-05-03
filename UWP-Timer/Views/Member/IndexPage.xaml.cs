@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -65,12 +66,18 @@ namespace UWP_Timer.Views.Member
 
         private void Border_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(App.IsLogin() ? typeof(ProfilePage) : typeof(LoginPage));
+            TapProfile();
         }
 
         private void nameTb_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(App.IsLogin() ? typeof(ProfilePage) : typeof(LoginPage));
+            TapProfile();
+        }
+
+        private void TapProfile()
+        {
+            ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", avatarImg);
+            Frame.Navigate(App.IsLogin() ? typeof(ProfilePage) : typeof(Auth.LoginPage));
         }
     }
 }

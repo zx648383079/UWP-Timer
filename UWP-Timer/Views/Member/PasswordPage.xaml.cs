@@ -8,6 +8,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
+using UWP_Timer.Views.Auth;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;

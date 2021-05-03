@@ -86,6 +86,38 @@ namespace UWP_Timer
             }
         }
 
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (Repository == null)
+            {
+                UseRest();
+                _ = RefreshTokenAsync();
+            }
+            var rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+            {
+                // 创建要充当导航上下文的框架，并导航到第一页
+                rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                // 将框架放在当前窗口中
+                Window.Current.Content = rootFrame;
+            }
+            if (rootFrame.Content == null)
+            {
+                // 当导航堆栈尚未还原时，导航到第一页，
+                // 并通过将所需信息作为导航参数传入来配置
+                // 参数
+                rootFrame.Navigate(typeof(MainPage));
+            }
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                var data = args as ProtocolActivatedEventArgs;
+                var mainPage = rootFrame.Content as MainPage;
+                mainPage.NavigateWithDeeplink(data.Uri);
+            }
+            Window.Current.Activate();
+        }
+
         /// <summary>
         /// 导航到特定页失败时调用
         /// </summary>

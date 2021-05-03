@@ -1,8 +1,8 @@
 ﻿<Page
-    x:Class="UWP_Timer.Views.Micro.IndexPage"
+    x:Class="UWP_Timer.Views.Auth.QrPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_Timer.Views.Micro"
+    xmlns:local="using:UWP_Timer.Views.Auth"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:UWP_Timer.Controls"
@@ -12,7 +12,8 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///Styles/MicroSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/LoginSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -31,40 +32,45 @@
                 </VisualState>
                 <VisualState x:Name="LargeStatus">
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="700"/>
+                        <AdaptiveTrigger MinWindowWidth="400"/>
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainView.HorizontalAlignment" Value="Stretch"/>
-                        <Setter Target="MainView.Width" Value="700"/>
+                        <Setter Target="MainView.Width" Value="400"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="MainView">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
+        <Grid x:Name="MainView" Padding="10 0 10 0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
-            <ListBox x:Name="statusBar" SelectionChanged="statusBar_SelectionChanged" SelectedIndex="0" Style="{StaticResource tabBox}"
-                 ItemsSource="{x:Bind ViewModel.StatusItems}">
-            </ListBox>
-            <AppBarButton x:Name="NewBtn" Grid.Column="1" Icon="Add" Label="发布" Click="NewBtn_Click"/>
-            <ListView Grid.Row="1" Grid.ColumnSpan="2" 
-                  ItemContainerStyle="{StaticResource CustomListItem}"
-                  ItemsSource="{x:Bind ViewModel.Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,10">
-                            <controls:MicroViewer Source="{Binding}"
-                                              CommentTapped="MicroViewer_CommentTapped"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            <controls:Logo
+                Grid.Row="1"
+                x:Name="LogoImg"
+                Width="80"
+                Height="80"/>
+
+            <Grid Grid.Row="2" Width="200">
+                <Image x:Name="QrImage"/>
+                <Grid x:Name="QrBtn" Background="{StaticResource SystemControlBaseHighAcrylicElementMediumBrush}" Tapped="QrBtn_Tapped">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <FontIcon x:Name="IconTb" FontSize="40"/>
+                    <TextBlock x:Name="TipTb" Grid.Row="1" HorizontalAlignment="Center"/>
+                </Grid>
+            </Grid>
+
+            <Button x:Name="BackBtn"
+                Grid.Row="3"
+                Content="返回登录" 
+                Style="{StaticResource SubmitBtn}" Click="BackBtn_Click"/>
         </Grid>
     </Grid>
 </Page>

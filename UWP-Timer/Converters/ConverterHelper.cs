@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UWP_Timer.Utils;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -83,12 +84,29 @@ namespace UWP_Timer.Converters
             if (string.IsNullOrEmpty(imageUrl))
             {
                 imageUrl = "Assets/Square44x44Logo.scale-200.png";
+            } else if (value.IndexOf("base64,") > 0)
+            {
+                return Base64ToImg(value);
             }
             if (!imageUrl.StartsWith("http") && !imageUrl.StartsWith("ms-appx:"))
             {
                 imageUrl = string.Concat("ms-appx:///", imageUrl);
             }
             return new BitmapImage(new Uri(imageUrl, UriKind.Absolute));
+        }
+
+        public static BitmapImage Base64ToImg(string value)
+        {
+            var str = value.Substring(value.IndexOf(',') + 1);
+            var bytes = Convert.FromBase64String(str);
+            var stream = new InMemoryRandomAccessStream();
+            var writer = new DataWriter(stream);
+            writer.WriteBytes(bytes);
+            _ = writer.StoreAsync();
+            stream.Seek(0);
+            var bmp = new BitmapImage();
+            bmp.SetSource(stream);
+            return bmp;
         }
 
         public static string Icon(string name)
@@ -126,6 +144,10 @@ namespace UWP_Timer.Converters
 
         public static string Ago(object value)
         {
+            if (value == null)
+            {
+                return "--";
+            }
             var str = value.ToString();
             if (string.IsNullOrWhiteSpace(str))
             {

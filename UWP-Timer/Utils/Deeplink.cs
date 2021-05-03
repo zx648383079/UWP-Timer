@@ -21,6 +21,11 @@ namespace UWP_Timer.Utils
             {
                 return;
             }
+            OpenLink(frame, uri);
+        }
+
+        public static void OpenLink(Frame frame, Uri uri)
+        {
             if (uri.Scheme == "http" || uri.Scheme == "https")
             {
                 // 链接
@@ -43,6 +48,11 @@ namespace UWP_Timer.Utils
             if (uri.Host == "task")
             {
                 frame.Navigate(typeof(Views.HomePage));
+                return;
+            }
+            if (uri.Host == "micro")
+            {
+                frame.Navigate(typeof(Views.Micro.IndexPage));
                 return;
             }
         }

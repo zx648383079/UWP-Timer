@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///Styles/TaskSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -24,14 +25,15 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:PageTip Tip="查看分享"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBox/>
-            <ComboBox SelectedIndex="0">
+        <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBox MinWidth="250"/>
+            <ComboBox SelectedIndex="0" BorderThickness="0">
                 <ComboBoxItem Content="全部"/>
                 <ComboBoxItem Content="进行中"/>
                 <ComboBoxItem Content="已结束"/>
             </ComboBox>
-            <Button Content="搜索"/>
+            <Button Content="搜索" Width="80"/>
+            <Button Content="&#xE117;" Style="{StaticResource IconBtn}" VerticalAlignment="Stretch"/>
         </StackPanel>
         <ListView Grid.Row="2">
             <ListView.ItemTemplate>

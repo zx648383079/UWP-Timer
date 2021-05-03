@@ -15,4 +15,11 @@ namespace UWP_Timer.Models
 
         public int UserId { get; set; }
     }
+
+    public class QrData
+    {
+        public string Token { get; set; }
+
+        public string Qr { get; set; }
+    }
 }

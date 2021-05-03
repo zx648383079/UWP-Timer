@@ -12,7 +12,7 @@ namespace UWP_Timer.ViewModels
     {
         public MicroViewModel()
         {
-            search = new SearchForm()
+            search = new MicroQueries()
             {
                 Page = 0,
                 Status = 1
@@ -36,7 +36,7 @@ namespace UWP_Timer.ViewModels
             StatusItems.Add(new TabItem(4, "话题"));
         }
 
-        private SearchForm search;
+        private MicroQueries search;
 
 
         private ObservableCollection<TabItem> statusItems = new ObservableCollection<TabItem>();

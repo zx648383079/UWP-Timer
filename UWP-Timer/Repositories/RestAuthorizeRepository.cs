@@ -52,7 +52,21 @@ namespace UWP_Timer.Repositories
             {
                 data.Add("reject", "true");
             }
-            return await http.PostAsync<LoginQr>("auth/qr/authorize", data);
+            return await http.PostAsync<LoginQr>("auth/qr/authorize", data, action);
+        }
+
+        public async Task<QrData> QrRefreshAsync(Action<HttpException> action = null)
+        {
+            return await http.GetAsync<QrData>("auth/qr/refresh", action);
+        }
+
+        public async Task<User> QrCheckAsync(string token, Action<HttpException> action = null)
+        {
+            var data = new Dictionary<string, string>
+            {
+                { "token", token }
+            };
+            return await http.PostAsync<User>("auth/qr/check", data, action);
         }
     }
 }

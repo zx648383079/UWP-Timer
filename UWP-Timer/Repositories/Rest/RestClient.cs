@@ -98,7 +98,7 @@ namespace UWP_Timer.Repositories.Rest
             if (parameters == null) return this;
             foreach (var parameter in parameters)
             {
-                this.Contents[parameter.Key] = parameter.Value;
+                Contents[parameter.Key] = parameter.Value;
             }
             return this;
         }

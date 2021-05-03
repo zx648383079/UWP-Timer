@@ -44,7 +44,8 @@
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
                         <FontIcon Glyph="&#xEC92;" />
-                        <TextBlock x:Uid="checked_in_label" Text="已签到" Foreground="White"  Grid.Column="1"/>
+                        <TextBlock x:Uid="checked_in_label" Text="已签到" 
+                                   Grid.Column="1"/>
                     </Grid>
                 </Button.Content>
             </Button>

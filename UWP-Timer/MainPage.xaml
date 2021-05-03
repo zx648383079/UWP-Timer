@@ -14,7 +14,7 @@
             ItemInvoked="NavigationView_ItemInvoked"
             BackRequested="NavView_BackRequested"
             IsBackEnabled="{x:Bind AppFrame.CanGoBack, Mode=OneWay}"
-            FontFamily="Segoe MDL2 Assets">
+            FontFamily="{StaticResource SymbolThemeFontFamily}">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="SearchBox" 
                                 x:Uid="search_box"
@@ -30,39 +30,39 @@
                 <NavigationViewItem x:Name="homeMenu" x:Uid="home_menu" Content="首页" Icon="Home"/>
                 <!--<NavigationViewItem x:Name="scanMenu" x:Uid="scan_menu" Content="扫一扫">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE156;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE156;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>-->
                 <NavigationViewItem x:Name="taskMenu" x:Uid="task_menu" Content="计划任务">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE07F;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE07F;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Name="reviewMenu" x:Uid="review_menu" Content="时间簿">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE787;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE787;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Name="recordMenu" x:Uid="record_menu" Content="任务记录">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81C;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE81C;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Name="shareMenu" x:Uid="share_menu" Content="我的分享">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE72D;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72D;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
                 <NavigationViewItem x:Name="microMenu" x:Uid="micro_menu" Content="交流">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE206;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE206;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
                 <NavigationViewItem x:Name="myMenu" x:Uid="my_menu" Content="我的" Tapped="NavigationViewItem_Tapped">
                     <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE77B;"/>
+                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE77B;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
             </NavigationView.PaneFooter>

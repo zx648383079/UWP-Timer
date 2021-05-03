@@ -81,8 +81,8 @@
                         </Flyout>
                     </Button.Flyout>
                 </Button>
-                <controls:MessageContainer Grid.Row="1"/>
-                <controls:MessageInput Grid.Row="2"/>
+                <controls:MessageContainer x:Name="MessageBox" Items="{x:Bind ViewModel.Items, Mode=OneWay}" Grid.Row="1"/>
+                <controls:MessageInput x:Name="InputBox" Grid.Row="2" Visibility="Collapsed"/>
             </Grid>
         </SplitView>
     </Grid>

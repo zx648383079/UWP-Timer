@@ -62,6 +62,9 @@ namespace UWP_Timer.Views.Article
                 {
                     Video.Visibility = Visibility.Visible;
                     Video.Source = data.VideoUrl;
+                } else
+                {
+                    Video.Visibility = Visibility.Collapsed;
                 }
 
             });

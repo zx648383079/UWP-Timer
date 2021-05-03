@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -44,6 +45,11 @@ namespace UWP_Timer.Views.Member
             nameTb.Content = user.Name;
             sexTb.Content = user.SexLabel;
             birthdayTb.Content = user.Birthday;
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            if (imageAnimation != null)
+            {
+                imageAnimation.TryStart(avatarImg);
+            }
         }
 
         private void nameTb_Tapped(object sender, TappedRoutedEventArgs e)

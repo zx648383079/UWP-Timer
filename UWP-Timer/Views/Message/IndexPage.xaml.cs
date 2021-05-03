@@ -31,29 +31,50 @@ namespace UWP_Timer.Views.Message
 
         public BulletinViewModel ViewModel = new BulletinViewModel();
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (!App.IsLogin())
+            {
+                return;
+            }
+            MessageBox.Sender = App.ViewModel.User.Id;
+        }
+
         private void commentBtn_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LoadType(8);
+            InputBox.Visibility = Visibility.Collapsed;
         }
 
         private void atBtn_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LoadType(7);
+            InputBox.Visibility = Visibility.Collapsed;
         }
 
         private void agreeBtn_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LoadType(6);
+            InputBox.Visibility = Visibility.Collapsed;
         }
 
         private void systemBtn_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.LoadUser(0);
+            InputBox.Visibility = Visibility.Collapsed;
         }
 
         private void userList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ViewModel.LoadUser(((sender as ListView).SelectedItem as UserItem).Id);
+            var user = ((sender as ListView).SelectedItem as UserItem).Id;
+            ViewModel.LoadUser(user);
+            if (user < 1)
+            {
+                InputBox.Visibility = Visibility.Collapsed;
+                return;
+            }
+            InputBox.Visibility = Visibility.Visible;
         }
     }
 }

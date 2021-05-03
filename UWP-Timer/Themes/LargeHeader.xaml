@@ -5,7 +5,7 @@
     xmlns:converter="using:UWP_Timer.Converters"
     xmlns:local2="using:UWP_Timer.Controls">
     <Style TargetType="local2:LargeHeader">
-        <Setter Property="FontFamily" Value="Microsoft YaHei"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="Background" Value="{StaticResource SystemControlBaseHighAcrylicElementBrush}"/>
         <!--<Setter Property="Foreground" Value="White"/>-->
         <Setter Property="Template">
@@ -69,7 +69,7 @@
                                                     OffsetY="3"
                                                   Color="{TemplateBinding Background}">
                             <Border x:Name="ActionContent" CornerRadius="20" Background="{TemplateBinding Background}" Width="40">
-                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE001;" Foreground="{TemplateBinding Foreground}"/>
+                                <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE001;" Foreground="{TemplateBinding Foreground}"/>
                             </Border>
                         </controls:DropShadowPanel>
                         

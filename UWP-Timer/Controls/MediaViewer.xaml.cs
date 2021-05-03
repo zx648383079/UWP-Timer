@@ -45,6 +45,10 @@ namespace UWP_Timer.Controls
         private void RefreshView()
         {
             MediaBox.Children.Clear();
+            if (Items == null)
+            {
+                return;
+            }
             var items = Items.ToList();
             if (items.Count < 1) {
                 return;
