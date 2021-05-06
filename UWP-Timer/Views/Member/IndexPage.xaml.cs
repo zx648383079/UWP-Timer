@@ -33,7 +33,7 @@ namespace UWP_Timer.Views.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin())
+            if (!App.IsLogin)
             {
                 nameTb.Text = Constants.GetString("member_no_login_tip");
                 avatarImg.Source = Converters.ConverterHelper.ToImg(string.Empty);
@@ -45,7 +45,7 @@ namespace UWP_Timer.Views.Member
             bulletinBtn.Visibility = 
                 checkBtn.Visibility = 
                 scanBtn.Visibility = 
-                App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
+                App.IsLogin? Visibility.Visible : Visibility.Collapsed;
             
         }
 
@@ -77,7 +77,7 @@ namespace UWP_Timer.Views.Member
         private void TapProfile()
         {
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", avatarImg);
-            Frame.Navigate(App.IsLogin() ? typeof(ProfilePage) : typeof(Auth.LoginPage));
+            Frame.Navigate(App.IsLogin? typeof(ProfilePage) : typeof(Auth.LoginPage));
         }
     }
 }

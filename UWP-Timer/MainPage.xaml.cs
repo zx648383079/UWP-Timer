@@ -10,6 +10,7 @@ using UWP_Timer.ViewModels;
 using UWP_Timer.Views;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -54,7 +55,7 @@ namespace UWP_Timer
             var label = args.InvokedItemContainer.Name;
             var pageType =
                 args.IsSettingsInvoked ? typeof(SettingPage) :
-                label == "scanMenu" ? (App.IsLogin() ? typeof(ScanPage) : typeof(Views.Auth.LoginPage)) :
+                label == "scanMenu" ? (App.IsLogin? typeof(ScanPage) : typeof(Views.Auth.LoginPage)) :
                 label == "reviewMenu" ? typeof(Views.Review.IndexPage) :
                 label == "recordMenu" ? typeof(Views.Review.RecordPage) :
                 label == "shareMenu" ? typeof(Views.Share.IndexPage) :
@@ -134,6 +135,11 @@ namespace UWP_Timer
         private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             AppFrame.Navigate(typeof(Views.Member.IndexPage));
+        }
+
+        internal void NavigateWithFile(IReadOnlyList<IStorageItem> files)
+        {
+            _ = Share.DecodeAsync(AppFrame, files[0] as IStorageFile);
         }
     }
 }

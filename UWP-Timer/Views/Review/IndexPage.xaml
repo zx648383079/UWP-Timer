@@ -5,6 +5,7 @@
     xmlns:local="using:UWP_Timer.Views.Review"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -22,12 +23,14 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DatePicker x:Name="dayPicker" SelectedDateChanged="dayPicker_SelectedDateChanged"/>
+        <controls:PageTip Tip="类别" Grid.ColumnSpan="2"/>
+        <DatePicker x:Name="dayPicker" Grid.Row="1" SelectedDateChanged="dayPicker_SelectedDateChanged"/>
 
-        <ListView Grid.Row="1" Grid.ColumnSpan="2"
+        <ListView Grid.Row="2" Grid.ColumnSpan="2"
                   Style="{StaticResource CustomListView}"
                   ItemsSource="{x:Bind ViewModel.Items}"
                  ItemContainerStyle="{StaticResource CustomListItem}">

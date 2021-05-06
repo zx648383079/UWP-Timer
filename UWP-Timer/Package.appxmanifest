@@ -50,6 +50,16 @@
             <uap:DisplayName>zodrem timer</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="zodream">
+            <uap:SupportedFileTypes>
+              <uap:FileType ContentType="zodream/file">.zodream</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DisplayName>zodream</uap:DisplayName>
+            <uap:Logo>Assets\logo.png</uap:Logo>
+            <uap:EditFlags OpenIsSafe="true"/>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>

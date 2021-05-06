@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Models;
+using UWP_Timer.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -25,6 +27,45 @@ namespace UWP_Timer.Views.Share
         public IndexPage()
         {
             this.InitializeComponent();
+        }
+
+        public TaskShareViewModel ViewModel = new TaskShareViewModel();
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+        }
+
+        private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var box = sender as Pivot;
+            if (box.SelectedIndex > 0)
+            {
+                ViewModel.LoadMy();
+            } else
+            {
+                ViewModel.Load();
+            }
+        }
+
+        private void shareList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem as TaskShare;
+            if (item == null)
+            {
+                return;
+            }
+            Frame.Navigate(typeof(DetailPage), item.Id);
+        }
+
+        private void myList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem as TaskShare;
+            if (item == null)
+            {
+                return;
+            }
+            Frame.Navigate(typeof(DetailPage), item.Id);
         }
     }
 }

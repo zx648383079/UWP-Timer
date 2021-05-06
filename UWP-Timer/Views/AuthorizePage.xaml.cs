@@ -37,7 +37,7 @@ namespace UWP_Timer.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin())
+            if (!App.IsLogin)
             {
                 Frame.Navigate(typeof(Auth.LoginPage));
                 return;

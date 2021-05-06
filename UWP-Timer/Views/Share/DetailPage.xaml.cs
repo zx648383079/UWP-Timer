@@ -26,5 +26,15 @@ namespace UWP_Timer.Views.Share
         {
             this.InitializeComponent();
         }
+
+        private void openBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SplitView.IsPaneOpen = true;
+        }
+
+        private void ClosePanelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SplitView.IsPaneOpen = false;
+        }
     }
 }

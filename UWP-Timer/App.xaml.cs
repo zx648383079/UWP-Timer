@@ -51,7 +51,7 @@ namespace UWP_Timer
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             UseRest();
-            _ = RefreshTokenAsync();
+            _ = ViewModel.RefreshTokenAsync();
             var rootFrame = Window.Current.Content as Frame;
 
             // 不要在窗口已包含内容时重复应用程序初始化，
@@ -91,7 +91,7 @@ namespace UWP_Timer
             if (Repository == null)
             {
                 UseRest();
-                _ = RefreshTokenAsync();
+                _ = ViewModel.RefreshTokenAsync();
             }
             var rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
@@ -115,6 +115,34 @@ namespace UWP_Timer
                 var mainPage = rootFrame.Content as MainPage;
                 mainPage.NavigateWithDeeplink(data.Uri);
             }
+            Window.Current.Activate();
+        }
+
+        protected override void OnFileActivated(FileActivatedEventArgs args)
+        {
+            if (Repository == null)
+            {
+                UseRest();
+                _ = ViewModel.RefreshTokenAsync();
+            }
+            var rootFrame = Window.Current.Content as Frame;
+            if (rootFrame == null)
+            {
+                // 创建要充当导航上下文的框架，并导航到第一页
+                rootFrame = new Frame();
+                rootFrame.NavigationFailed += OnNavigationFailed;
+                // 将框架放在当前窗口中
+                Window.Current.Content = rootFrame;
+            }
+            if (rootFrame.Content == null)
+            {
+                // 当导航堆栈尚未还原时，导航到第一页，
+                // 并通过将所需信息作为导航参数传入来配置
+                // 参数
+                rootFrame.Navigate(typeof(MainPage));
+            }
+            var mainPage = rootFrame.Content as MainPage;
+            mainPage.NavigateWithFile(args.Files);
             Window.Current.Activate();
         }
 
@@ -142,50 +170,21 @@ namespace UWP_Timer
             deferral.Complete();
         }
 
-        private async Task RefreshTokenAsync()
-        {
-            if (string.IsNullOrEmpty(Constants.Token))
-            {
-                var token = AppData.GetValue<string>(Constants.TOKEN_KEY);
-                if (string.IsNullOrWhiteSpace(token))
-                {
-                    return;
-                }
-                Constants.Token = token;
-            }
-            ViewModel.LoadUser();
-            var user = await Repository.User.GetProfileAsync();
-            if (user == null)
-            {
-                Logout();
-                return;
-            }
-            ViewModel.User = user;
-        }
-
-        public static void UseRest() =>
+        private static void UseRest() =>
             Repository = new RestRepository();
 
 
 
-        public static bool IsLogin()
-        {
-            return !string.IsNullOrEmpty(Constants.Token);
-        }
+        public static bool IsLogin => ViewModel.IsLogin;
 
         public static void Login(User user)
         {
-            Constants.Token = user.Token;
-            ViewModel.User = user;
-            AppData.SetValue(Constants.TOKEN_KEY, user.Token);
+            ViewModel.Login(user);
         }
 
         public static void Logout()
         {
-            Constants.Token = string.Empty;
-            ViewModel.User = null;
-            AppData.Remove(Constants.TOKEN_KEY);
-            AppData.Remove(Constants.USER_KEY);
+            ViewModel.Logout();
         }
     }
 }

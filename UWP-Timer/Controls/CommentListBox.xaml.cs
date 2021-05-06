@@ -27,7 +27,7 @@ namespace UWP_Timer.Controls
             this.InitializeComponent();
         }
 
-
+        public event TypedEventHandler<CommentItem, ActionArgs<CommentBase>> ActionTapped;
 
         public IEnumerable<CommentBase> Items
         {
@@ -54,11 +54,18 @@ namespace UWP_Timer.Controls
             BindListener();
             foreach (var item in Items)
             {
-                MainView.Children.Add(new CommentItem()
+                var control = new CommentItem()
                 {
-                    Source = item
-                });
+                    Source = item,
+                };
+                control.ActionTapped += Control_ActionTapped;
+                MainView.Children.Add(control);
             }
+        }
+
+        private void Control_ActionTapped(CommentItem sender, ActionArgs<CommentBase> args)
+        {
+            ActionTapped?.Invoke(sender, args);
         }
 
         private void BindListener()

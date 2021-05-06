@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using UWP_Timer.Repositories.Rest;
 using UWP_Timer.Utils;
 using Windows.System.UserProfile;
@@ -60,6 +56,16 @@ namespace UWP_Timer.Repositories
         public T Response<T>(object data)
         {
             return (T)data;
+        }
+
+        public T Response<T>(string content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HttpException ResponseFailure(HttpException ex)
+        {
+            return ex;
         }
     }
 }

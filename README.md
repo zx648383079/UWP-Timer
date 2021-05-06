@@ -26,8 +26,22 @@ public const string AppId = "<APP ID>"; // api 验证用的 appid
 public const string Secret = "<APP SECRET>"; // api 验证用的 app secret
 ```
 
-## 下一版本
+## 功能
 
-增加 记账功能
+番茄时间
 
-调整 任务记录显示
+任务分享、及评论
+
+文章博客
+
+微型博客
+
+消息
+
+扫码
+
+签到
+
+接受分享
+
+支持协议打开

@@ -35,8 +35,8 @@ namespace UWP_Timer.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
-            if (App.IsLogin())
+            addBtn.Visibility = App.IsLogin? Visibility.Visible : Visibility.Collapsed;
+            if (App.IsLogin)
             {
                 ViewModel.Load();
             }

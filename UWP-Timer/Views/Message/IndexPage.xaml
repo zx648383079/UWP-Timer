@@ -70,15 +70,13 @@
                         Content="&#xE10C;"
                         Style="{StaticResource IconBtn}">
                     <Button.Flyout>
-                        <Flyout>
-                            <StackPanel>
-                                <Button Content="置顶聊天" Style="{StaticResource LineBtn}"/>
-                                <Button Content="开启免打扰" Style="{StaticResource LineBtn}"/>
-                                <Button Content="加入黑名单" Style="{StaticResource LineBtn}"/>
-                                <Button Content="举报该用户" Style="{StaticResource LineBtn}"/>
-                                <Button Content="不接受推送" Style="{StaticResource LineBtn}"/>
-                            </StackPanel>
-                        </Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="置顶聊天"/>
+                            <MenuFlyoutItem Text="开启免打扰"/>
+                            <MenuFlyoutItem Text="加入黑名单"/>
+                            <MenuFlyoutItem Text="举报该用户"/>
+                            <MenuFlyoutItem Text="不接受推送"/>
+                        </MenuFlyout>
                     </Button.Flyout>
                 </Button>
                 <controls:MessageContainer x:Name="MessageBox" Items="{x:Bind ViewModel.Items, Mode=OneWay}" Grid.Row="1"/>

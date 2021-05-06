@@ -39,7 +39,7 @@ namespace UWP_Timer.Views.Tasks
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
+            addBtn.Visibility = App.IsLogin? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)

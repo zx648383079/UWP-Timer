@@ -5,11 +5,12 @@
     xmlns:local="using:UWP_Timer.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="root"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Background="{Binding ElementName=root,Path=Background}">
         <StackPanel x:Name="MainView">
             
         </StackPanel>

@@ -26,10 +26,7 @@ namespace UWP_Timer.Controls
             this.InitializeComponent();
         }
 
-        public event TypedEventHandler<MicroViewer, object> CommentTapped;
-        public event TypedEventHandler<MicroViewer, object> LikeTapped;
-        public event TypedEventHandler<MicroViewer, object> CollectTapped;
-        public event TypedEventHandler<MicroViewer, object> ForwardTapped;
+        public event TypedEventHandler<MicroViewer, ActionArgs<MicroItem>> ActionTapped;
         public event TypedEventHandler<MicroViewer, RuleTappedArgs> RuleTapped;
 
         public MicroItem Source
@@ -64,29 +61,29 @@ namespace UWP_Timer.Controls
             MicroFile.Items = Source.Attachment;
         }
 
-        private void CollectBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ForwardBtn_Tapped(object sender, RoutedEventArgs e)
         {
-            CollectTapped?.Invoke(this, null);
+            ActionTapped?.Invoke(this, new ActionArgs<MicroItem>(ActionType.FORWARD, Source));
         }
 
-        private void ForwardBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        private void CommentBtn_Tapped(object sender, RoutedEventArgs e)
         {
-            ForwardTapped?.Invoke(this, null);
+            ActionTapped?.Invoke(this, new ActionArgs<MicroItem>(ActionType.COMMENT, Source));
         }
 
-        private void CommentBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        private void LikeBtn_Tapped(object sender, RoutedEventArgs e)
         {
-            CommentTapped?.Invoke(this, null);
-        }
-
-        private void LikeBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            LikeTapped?.Invoke(this, null);
+            ActionTapped?.Invoke(this, new ActionArgs<MicroItem>(ActionType.Like, Source));
         }
 
         private void MicroContent_RuleTapped(RuleBlock sender, RuleTappedArgs args)
         {
             RuleTapped?.Invoke(this, args);
+        }
+
+        private void CollectBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ActionTapped?.Invoke(this, new ActionArgs<MicroItem>(ActionType.COLLECT, Source));
         }
     }
 }

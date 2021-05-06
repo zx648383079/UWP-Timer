@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -34,13 +35,25 @@ namespace UWP_Timer.Views.Micro
         }
 
         public MicroDetailViewModel ViewModel = new MicroDetailViewModel();
+        private int ParentId = 0;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var id = (int)e.Parameter;
-            _ = LoadDetailAsync(id);
-            if (App.IsLogin())
+            var item = (MicroItem)e.Parameter;
+            if (string.IsNullOrEmpty(item.Content))
+            {
+                _ = LoadDetailAsync(item.Id);
+            } else
+            {
+                SetMicro(item);
+            }
+            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("micro");
+            if (imageAnimation != null)
+            {
+                imageAnimation.TryStart(MicroView);
+            }
+            if (App.IsLogin)
             {
                 ViewModel.User = App.ViewModel.User;
             }
@@ -48,6 +61,7 @@ namespace UWP_Timer.Views.Micro
 
         private async Task LoadDetailAsync(int id)
         {
+            App.ViewModel.IsLoading = true;
             var data = await App.Repository.Micro.GetAsync(id);
             var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             await dispatcherQueue.EnqueueAsync(() =>
@@ -58,9 +72,14 @@ namespace UWP_Timer.Views.Micro
                     Frame.GoBack();
                     return;
                 }
-                ViewModel.Data = data;
-                _ = ViewModel.TapRefreshAsync();
+                SetMicro(data);
             });
+        }
+
+        private void SetMicro(MicroItem data)
+        {
+            ViewModel.Data = data;
+            _ = ViewModel.TapRefreshAsync();
         }
 
         private void EmojiBox_SelectionChanged(Controls.EmojiBox sender, Controls.EmojiTappedArgs args)
@@ -80,6 +99,7 @@ namespace UWP_Timer.Views.Micro
             _ = CreateAsync(new MicroCommentForm()
             {
                 MicroId = ViewModel.Data.Id,
+                ParentId = ParentId,
                 Conent = CommentTb.Text,
                 IsForward = (bool)ForwardCheck.IsChecked
             });
@@ -97,7 +117,20 @@ namespace UWP_Timer.Views.Micro
             {
                 Toast.Tip("评论成功");
                 CommentTb.Text = "";
+                ParentId = 0;
             });
+        }
+
+        private void CommentListBox_ActionTapped(Controls.CommentItem sender, ActionArgs<CommentBase> args)
+        {
+            if (args.Action == ActionType.REPLY)
+            {
+                ParentId = args.Data.Id;
+                if (args.Data.User != null)
+                {
+                    CommentTb.Text += $"@{args.Data.User.Name} ";
+                }
+            }
         }
     }
 }

@@ -6,10 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UWP_Timer.Utils;
-using Windows.Data.Json;
-using Windows.Foundation;
-using Windows.Storage;
-using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 
@@ -343,6 +339,5 @@ namespace UWP_Timer.Repositories.Rest
         {
             return new HttpStringContent(content, Windows.Storage.Streams.UnicodeEncoding.Utf8, "application/json");
         }
-
     }
 }

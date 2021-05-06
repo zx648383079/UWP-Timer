@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
+using UWP_Timer.Repositories.Rest;
 using UWP_Timer.Utils;
 
 namespace UWP_Timer.ViewModels
@@ -93,6 +94,62 @@ namespace UWP_Timer.ViewModels
                 }
 
             });
+        }
+
+        public bool IsLogin
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Constants.Token);
+            }
+        }
+
+        public void Login(User user)
+        {
+            Constants.Token = user.Token;
+            User = user;
+            AppData.SetValue(Constants.TOKEN_KEY, user.Token);
+        }
+
+        public void Logout()
+        {
+            Constants.Token = string.Empty;
+            User = null;
+            AppData.Remove(Constants.TOKEN_KEY);
+            AppData.Remove(Constants.USER_KEY);
+        }
+
+        public async Task RefreshTokenAsync()
+        {
+            if (string.IsNullOrEmpty(Constants.Token))
+            {
+                var token = AppData.GetValue<string>(Constants.TOKEN_KEY);
+                if (string.IsNullOrWhiteSpace(token))
+                {
+                    return;
+                }
+                Constants.Token = token;
+            }
+            LoadUser();
+            var user = await App.Repository.User.GetProfileAsync();
+            if (user == null)
+            {
+                Logout();
+                return;
+            }
+            User = user;
+        }
+
+        public void DefaultFailureRequest(HttpException ex)
+        {
+            if (ex.Code == 401)
+            {
+                Logout();
+            }
+            if (!string.IsNullOrWhiteSpace(ex.Message))
+            {
+                Toast.Tip(ex.Message);
+            }
         }
     }
 }

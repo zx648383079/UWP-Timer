@@ -6,32 +6,44 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="White"
+    Padding="0,10,0,0"
+    x:Name="root"
     mc:Ignorable="d"
     d:DesignHeight="200"
     d:DesignWidth="400">
+    
+    <UserControl.Resources>
+        <Style x:Name="EmptyBtn" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="BorderBrush" Value="#ccc"/>
+        </Style>
+    </UserControl.Resources>
 
-    <Grid>
+    <Grid Background="{Binding ElementName=root, Path=Background}" 
+          Padding="{Binding ElementName=root, Path=Padding}" 
+          Margin="{Binding ElementName=root, Path=Margin}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="80"/>
+            <ColumnDefinition Width="80"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <PersonPicture x:Name="MicroAvatar"
-                        Grid.RowSpan="3" 
-                       Margin="0,20"
                         Width="60" 
+                        Grid.RowSpan="3"
                         HorizontalAlignment="Center" 
                         VerticalAlignment="Top"/>
-        <TextBlock x:Name="MicroName" Grid.Column="1" FontSize="20" VerticalAlignment="Bottom" FontWeight="Bold"/>
-        <TextBlock x:Name="MicroAgo" Grid.Column="1" Grid.Row="1" FontSize="14" Foreground="#ccc"/>
+        <TextBlock x:Name="MicroName" Text="name" Grid.Column="1" FontSize="20" VerticalAlignment="Bottom" FontWeight="Bold"/>
+        <TextBlock x:Name="MicroAgo" Text="time" Grid.Column="1" Grid.Row="1" FontSize="14" Foreground="#ccc"/>
         <StackPanel Grid.Column="1" Grid.Row="2" Padding="0,10,0,10">
             <local:RuleBlock x:Name="MicroContent" RuleTapped="MicroContent_RuleTapped"/>
-            <local:MediaViewer x:Name="MicroFile" Margin="0,20,0,0"/>
+            <local:MediaViewer x:Name="MicroFile"/>
         </StackPanel>
         <Border Grid.Row="3" Grid.ColumnSpan="2" BorderBrush="#ccc" BorderThickness="0,1,0,1">
             <Grid>
@@ -41,18 +53,18 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Border x:Name="CollectBtn" BorderBrush="#ccc" BorderThickness="0,0,1,0" Tapped="CollectBtn_Tapped">
-                    <local:IconTag Icon="&#xE006;" Label="0" HorizontalAlignment="Center"/>
-                </Border>
-                <Border x:Name="ForwardBtn" BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="1" Tapped="ForwardBtn_Tapped">
-                    <local:IconTag Icon="&#xE72D;" Label="0" HorizontalAlignment="Center"/>
-                </Border>
-                <Border x:Name="CommentBtn" BorderBrush="#ccc" BorderThickness="0,0,1,0" Grid.Column="2" Tapped="CommentBtn_Tapped">
-                    <local:IconTag Icon="&#xE134;" Label="0" HorizontalAlignment="Center"/>
-                </Border>
-                <Border x:Name="LikeBtn" Grid.Column="3" Tapped="LikeBtn_Tapped">
-                    <local:IconTag Icon="&#xE19F;" Label="0" HorizontalAlignment="Center"/>
-                </Border>
+                <Button x:Name="CollectBtn" Style="{StaticResource EmptyBtn}" BorderThickness="0,0,1,0" Click="CollectBtn_Click">
+                    <local:IconTag Icon="&#xE006;" Label="0"/>
+                </Button>
+                <Button x:Name="ForwardBtn" Style="{StaticResource EmptyBtn}" BorderThickness="0,0,1,0" Grid.Column="1" Click="ForwardBtn_Tapped">
+                    <local:IconTag Icon="&#xE72D;" Label="0"/>
+                </Button>
+                <Button x:Name="CommentBtn" Style="{StaticResource EmptyBtn}" BorderThickness="0,0,1,0" Grid.Column="2" Click="CommentBtn_Tapped">
+                    <local:IconTag Icon="&#xE134;" Label="0"/>
+                </Button>
+                <Button x:Name="LikeBtn" Style="{StaticResource EmptyBtn}" BorderThickness="0"  Grid.Column="3" Click="LikeBtn_Tapped">
+                    <local:IconTag Icon="&#xE19F;" Label="0"/>
+                </Button>
             </Grid>
         </Border>
     </Grid>

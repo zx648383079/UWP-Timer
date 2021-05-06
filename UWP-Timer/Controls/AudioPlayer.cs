@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -62,22 +63,56 @@ namespace UWP_Timer.Controls
 
         private void VolumnSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (!IsPlaying)
+            {
+                return;
+            }
+            Player().Volume = (sender as Slider).Value / 100;
         }
 
         private void ProgressSlider_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (!IsPlaying)
+            {
+                return;
+            }
+            Player().PlaybackSession.Position = Player().PlaybackSession.NaturalDuration * ((sender as Slider).Value / 100);
         }
 
         private void VolumnBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (!IsPlaying)
+            {
+                return;
+            }
+            var player = Player();
+            if (player.Volume <= 0)
+            {
+                player.Volume = lastVolumn / 100;
+            }
+            else {
+                lastVolumn = player.Volume * 100;
+                player.Volume = 0;
+            }
         }
 
         private void ActionBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            
+            var btn = sender as FontIcon;
+            if (IsPlaying)
+            {
+                Player().Pause();
+                IsPlaying = false;
+                btn.Glyph = "\xF5B0;";
+                return;
+            }
+            if (playerInstance == null)
+            {
+                Player().Source = MediaSource.CreateFromUri(Source is Uri ? Source as Uri : new Uri(Source.ToString()));
+            }
+            Player().Play();
+            IsPlaying = true;
+            btn.Glyph = "\xE15B;";
         }
 
         private MediaPlayer playerInstance;
@@ -92,18 +127,60 @@ namespace UWP_Timer.Controls
             playerInstance = new MediaPlayer();
             playerInstance.VolumeChanged += PlayerInstance_VolumeChanged;
             playerInstance.MediaEnded += PlayerInstance_MediaEnded;
+            playerInstance.PlaybackSession.PositionChanged += PlaybackSession_PositionChanged;
             return playerInstance;
         }
 
+        private void PlaybackSession_PositionChanged(MediaPlaybackSession sender, object args)
+        {
+            var progressSlider = GetTemplateChild("ProgressSlider") as Slider;
+            if (progressSlider == null)
+            {
+                return;
+            }
+            var scale = sender.Position / sender.NaturalDuration * 100;
+            progressSlider.Value = scale;
+            var label = GetTemplateChild("ProgressLabel") as TextBlock;
+            if (label == null)
+            {
+                return;
+            }
+            label.Text = sender.Position.ToString("mm:ss") + "/" + sender.NaturalDuration.ToString("mm:ss");
+        }
 
         private void PlayerInstance_MediaEnded(MediaPlayer sender, object args)
         {
-            throw new NotImplementedException();
+            IsPlaying = false;
         }
 
         private void PlayerInstance_VolumeChanged(MediaPlayer sender, object args)
         {
-            throw new NotImplementedException();
+            var volumnSlider = GetTemplateChild("VolumnSlider") as Slider;
+            if (volumnSlider == null)
+            {
+                return;
+            }
+            volumnSlider.Value = sender.Volume * 100;
+            var volumnBtn = GetTemplateChild("VolumnButton") as FontIcon;
+            if (volumnBtn == null)
+            {
+                return;
+            }
+            if (sender.Volume <= 0)
+            {
+                volumnBtn.Glyph = "\xE992;";
+            }
+            else if (sender.Volume < 40)
+            {
+                volumnBtn.Glyph = "\xE993;";
+            }
+            else if (sender.Volume < 60)
+            {
+                volumnBtn.Glyph = "\xE994;";
+            } else
+            {
+                volumnBtn.Glyph = "\xE995;";
+            }
         }
 
         public object Source
@@ -123,7 +200,10 @@ namespace UWP_Timer.Controls
 
         private void RefreshPlayerView()
         {
-            throw new NotImplementedException();
+            if (IsPlaying)
+            {
+
+            }
         }
     }
 

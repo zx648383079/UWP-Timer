@@ -58,10 +58,8 @@
                   ItemsSource="{x:Bind ViewModel.Items}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,10">
-                            <controls:MicroViewer Source="{Binding}"
-                                              CommentTapped="MicroViewer_CommentTapped"/>
-                        </Grid>
+                        <controls:MicroViewer Margin="0,0,0,10" Source="{Binding}"
+                                              ActionTapped="MicroViewer_ActionTapped"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

@@ -35,7 +35,7 @@ namespace UWP_Timer.Views.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin() || App.ViewModel.User == null)
+            if (!App.IsLogin|| App.ViewModel.User == null)
             {
                 Frame.GoBack();
                 return;

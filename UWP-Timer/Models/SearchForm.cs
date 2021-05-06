@@ -83,6 +83,12 @@ namespace UWP_Timer.Models
         public uint PerPage { get; set; } = 20;
     }
 
+    public class TaskQueries : Queries
+    {
+        public int User { get; set; }
+        public int Status { get; set; }
+    }
+
     public class MicroQueries: Queries
     {
         public int User { get; set; }

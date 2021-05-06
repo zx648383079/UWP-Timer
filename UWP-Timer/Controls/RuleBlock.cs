@@ -88,11 +88,12 @@ namespace UWP_Timer.Controls
                     var run = new Run
                     {
                         Text = item.Content,
+                        FontSize = FontSize,
                     };
                     paragraph.Inlines.Add(run);
                     continue;
                 }
-                if (item.Type == BlockType.LINK)
+                if (item.Type == BlockType.LINK || item.Type == BlockType.USER)
                 {
                     var link = new Hyperlink()
                     {
@@ -104,7 +105,8 @@ namespace UWP_Timer.Controls
                     };
                     link.Inlines.Add(new Run()
                     {
-                        Text = item.Content
+                        Text = item.Content,
+                        FontSize = FontSize,
                     });
                     paragraph.Inlines.Add(link);
                     continue;
@@ -122,6 +124,7 @@ namespace UWP_Timer.Controls
                 }
             }
             viewer.TextWrapping = TextWrapping.Wrap;
+            viewer.LineHeight = 2 * FontSize;
             viewer.Blocks.Add(paragraph);
         }
     }

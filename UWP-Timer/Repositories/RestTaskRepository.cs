@@ -151,5 +151,11 @@ namespace UWP_Timer.Repositories
             {
                 {"id", id.ToString() }
             }, action);
+
+        public async Task<Page<TaskShare>> GetShareListAsync(Queries form, Action<HttpException> action = null)
+            => await http.GetAsync<Page<TaskShare>>("task/share", form, action);
+
+        public async Task<Page<TaskShare>> GetShareMyAsync(Queries form, Action<HttpException> action = null)
+          => await http.GetAsync<Page<TaskShare>>("task/share/my", form, action);
     }
 }

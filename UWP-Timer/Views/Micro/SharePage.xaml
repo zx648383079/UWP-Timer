@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="UWP_Timer.Views.Micro.SharePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Timer.Views.Micro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/MicroSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="44"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:LargeHeader Title="有什么新鲜事想分享给大家?"/>
+        <TextBox Grid.Row="1"/>
+        <TextBox Grid.Row="2"/>
+        <TextBox Grid.Row="3" IsReadOnly="True"/>
+        <TextBox Grid.Row="4"/>
+        <ListBox Grid.Row="5" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="150" Height="120">
+                        <Image Source="{Binding Thumb}"/>
+                        <Button x:Name="RemoveFileBtn" Style="{StaticResource IconBtn}"
+                                    CornerRadius="15"
+                                    Width="30" Height="30"
+                                    Background="Gray"
+                                    Content="&#xE106;"
+                                    FontSize="10"
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Top" Click="RemoveFileBtn_Click"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

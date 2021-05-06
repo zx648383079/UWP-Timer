@@ -20,7 +20,7 @@ namespace UWP_Timer.ViewModels
             {
                 return Task.Run(async () =>
                 {
-                    if (!App.IsLogin())
+                    if (!App.IsLogin)
                     {
                         return Tuple.Create<IList<TaskLog>, bool>(null, false);
                     }

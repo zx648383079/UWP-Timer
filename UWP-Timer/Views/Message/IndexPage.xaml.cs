@@ -34,7 +34,7 @@ namespace UWP_Timer.Views.Message
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin())
+            if (!App.IsLogin)
             {
                 return;
             }

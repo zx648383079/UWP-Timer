@@ -11,26 +11,32 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Text="{x:Bind ViewModel.Article.Title, Mode=OneWay}" 
-                   TextWrapping="Wrap"
-                   Padding="10"
-                   FontWeight="Bold"
-                   FontSize="20"
-                   VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <StackPanel x:Name="tagsBar" Orientation="Horizontal" Grid.Row="1" Height="40">
-            <controls:IconTag Icon="&#xE104;" Label="{x:Bind ViewModel.Article.User.Name, Mode=OneWay}"/>
-            <controls:IconTag Icon="&#xE1CB;" Label="{x:Bind ViewModel.Article.Term.Name, Mode=OneWay}"/>
-            <controls:IconTag Icon="&#xE134;" Label="{x:Bind ViewModel.Article.CommentCount, Mode=OneWay}"/>
-            <controls:IconTag Icon="&#xE19F;" Label="{x:Bind ViewModel.Article.Recommend, Mode=OneWay}"/>
-            <controls:IconTag Icon="&#xE7B3;" Label="{x:Bind ViewModel.Article.ClickCount, Mode=OneWay}"/>
-        </StackPanel>
-        <controls:VideoPlayer x:Name="Video" Grid.Row="2"/>
-        <WebView x:Name="detailWebView" Grid.Row="3" NavigationStarting="detailWebView_NavigationStarting"/>
+        <Pivot Title="{x:Bind ViewModel.Article.Title, Mode=OneWay}">
+            <PivotItem Header="文章详情">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="tagsBar" Orientation="Horizontal" Grid.Row="1" Height="40">
+                        <controls:IconTag Icon="&#xE104;" Label="{x:Bind ViewModel.Article.User.Name, Mode=OneWay}"/>
+                        <controls:IconTag Icon="&#xE1CB;" Label="{x:Bind ViewModel.Article.Term.Name, Mode=OneWay}"/>
+                        <controls:IconTag Icon="&#xE134;" Label="{x:Bind ViewModel.Article.CommentCount, Mode=OneWay}"/>
+                        <controls:IconTag Icon="&#xE19F;" Label="{x:Bind ViewModel.Article.Recommend, Mode=OneWay}"/>
+                        <controls:IconTag Icon="&#xE7B3;" Label="{x:Bind ViewModel.Article.ClickCount, Mode=OneWay}"/>
+                    </StackPanel>
+                    <controls:VideoPlayer x:Name="Video" Grid.Row="2"/>
+                    <WebView x:Name="detailWebView" Grid.Row="3" NavigationStarting="detailWebView_NavigationStarting"/>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="评论">
+                
+            </PivotItem>
+            <PivotItem Header="相关推荐">
+
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

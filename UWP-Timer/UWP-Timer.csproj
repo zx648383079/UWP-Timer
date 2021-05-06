@@ -193,6 +193,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Action.cs" />
     <Compile Include="Models\Article.cs" />
     <Compile Include="Models\Batch.cs" />
     <Compile Include="Models\Bulletin.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Utils\LinkRule.cs" />
     <Compile Include="Utils\Log.cs" />
     <Compile Include="Repositories\Rest\RestClient.cs" />
+    <Compile Include="Utils\Share.cs" />
     <Compile Include="Utils\Str.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="Utils\Toast.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="ViewModels\MicroViewModel.cs" />
     <Compile Include="ViewModels\TaskReviewViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
+    <Compile Include="ViewModels\TaskShareViewModel.cs" />
     <Compile Include="ViewModels\TodayViewModel.cs" />
     <Compile Include="Views\Account\BindPage.xaml.cs">
       <DependentUpon>BindPage.xaml</DependentUpon>
@@ -335,6 +338,9 @@
     </Compile>
     <Compile Include="Views\Micro\PublishPage.xaml.cs">
       <DependentUpon>PublishPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Micro\SharePage.xaml.cs">
+      <DependentUpon>SharePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Review\IndexPage.xaml.cs">
       <DependentUpon>IndexPage.xaml</DependentUpon>
@@ -625,6 +631,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Micro\PublishPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Micro\SharePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -34,7 +35,7 @@ namespace UWP_Timer.Views.Micro
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NewBtn.Visibility = App.IsLogin() ? Visibility.Visible : Visibility.Collapsed;
+            NewBtn.Visibility = App.IsLogin? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void statusBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -48,9 +49,13 @@ namespace UWP_Timer.Views.Micro
             Frame.Navigate(typeof(PublishPage));
         }
 
-        private void MicroViewer_CommentTapped(Controls.MicroViewer sender, object args)
+        private void MicroViewer_ActionTapped(Controls.MicroViewer sender, ActionArgs<MicroItem> args)
         {
-            Frame.Navigate(typeof(DetailPage), sender.Source.Id);
+            if (args.Action == ActionType.COMMENT)
+            {
+                ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("micro", sender);
+                Frame.Navigate(typeof(DetailPage), sender.Source);
+            }
         }
     }
 }

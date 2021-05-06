@@ -5,10 +5,38 @@
     xmlns:local="using:UWP_Timer.Views.Review"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:UWP_Timer.Controls"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Unloaded="Page_Unloaded">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:PageTip Tip="文字"/>
+        <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBox x:Name="KeywordsTb" Width="150"/>
+            <ComboBox SelectedIndex="0" BorderThickness="0">
+                <ComboBoxItem Content="全部"/>
+                <ComboBoxItem Content="进行中"/>
+                <ComboBoxItem Content="已结束"/>
+            </ComboBox>
+            <Button Content="搜索" Width="80"/>
+            <Button Content="&#xE117;" Style="{StaticResource IconBtn}" VerticalAlignment="Stretch"/>
+        </StackPanel>
+        <canvas:CanvasControl Grid.Row="2" x:Name="Canvas"/>
     </Grid>
 </Page>

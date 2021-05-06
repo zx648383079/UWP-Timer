@@ -26,6 +26,8 @@ namespace UWP_Timer.Controls
             this.InitializeComponent();
         }
 
+        public event TypedEventHandler<CommentItem, ActionArgs<CommentBase>> ActionTapped;
+
         public CommentBase Source
         {
             get { return (CommentBase)GetValue(SourceProperty); }
@@ -98,6 +100,21 @@ namespace UWP_Timer.Controls
         private void ExpandBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
             IsOpen = !IsOpen;
+        }
+
+        private void ReplyBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionTapped?.Invoke(this, new ActionArgs<CommentBase>(ActionType.REPLY, Source));
+        }
+
+        private void AgreeBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionTapped?.Invoke(this, new ActionArgs<CommentBase>(ActionType.AGREE, Source));
+        }
+
+        private void ReportBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionTapped?.Invoke(this, new ActionArgs<CommentBase>(ActionType.REPORT, Source));
         }
     }
 }

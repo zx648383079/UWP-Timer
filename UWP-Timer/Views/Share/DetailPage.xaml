@@ -18,7 +18,7 @@
     </Page.Resources>
 
     <Grid>
-        <SplitView>
+        <SplitView x:Name="SplitView" PanePlacement="Right">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -27,11 +27,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Button x:Name="ClosePanelBtn"
+                            Content="&#xE711;"
+                            Click="ClosePanelBtn_Click"
                             Style="{StaticResource IconBtn}"
-                            HorizontalAlignment="Right">
-                        <FontIcon Glyph="&#xE711;" FontWeight="Bold" />
-                    </Button>
-                    <TextBox Grid.Row="1"/>
+                            HorizontalAlignment="Right"/>
+                    <TextBox Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
                     <ListView Grid.Row="2">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -55,17 +55,20 @@
             </SplitView.Pane>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="40"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <Button Style="{StaticResource IconBtn}" 
+                <Button 
+                        x:Name="openBtn"
+                    Click="openBtn_Click"
+                        Style="{StaticResource IconBtn}" 
                         Content="&#xE115;"
                         HorizontalAlignment="Right"/>
                 <TextBlock Text="00:00" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60"/>
-                <TextBlock Text="说明" Grid.Row="2"/>
+                <TextBlock Text="说明" Grid.Row="2" TextAlignment="Center"/>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
