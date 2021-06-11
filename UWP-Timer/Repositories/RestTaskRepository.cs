@@ -157,5 +157,17 @@ namespace UWP_Timer.Repositories
 
         public async Task<Page<TaskShare>> GetShareMyAsync(Queries form, Action<HttpException> action = null)
           => await http.GetAsync<Page<TaskShare>>("task/share/my", form, action);
+
+        public async Task<TaskShare> ShareCreateAsync(TaskShareForm item, Action<HttpException> action = null)
+            => await http.PostAsync<TaskShareForm, TaskShare>("task/share/create", item, action);
+
+        /// <summary>
+        /// 快速添加任务
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        public async Task<TaskDay> FastCreateAsync(TaskForm item, Action<HttpException> action = null)
+            => await http.PostAsync<TaskForm, TaskDay>("task/home/fast_create", item, action);
     }
 }

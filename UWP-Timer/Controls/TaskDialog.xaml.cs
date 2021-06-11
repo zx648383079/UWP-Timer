@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,15 +22,46 @@ namespace UWP_Timer.Controls
     {
         public TaskDialog()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
+
+        private int id = 0;
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            if (!CheckForm())
+            {
+                args.Cancel = true;
+            }
         }
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+
+        internal bool CheckForm()
+        {
+            return !string.IsNullOrWhiteSpace(nameTb.Text);
+        }
+
+        public TaskItem Source
+        {
+            set
+            {
+                id = value.Id;
+                nameTb.Text = value.Name;
+                descTb.Text = value.Description;
+            }
+        }
+
+        internal TaskForm FormData()
+        {
+            return new TaskForm()
+            {
+                Id = id,
+                Name = nameTb.Text.Trim(),
+                Description = descTb.Text.Trim()
+            };
         }
     }
 }

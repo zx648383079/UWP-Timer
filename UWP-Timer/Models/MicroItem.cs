@@ -57,7 +57,7 @@ namespace UWP_Timer.Models
     public class MicroForm
     {
         [JsonProperty(PropertyName = "content")]
-        public string Conent { get; set; }
+        public string Content { get; set; }
         [JsonProperty(PropertyName = "open_type")]
         public int OpenType { get; set; }
         [JsonProperty(PropertyName = "file")]
@@ -74,5 +74,26 @@ namespace UWP_Timer.Models
         public int ParentId { get; set; }
         [JsonProperty(PropertyName = "is_forward")]
         public bool IsForward { get; set; }
+    }
+
+    public class MicroShareForm
+    {
+        [JsonProperty(PropertyName = "shareappid")]
+        public string Shareappid { get; set; }
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
+        [JsonProperty(PropertyName = "summary")]
+        public string Summary { get; set; }
+        [JsonProperty(PropertyName = "url")]
+        public string Url { get; set; }
+        [JsonProperty(PropertyName = "pics")]
+        public IList<MicroAttachment> Pics { get; set; }
+        [JsonProperty(PropertyName = "sharesource")]
+        public string Sharesource { get; set; }
+        [JsonProperty(PropertyName = "content")]
+        public string Content { get; set; }
+
+        [JsonProperty(PropertyName = "open_type")]
+        public int OpenType { get; set; }
     }
 }

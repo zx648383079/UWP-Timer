@@ -47,5 +47,15 @@ namespace UWP_Timer.Repositories
         {
             return await http.PostAsync<CommentBase>("micro/comment/save", form);
         }
+
+        public async Task<ResponseDataOne<bool>> ShareCheckAsync(MicroShareForm form)
+        {
+            return await http.PostAsync<ResponseDataOne<bool>>("micro/share", form);
+        }
+
+        public async Task<MicroItem> ShareSaveAsync(MicroShareForm form)
+        {
+            return await http.PostAsync<MicroItem>("micro/share/save", form);
+        }
     }
 }

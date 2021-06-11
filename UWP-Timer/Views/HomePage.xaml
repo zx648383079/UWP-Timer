@@ -70,7 +70,14 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <controls:PageTip Tip="这是今日任务列表"/>
-                <controls:IconButton x:Name="addBtn" Grid.Row="1" Style="{StaticResource NewButton}" Tapped="NewButton_Tapped"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <controls:IconButton x:Name="addBtn" Style="{StaticResource NewButton}" Tapped="NewButton_Tapped"/>
+                    <controls:IconButton x:Name="fastBtn" Grid.Column="1" Style="{StaticResource NewButton}" Label="快捷创建" Tapped="fastBtn_Tapped"/>
+                </Grid>
                 <ListView x:Name="dayBox"
                     Grid.Row="2"
                     SelectionChanged="dayBox_SelectionChanged"

@@ -47,7 +47,8 @@
                 <Button x:Name="shareBtn" 
                         HorizontalAlignment="Right" 
                         Content="&#xE122;"
-                        Style="{StaticResource IconBtn}"/>
+                        Style="{StaticResource IconBtn}"
+                        Click="shareBtn_Click"/>
                 <TextBox x:Uid="task_name" x:Name="nameTb" Grid.Row="1" PlaceholderText="请输入任务名" Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock x:Uid="task_desc_label" Grid.Row="2" Text="任务说明" Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="task_desc" x:Name="descTb" Grid.Row="3" 

@@ -261,9 +261,11 @@
     <Compile Include="ViewModels\IncrementalLoadingCollection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MicroDetailViewModel.cs" />
+    <Compile Include="ViewModels\MicroShareViewModel.cs" />
     <Compile Include="ViewModels\MicroPublishViewModel.cs" />
     <Compile Include="ViewModels\MicroViewModel.cs" />
     <Compile Include="ViewModels\TaskReviewViewModel.cs" />
+    <Compile Include="ViewModels\TaskShareDetailViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\TaskShareViewModel.cs" />
     <Compile Include="ViewModels\TodayViewModel.cs" />

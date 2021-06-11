@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using Microsoft.Toolkit.Uwp;
+using System;
+using System.Threading.Tasks;
+using UWP_Timer.Controls;
 using UWP_Timer.Models;
-using UWP_Timer.Repositories;
+using UWP_Timer.Utils;
 using UWP_Timer.ViewModels;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
@@ -75,6 +69,37 @@ namespace UWP_Timer.Views
         private void ClosePanelBtn_Click(object sender, RoutedEventArgs e)
         {
             splitView.IsPaneOpen = false;
+        }
+
+        private void fastBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            _ = FastCreateAsync();
+        }
+
+        private async Task FastCreateAsync()
+        {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            var dialog = new TaskDialog();
+            dialog.Title = "快捷创建任务";
+            var result = await dialog.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            if (!dialog.CheckForm())
+            {
+                return;
+            }
+            var data = await App.Repository.Task.FastCreateAsync(dialog.FormData());
+            if (data == null)
+            {
+                return;
+            }
+            await dispatcherQueue.EnqueueAsync(() =>
+            {
+                Toast.Tip("添加成功");
+                ViewModel.Items.Add(data);
+            });
         }
     }
 }

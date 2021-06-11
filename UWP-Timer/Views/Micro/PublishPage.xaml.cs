@@ -93,7 +93,7 @@ namespace UWP_Timer.Views.Micro
             PublishBtn.IsEnabled = false;
             _ = CreateAsync(new MicroForm()
             {
-                Conent = ViewModel.Content,
+                Content = ViewModel.Content,
                 OpenType = OpenCb.SelectedIndex,
                 File = ViewModel.FileItems
             });

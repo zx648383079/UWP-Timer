@@ -49,7 +49,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <controls:PageTip Tip="查看分享"/>
+                    <controls:PageTip Tip="查看我参与的分享"/>
                     <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBox x:Name="KeywordsTb"/>
                         <ComboBox SelectedIndex="0" BorderThickness="0">
@@ -89,7 +89,7 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <controls:PageTip Tip="查看分享"/>
+                    <controls:PageTip Tip="查看我分享的任务"/>
                     <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBox x:Name="Keywords2Tb"/>
                         <ComboBox SelectedIndex="0" BorderThickness="0">

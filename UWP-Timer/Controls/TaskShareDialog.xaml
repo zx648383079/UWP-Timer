@@ -24,20 +24,30 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Text="分享类型" Style="{StaticResource InputLabel}"/>
-        <ComboBox Grid.Row="1" VerticalAlignment="Stretch">
+        <ComboBox x:Name="typeCb" Grid.Row="1" VerticalAlignment="Stretch" SelectionChanged="typeCb_SelectionChanged">
             <ComboBoxItem Content="公开分享"/>
             <ComboBoxItem Content="密码分享"/>
         </ComboBox>
-        <TextBlock Text="分享密码" Grid.Row="2" Style="{StaticResource InputLabel}"/>
-        <TextBox Grid.Row="3" Style="{StaticResource CenterTextBoxStyle}"/>
-        <TextBlock Text="分享链接" Grid.Row="4" Style="{StaticResource InputLabel}"/>
-        <TextBox Grid.Row="5" IsReadOnly="True" Style="{StaticResource CenterTextBoxStyle}"/>
+        <Grid x:Name="pwdBox" Grid.Row="2" Visibility="Collapsed" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="分享密码" Style="{StaticResource InputLabel}"/>
+            <TextBox x:Name="pwdTb" Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
+        </Grid>
+        <Grid x:Name="linkBox" Grid.Row="3" Visibility="Collapsed" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="分享链接" Style="{StaticResource InputLabel}"/>
+            <TextBox Grid.Row="1" IsReadOnly="True" Style="{StaticResource CenterTextBoxStyle}"/>
+        </Grid>
     </Grid>
 </ContentDialog>

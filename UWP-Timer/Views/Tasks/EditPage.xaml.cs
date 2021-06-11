@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UWP_Timer.Controls;
 using UWP_Timer.Models;
 using UWP_Timer.Repositories;
+using UWP_Timer.Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -41,11 +42,13 @@ namespace UWP_Timer.Views.Tasks
             base.OnNavigatedTo(e);
             if (e.Parameter == null)
             {
+                addBtn.Visibility = Visibility.Collapsed;
                 return;
             }
             id = (int)e.Parameter;
             if (id < 1)
             {
+                addBtn.Visibility = Visibility.Collapsed;
                 return;
             }
             _ = LoadTask();
@@ -113,8 +116,57 @@ namespace UWP_Timer.Views.Tasks
 
         private async Task showChildAsync()
         {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var dialog = new TaskDialog();
-            var data = await dialog.ShowAsync();
+            var result = await dialog.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            if (!dialog.CheckForm())
+            {
+                return;
+            }
+            var item = dialog.FormData();
+            item.ParentId = id;
+            var data = await App.Repository.Task.SaveTaskAsync(item);
+            if (data == null)
+            {
+                return;
+            }
+            await dispatcherQueue.EnqueueAsync(() =>
+            {
+                Toast.Tip("添加成功");
+            });
+        }
+
+        private void shareBtn_Click(object sender, RoutedEventArgs e)
+        {
+            _ = showShareAsync();
+        }
+
+        private async Task showShareAsync()
+        {
+            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
+            var dialog = new TaskShareDialog();
+            var result = await dialog.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            var item = dialog.FormData();
+            item.TaskId = id;
+            var data = await App.Repository.Task.ShareCreateAsync(item);
+            if (data == null)
+            {
+                return;
+            }
+            await dispatcherQueue.EnqueueAsync(() =>
+            {
+                Toast.Tip("分享成功成功");
+                // 显示分享链接/二维码
+                _ = dialog.ShowAsync();
+            });
         }
     }
 }

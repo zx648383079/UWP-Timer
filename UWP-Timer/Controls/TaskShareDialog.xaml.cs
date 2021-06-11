@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using UWP_Timer.Models;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -30,6 +31,20 @@ namespace UWP_Timer.Controls
 
         private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+        }
+
+        internal TaskShareForm FormData()
+        {
+            return new TaskShareForm()
+            {
+                ShareType = typeCb.SelectedIndex,
+                ShareRule = pwdTb.Text,
+            };
+        }
+
+        private void typeCb_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            pwdBox.Visibility = typeCb.SelectedIndex < 1 ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }
