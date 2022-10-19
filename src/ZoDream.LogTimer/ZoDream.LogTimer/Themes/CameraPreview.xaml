@@ -1,0 +1,22 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls">
+
+    <Style TargetType="ctl:CameraPreview">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:CameraPreview">
+                    <Grid Background="{TemplateBinding Background}">
+                        <!--<MediaPlayerElement x:Name="MediaPlayerElementControl" HorizontalAlignment="Left">
+                        </MediaPlayerElement>-->
+                        <Button x:Name="FrameSourceGroupButton" Background="{ThemeResource SystemBaseLowColor}"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE89E;" Foreground="{ThemeResource SystemAltHighColor}" />
+                        </Button>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

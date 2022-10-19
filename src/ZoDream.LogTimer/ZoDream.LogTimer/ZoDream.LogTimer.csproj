@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <RootNamespace>ZoDream.LogTimer</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <UseWinUI>true</UseWinUI>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Pages\Account\BindPage.xaml" />
+    <None Remove="Pages\Account\CancelPage.xaml" />
+    <None Remove="Pages\Account\ConnectPage.xaml" />
+    <None Remove="Pages\Account\DriverPage.xaml" />
+    <None Remove="Pages\Article\CategoryPage.xaml" />
+    <None Remove="Pages\Article\DetailPage.xaml" />
+    <None Remove="Pages\Article\ListPage.xaml" />
+    <None Remove="Pages\AuthorizePage.xaml" />
+    <None Remove="Pages\Auth\FindPage.xaml" />
+    <None Remove="Pages\Auth\LoginPage.xaml" />
+    <None Remove="Pages\Auth\QrPage.xaml" />
+    <None Remove="Pages\Auth\RegisterPage.xaml" />
+    <None Remove="Pages\CheckInPage.xaml" />
+    <None Remove="Pages\FeedbackPage.xaml" />
+    <None Remove="Pages\Member\AvatarPage.xaml" />
+    <None Remove="Pages\Member\EditPage.xaml" />
+    <None Remove="Pages\Member\IndexPage.xaml" />
+    <None Remove="Pages\Member\PasswordPage.xaml" />
+    <None Remove="Pages\Member\ProfilePage.xaml" />
+    <None Remove="Pages\Message\IndexPage.xaml" />
+    <None Remove="Pages\Micro\DetailPage.xaml" />
+    <None Remove="Pages\Micro\IndexPage.xaml" />
+    <None Remove="Pages\Micro\PublishPage.xaml" />
+    <None Remove="Pages\Micro\SharePage.xaml" />
+    <None Remove="Pages\Plan\DetailPage.xaml" />
+    <None Remove="Pages\Plan\EditPage.xaml" />
+    <None Remove="Pages\Plan\IndexPage.xaml" />
+    <None Remove="Pages\Plan\RecordPage.xaml" />
+    <None Remove="Pages\Plan\ReviewPage.xaml" />
+    <None Remove="Pages\Plan\ShareListPage.xaml" />
+    <None Remove="Pages\Plan\SharePage.xaml" />
+    <None Remove="Pages\Plan\TodayPage.xaml" />
+    <None Remove="Pages\ScanPage.xaml" />
+    <None Remove="Pages\SettingPage.xaml" />
+    <None Remove="Themes\BaseSkin.xaml" />
+    <None Remove="Themes\BlogSkin.xaml" />
+    <None Remove="Themes\BulletinSkin.xaml" />
+    <None Remove="Themes\Button.xaml" />
+    <None Remove="Themes\CameraPreview.xaml" />
+    <None Remove="Themes\Chart.xaml" />
+    <None Remove="Themes\CheckSkin.xaml" />
+    <None Remove="Themes\Comment.xaml" />
+    <None Remove="Themes\Emoji.xaml" />
+    <None Remove="Themes\InputSkin.xaml" />
+    <None Remove="Themes\LargeHeader.xaml" />
+    <None Remove="Themes\Login.xaml" />
+    <None Remove="Themes\LoginSkin.xaml" />
+    <None Remove="Themes\MainSkin.xaml" />
+    <None Remove="Themes\Media.xaml" />
+    <None Remove="Themes\MemberSkin.xaml" />
+    <None Remove="Themes\Message.xaml" />
+    <None Remove="Themes\Micro.xaml" />
+    <None Remove="Themes\MicroSkin.xaml" />
+    <None Remove="Themes\PageTip.xaml" />
+    <None Remove="Themes\RuleBlock.xaml" />
+    <None Remove="Themes\TaskSkin.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Remove="Themes\Generic.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.4" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.5" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="ZXing.Net" Version="0.16.8" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
+    <Folder Include="Strings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\ZoDream.Shared.Http\ZoDream.Shared.Http.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\AuthorizePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\CheckInPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\FeedbackPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\TodayPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\ScanPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\SettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Account\BindPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Account\CancelPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Account\ConnectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Account\DriverPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Article\CategoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Article\DetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Article\ListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Auth\FindPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Auth\LoginPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Auth\QrPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Auth\RegisterPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Member\AvatarPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Member\EditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Member\PasswordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Member\ProfilePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Member\IndexPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Message\IndexPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Micro\IndexPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Micro\DetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Micro\PublishPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Micro\SharePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\IndexPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\EditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\DetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\ReviewPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\RecordPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\SharePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Pages\Plan\ShareListPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\BlogSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\BulletinSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\CameraPreview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Micro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Chart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\CheckSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\RuleBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\PageTip.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\LargeHeader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Emoji.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Comment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <Page Update="Themes\InputSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\LoginSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\MainSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Message.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Media.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\MemberSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\MicroSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\TaskSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Themes\BaseSkin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+</Project>

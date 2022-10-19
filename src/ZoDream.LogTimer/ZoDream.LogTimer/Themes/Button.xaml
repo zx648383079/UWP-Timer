@@ -1,0 +1,249 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:win2d="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls">
+
+    <Style TargetType="ctl:TimerLogo">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:TimerLogo">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="VisualStateGroup">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="00:00:01"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="CommonState"/>
+                                    <VisualState x:Name="InitState">
+                                        <VisualState.Setters>
+                                            <Setter Target="HourPath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="-90"/>
+                                            <Setter Target="MinutePath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="90"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="HalfState">
+                                        <VisualState.Setters>
+                                            <Setter Target="HourPath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="-90"/>
+                                            <Setter Target="MinutePath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="-90"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="EndState">
+                                        <VisualState.Setters>
+                                            <Setter Target="HourPath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="180"/>
+                                            <Setter Target="MinutePath.(UIElement.RenderTransform).(CompositeTransform.Rotation)" Value="180"/>
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Viewbox Stretch="Fill">
+                                <Grid Width="160" Height="160">
+                                    <Path x:Name="RangePath" Fill="#05a6b1" Data="M5.6,80h12s-0.532-23.625,14-39.6c6.355-6.986,14.319-13.89,22.8-17.6A63.836,63.836,0,0,1,74,18V154.8s15.261,0.834,29.6-3.6c11.635-3.6,21.667-11.475,30.4-19.6C154.67,112.37,154.4,80,154.4,80H142.8s-0.019,24.719-13.2,39.2c-7.048,7.742-16.569,15.154-25.2,18.8A56.552,56.552,0,0,1,86,142.4V5.6A107.9,107.9,0,0,0,68,6.8,76.031,76.031,0,0,0,29.2,25.6,77.222,77.222,0,0,0,10,54.8,75.5,75.5,0,0,0,5.6,80Z"/>
+                                    <Path x:Name="MinutePath" Fill="#b4282d" Stroke="#b4282d" Data="M23.647,80.2l56.088-4.387v8.775Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <CompositeTransform/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <Path x:Name="HourPath" Fill="#666" Stroke="#666" Data="M117.675,80L80.238,85.788V74.213Z" RenderTransformOrigin="0.5,0.5">
+                                        <Path.RenderTransform>
+                                            <CompositeTransform/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Grid>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:IconButton">
+        <!--<Setter Property="Background" Value="{ThemeResource ButtonRevealBackground}" />-->
+        <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
+        <Setter Property="BorderBrush" Value="{ThemeResource ButtonRevealBorderBrush}" />
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="IconSize" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:IconButton">
+                    <Border x:Name="RootGrid"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}"
+                            Margin="{TemplateBinding Margin}"
+                            >
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.(RevealBrush.State)" Value="PointerOver" />
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
+                                        <Setter Target="RootGrid.BorderBrush" Value="Transparent"/>
+                                        <Setter Target="IconTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                        <Setter Target="LabelTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                    </VisualState.Setters>
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.(RevealBrush.State)" Value="Pressed" />
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPressed}" />
+                                        <Setter Target="RootGrid.BorderBrush" Value="{ThemeResource ButtonRevealBackgroundPressed}" />
+                                        <Setter Target="IconTb.Foreground" Value="{ThemeResource ButtonForegroundPressed}" />
+                                        <Setter Target="LabelTb.Foreground" Value="{ThemeResource ButtonForegroundPressed}" />
+                                    </VisualState.Setters>
+
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundDisabled}" />
+                                        <Setter Target="RootGrid.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushDisabled}" />
+                                        <Setter Target="IconTb.Foreground" Value="{ThemeResource ButtonForegroundDisabled}" />
+                                        <Setter Target="LabelTb.Foreground" Value="{ThemeResource ButtonForegroundDisabled}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <FontIcon Glyph="{TemplateBinding Icon}" 
+                                      x:Name="IconTb"
+                                      Foreground="{TemplateBinding Foreground}" FontSize="{TemplateBinding IconSize}"/>
+                            <TextBlock Text="{TemplateBinding Label}" 
+                                       x:Name="LabelTb"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                        Foreground="{TemplateBinding Foreground}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" Grid.Row="1" 
+                                   FontSize="{TemplateBinding FontSize}"/>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:IconLine">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="BorderBrush" Value="#ccc"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:IconLine">
+                    <Border x:Name="RootGrid"
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Height="{TemplateBinding Height}" Padding="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.(RevealBrush.State)" Value="PointerOver" />
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
+                                        <Setter Target="BottomBorder.Fill" Value="Transparent"/>
+                                        <Setter Target="IconTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                        <Setter Target="LabelTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                        <Setter Target="TipTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                        <Setter Target="LinkTb.Foreground" Value="{ThemeResource ButtonForegroundPointerOver}" />
+                                    </VisualState.Setters>
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="60"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <FontIcon x:Name="IconTb" Glyph="{TemplateBinding Icon}" Margin="0,0,10,0" 
+                                      FontSize="{TemplateBinding FontSize}" 
+                                      Visibility="{TemplateBinding IconVisibility}"/>
+                            <TextBlock x:Name="LabelTb" Text="{TemplateBinding Label}" VerticalAlignment="Center" Grid.Column="1" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}"/>
+                            <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" x:Name="TipTb" VerticalAlignment="Center" Grid.Column="2" FontSize="{TemplateBinding FontSize}"/>
+                            <FontIcon x:Name="LinkTb" Glyph="&#xE76C;" FontSize="{TemplateBinding FontSize}" Grid.Column="3"/>
+                            <Rectangle x:Name="BottomBorder" Grid.Row="1" Grid.ColumnSpan="4" Fill="{TemplateBinding BorderBrush}" 
+                                       Visibility="{TemplateBinding BottomBorderVisibility}"
+                                       Height="{TemplateBinding BottomBorderHeight}"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:IconTag">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="Margin" Value="0,0,10,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:IconTag">
+                    <Grid Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <FontIcon Glyph="{TemplateBinding Icon}" FontSize="{TemplateBinding FontSize}" VerticalAlignment="Center"/>
+                        <TextBlock Text="{TemplateBinding Label}" 
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   VerticalAlignment="Center" Grid.Column="1" FontSize="{TemplateBinding FontSize}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:RadialProgressBar">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:RadialProgressBar">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <win2d:CanvasControl x:Name="Canvas"/>
+                            <TextBlock x:Name="ValueTb" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

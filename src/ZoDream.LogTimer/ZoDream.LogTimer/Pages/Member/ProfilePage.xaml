@@ -1,0 +1,43 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Member.ProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Member"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <ScrollViewer  Background="#f4f4f4">
+        <StackPanel Orientation="Vertical">
+            <ctl:IconLine Label="头像" x:Name="avatarTb" Tapped="avatar_Tapped" Height="80">
+                <Image x:Name="avatarImg" Source="/Assets/Square44x44Logo.scale-200.png" Height="80"/>
+            </ctl:IconLine>
+
+            <ctl:IconLine x:Uid="profile_name" Label="昵称" Content="zodream" x:Name="nameTb" Tapped="nameTb_Tapped"/>
+            <ctl:IconLine x:Uid="profile_sex" Label="性别" Content="" x:Name="sexTb" Tapped="nameTb_Tapped"/>
+            <ctl:IconLine x:Uid="profile_birth" Label="生日" Content="2019-09-09" x:Name="birthdayTb" Tapped="nameTb_Tapped" BottomBorderHeight="0"/>
+
+            <ctl:IconLine x:Uid="profile_pwd_btn" x:Name="pwdBtn" Label="修改密码" Margin="0 30 0 0" Tapped="TipMenuItem_Tapped"/>
+            <ctl:IconLine x:Uid="profile_connect_btn" x:Name="connectBtn" Label="账户关联" Tapped="TipMenuItem_Tapped"/>
+            <ctl:IconLine x:Uid="profile_driver_btn" x:Name="driverBtn" Label="登录设备管理" Tapped="TipMenuItem_Tapped"/>
+            <ctl:IconLine x:Uid="profile_cancel_btn" x:Name="cancelBtn" Label="账户注销" Tapped="TipMenuItem_Tapped"  BottomBorderHeight="0"/>
+
+            <Button x:Uid="profile_logout"
+                x:Name="logoutBtn"
+                Tapped="logoutBtn_Tapped"
+                Style="{StaticResource DangerBtn}"
+                Margin="20" Content="退出"
+                Height="40"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

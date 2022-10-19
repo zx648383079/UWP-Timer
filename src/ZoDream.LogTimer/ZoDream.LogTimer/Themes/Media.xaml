@@ -1,0 +1,63 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls">
+
+    <Style TargetType="ctl:AudioPlayer" >
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:AudioPlayer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style TargetType="ctl:VideoPlayer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:VideoPlayer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:ImageViewer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:ImageViewer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ctl:MediaViewer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:MediaViewer">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

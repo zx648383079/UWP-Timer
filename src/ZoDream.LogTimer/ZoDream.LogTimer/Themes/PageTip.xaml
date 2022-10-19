@@ -1,0 +1,68 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls">
+
+    <Style TargetType="ctl:PageTip">
+        <Setter Property="Background" Value="{StaticResource SystemControlBaseHighAcrylicElementMediumBrush}"/>
+        <!--<Setter Property="BorderBrush" Value="#777"/>-->
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:PageTip">
+                    <Border x:Name="MainBox" 
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Margin="{TemplateBinding Margin}"
+                            Padding="{TemplateBinding Padding}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Target="ToggleIcon.Text" Value="-"/>
+                                        <Setter Target="ContentBox.Visibility" Value="Visible"/>
+                                        <Setter Target="MainBox.HorizontalAlignment" Value="Stretch"/>
+                                    </VisualState.Setters>
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="MainBox" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Min">
+                                    <VisualState.Setters>
+                                        <Setter Target="ToggleIcon.Text" Value="+"/>
+                                        <Setter Target="ContentBox.Visibility" Value="Collapsed"/>
+                                        <Setter Target="MainBox.HorizontalAlignment" Value="Left"/>
+                                    </VisualState.Setters>
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="MainBox" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{TemplateBinding Header}" FontFamily="{TemplateBinding FontFamily}" Foreground="#767676" VerticalAlignment="Center" Margin="10 0"/>
+                            <TextBlock x:Name="ToggleIcon" Text="-" 
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                    Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontWeight="Bold"/>
+                            <StackPanel x:Name="ContentBox" Grid.ColumnSpan="2" Grid.Row="1" Orientation="Vertical" Margin="10 0 10 10">
+                                <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

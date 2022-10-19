@@ -1,0 +1,126 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Plan.ShareListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Plan"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/TaskSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Themes/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualState x:Name="MinStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="KeywordsTb.Width" Value="150"/>
+                        <Setter Target="Keywords2Tb.Width" Value="150"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="KeywordsTb.Width" Value="250"/>
+                        <Setter Target="Keywords2Tb.Width" Value="250"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Pivot SelectionChanged="Pivot_SelectionChanged">
+            <PivotItem Header="参与的分享">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ctl:PageTip Tip="查看我参与的分享"/>
+                    <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBox x:Name="KeywordsTb"/>
+                        <ComboBox SelectedIndex="0" BorderThickness="0">
+                            <ComboBoxItem Content="全部"/>
+                            <ComboBoxItem Content="进行中"/>
+                            <ComboBoxItem Content="已结束"/>
+                        </ComboBox>
+                        <Button Content="搜索" Width="80"/>
+                        <Button Content="&#xE117;" Style="{StaticResource IconBtn}" VerticalAlignment="Stretch"/>
+                    </StackPanel>
+                    <ListView x:Name="shareList" Grid.Row="2" 
+                              SelectionChanged="shareList_SelectionChanged"
+                              ItemContainerStyle="{StaticResource CustomListItem}"
+                              ItemsSource="{x:Bind ViewModel.Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border 
+                        BorderBrush="{Binding Task.Status,Converter={StaticResource TaskStatus}}" BorderThickness="2"
+                        Margin="5" Background="White" Padding="10" MinHeight="80">
+                                    <Grid>
+                                        <TextBlock Text="{Binding Task.TimeLength,Converter={StaticResource FormatHour}}" HorizontalAlignment="Right" Foreground="#ccc"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="我的分享">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ctl:PageTip Tip="查看我分享的任务"/>
+                    <StackPanel Padding="30,0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBox x:Name="Keywords2Tb"/>
+                        <ComboBox SelectedIndex="0" BorderThickness="0">
+                            <ComboBoxItem Content="全部"/>
+                            <ComboBoxItem Content="进行中"/>
+                            <ComboBoxItem Content="已结束"/>
+                        </ComboBox>
+                        <Button Content="搜索" Width="80"/>
+                        <Button Content="&#xE117;" Style="{StaticResource IconBtn}" VerticalAlignment="Stretch"/>
+                    </StackPanel>
+                    <ListView x:Name="myList" SelectionChanged="myList_SelectionChanged" Grid.Row="2" 
+                              ItemContainerStyle="{StaticResource CustomListItem}"
+                              ItemsSource="{x:Bind ViewModel.MyItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border 
+                                    BorderBrush="{Binding Task.Status,Converter={StaticResource TaskStatus}}" BorderThickness="2"
+                                    Margin="5" Background="White" Padding="10" MinHeight="80">
+                                    <Grid>
+                                        <TextBlock Text="{Binding Task.TimeLength,Converter={StaticResource FormatHour}}" HorizontalAlignment="Right" Foreground="#ccc"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding Task.Name}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Task.Description}" TextWrapping="Wrap" FontSize="12" Foreground="#999"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

@@ -1,0 +1,41 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Article.DetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Article"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Pivot Title="{x:Bind ViewModel.Article.Title, Mode=OneWay}">
+            <PivotItem Header="文章详情">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="tagsBar" Orientation="Horizontal" Grid.Row="1" Height="40">
+                        <ctl:IconTag Icon="&#xE104;" Label="{x:Bind ViewModel.Article.User.Name, Mode=OneWay}"/>
+                        <ctl:IconTag Icon="&#xE1CB;" Label="{x:Bind ViewModel.Article.Term.Name, Mode=OneWay}"/>
+                        <ctl:IconTag Icon="&#xE134;" Label="{x:Bind ViewModel.Article.CommentCount, Mode=OneWay}"/>
+                        <ctl:IconTag Icon="&#xE19F;" Label="{x:Bind ViewModel.Article.Recommend, Mode=OneWay}"/>
+                        <ctl:IconTag Icon="&#xE7B3;" Label="{x:Bind ViewModel.Article.ClickCount, Mode=OneWay}"/>
+                    </StackPanel>
+                    <ctl:VideoPlayer x:Name="Video" Grid.Row="2"/>
+                    <WebView2 x:Name="detailWebView" Grid.Row="3" NavigationStarting="detailWebView_NavigationStarting"/>
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="评论">
+
+            </PivotItem>
+            <PivotItem Header="相关推荐">
+
+            </PivotItem>
+        </Pivot>
+    </Grid>
+</Page>

@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Message.IndexPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Message"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/BulletinSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Themes/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <SplitView DisplayMode="Inline" IsPaneOpen="True">
+            <SplitView.Pane>
+                <StackPanel Orientation="Vertical">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ctl:IconButton x:Name="commentBtn" Icon="&#xE206;" Label="回复我的" Click="commentBtn_Click"/>
+                        <ctl:IconButton x:Name="atBtn" Grid.Column="1" Icon="&#xE168;" Label="@我" Click="atBtn_Click"/>
+                        <ctl:IconButton x:Name="agreeBtn" Grid.Column="2" Icon="&#xE19F;" Label="收到的赞" Click="agreeBtn_Click"/>
+                        <ctl:IconButton x:Name="systemBtn" Grid.Column="3" Icon="&#xE767;" Label="系统通知" Click="systemBtn_Click"/>
+                    </Grid>
+                    <ListView x:Name="userList"
+                        ItemContainerStyle="{StaticResource UserListItem}"
+                        ItemsSource="{x:Bind ViewModel.UserItems}" SelectionChanged="userList_SelectionChanged">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="80" Padding="10" Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Border Grid.RowSpan="2" CornerRadius="30">
+                                        <Image Source="{Binding Avatar}"/>
+                                    </Border>
+                                    <TextBlock Text="{Binding Name}" Grid.Column="1"/>
+                                    <TextBlock Text="" Grid.Column="1" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </SplitView.Pane>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock HorizontalAlignment="Center"/>
+                <Button HorizontalAlignment="Right" 
+                        Content="&#xE10C;"
+                        Style="{StaticResource IconBtn}">
+                    <Button.Flyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="置顶聊天"/>
+                            <MenuFlyoutItem Text="开启免打扰"/>
+                            <MenuFlyoutItem Text="加入黑名单"/>
+                            <MenuFlyoutItem Text="举报该用户"/>
+                            <MenuFlyoutItem Text="不接受推送"/>
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+                <ctl:MessageContainer x:Name="MessageBox" Items="{x:Bind ViewModel.Items, Mode=OneWay}" Grid.Row="1"/>
+                <ctl:MessageInput x:Name="InputBox" Grid.Row="2" Visibility="Collapsed"/>
+            </Grid>
+        </SplitView>
+    </Grid>
+</Page>

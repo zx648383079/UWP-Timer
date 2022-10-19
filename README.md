@@ -1,6 +1,6 @@
 # UWP-Timer
  
- 一个计时任务管理客户端
+ 一个计时任务管理客户端，调整为基于winui3
 
  [Mini-Timer](https://github.com/zx648383079/Mini-Timer) 的UWP版
 

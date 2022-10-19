@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Article.ListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Article"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="sortBar" SelectedIndex="0" Style="{StaticResource tabBox}"
+                 SelectionChanged="sortBar_SelectionChanged"
+                 ItemsSource="{x:Bind ViewModel.SortItems}">
+        </ListBox>
+        <ListBox x:Name="catBar" SelectedIndex="0" Grid.Row="1"
+                 SelectionChanged="catBar_SelectionChanged"
+                 Style="{StaticResource tabBox}"
+                 ItemsSource="{x:Bind ViewModel.Categories}" Background="#FFF2F2F2">
+        </ListBox>
+
+        <RefreshContainer Grid.Row="2">
+            <ListView
+                x:Name="articleListBox"
+                Style="{StaticResource CustomListView}"
+                SelectionChanged="articleListBox_SelectionChanged"
+                ItemsSource="{x:Bind ViewModel.Items}"
+                ItemContainerStyle="{StaticResource CustomListItem}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,0,0,10" Background="White" Padding="10, 0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="30"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Path=Title}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
+                            <TextBlock Text="{Binding Path=Description}" TextWrapping="WrapWholeWords" FontSize="16" Foreground="#767676" Grid.Row="1"/>
+                            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                <ctl:IconTag Icon="&#xE104;" Label="{Binding User.Name}" FontSize="12"/>
+                                <ctl:IconTag Icon="&#xE1CB;" Label="{Binding Term.Name}" FontSize="12"/>
+                                <ctl:IconTag Icon="&#xE25C;" Label="{Binding CommentCount}" FontSize="12"/>
+                                <ctl:IconTag Icon="&#xE19F;" Label="{Binding Recommend}" FontSize="12"/>
+                                <ctl:IconTag Icon="&#xE18B;" Label="{Binding ClickCount}" FontSize="12" />
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshContainer>
+    </Grid>
+</Page>

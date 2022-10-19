@@ -1,0 +1,88 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.Auth.FindPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages.Auth"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/InputSkin.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Themes/LoginSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="LayoutStateGroup">
+                <VisualState x:Name="MinStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainView.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MainView.Width" Value="auto"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeStatus">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="400"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainView.HorizontalAlignment" Value="Stretch"/>
+                        <Setter Target="MainView.Width" Value="400"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="MainView" Padding="10 0 10 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <ctl:TimerLogo
+                x:Name="LogoImg"
+                Grid.Row="1"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center" />
+
+            <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+            <Grid Grid.Row="3" x:Name="findBox" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Uid="login_code" x:Name="codeTb" PlaceholderText="请输入安全代码"  Style="{StaticResource CenterTextBoxStyle}"/>
+                <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
+                     Grid.Row="1"  Style="{StaticResource CenterPasswordBoxStyle}"
+                             GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
+                <PasswordBox x:Uid="login_re_pwd" x:Name="rePwdTb" PlaceholderText="请确认密码" 
+                     Grid.Row="2" Style="{StaticResource CenterPasswordBoxStyle}"
+                             GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
+
+            </Grid>
+
+            <TextBlock x:Uid="login_back_login" x:Name="backBtn" Tapped="backBtn_Tapped" Text="返回登录" 
+                   Grid.Row="4" 
+                   HorizontalAlignment="Right" Style="{StaticResource InputLabel}"/>
+
+            <Button x:Uid="login_send_email" Grid.Row="5"
+                x:Name="sendBtn"
+                Tapped="sendBtn_Tapped"
+                Content="发送验证邮件" Style="{StaticResource SubmitBtn}"/>
+        </Grid>
+    </Grid>
+</Page>
