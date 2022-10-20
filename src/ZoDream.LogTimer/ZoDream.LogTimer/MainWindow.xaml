@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:cvt="using:ZoDream.LogTimer.Converters"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
     mc:Ignorable="d">
 
     <Grid>
@@ -26,17 +27,17 @@
                 <TextBlock x:Name="AppTitle" Text="ZoDream Timer" Margin="4,4,0,0"/>
             </Border>
         </Grid>
-        <NavigationView
+        <Grid Grid.Row="1">
+            <NavigationView
             x:Name="NavView"
-            Grid.Row="1"
             IsSettingsVisible="True"
             ItemInvoked="NavigationView_ItemInvoked"
             BackRequested="NavView_BackRequested"
             IsBackButtonVisible="Collapsed"
             IsBackEnabled="{x:Bind AppFrame.CanGoBack, Mode=OneWay}"
             FontFamily="{StaticResource SymbolThemeFontFamily}">
-            <NavigationView.AutoSuggestBox>
-                <AutoSuggestBox x:Name="SearchBox" 
+                <NavigationView.AutoSuggestBox>
+                    <AutoSuggestBox x:Name="SearchBox" 
                                 x:Uid="search_box"
                                 ItemsSource="{x:Bind ViewModel.Tips}"
                                 PlaceholderText="搜索帮助" 
@@ -45,66 +46,68 @@
                                 QuerySubmitted="SearchBox_QuerySubmitted" 
                                 SuggestionChosen="SearchBox_SuggestionChosen"
                                 TextChanged="SearchBox_TextChanged"/>
-            </NavigationView.AutoSuggestBox>
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="homeMenu" x:Uid="home_menu" Content="首页" Icon="Home"/>
-                <!--<NavigationViewItem x:Name="scanMenu" x:Uid="scan_menu" Content="扫一扫">
+                </NavigationView.AutoSuggestBox>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem x:Name="homeMenu" x:Uid="home_menu" Content="首页" Icon="Home"/>
+                    <!--<NavigationViewItem x:Name="scanMenu" x:Uid="scan_menu" Content="扫一扫">
                     <NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE156;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>-->
-                <NavigationViewItem x:Name="taskMenu" x:Uid="task_menu" Content="计划任务">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE07F;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="reviewMenu" x:Uid="review_menu" Content="时间簿">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE787;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="recordMenu" x:Uid="record_menu" Content="任务记录">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE81C;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="shareMenu" x:Uid="share_menu" Content="我的分享">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72D;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItem x:Name="microMenu" x:Uid="micro_menu" Content="交流">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE206;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-            </NavigationView.MenuItems>
-            <NavigationView.PaneFooter>
-                <NavigationViewItem x:Name="myMenu" x:Uid="my_menu" Content="我的" Tapped="NavigationViewItem_Tapped">
-                    <NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE77B;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-            </NavigationView.PaneFooter>
-            <Frame
+                    <NavigationViewItem x:Name="taskMenu" x:Uid="task_menu" Content="计划任务">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE07F;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="reviewMenu" x:Uid="review_menu" Content="时间簿">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE787;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="recordMenu" x:Uid="record_menu" Content="任务记录">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE81C;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="shareMenu" x:Uid="share_menu" Content="我的分享">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE72D;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem x:Name="microMenu" x:Uid="micro_menu" Content="交流">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE206;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </NavigationView.MenuItems>
+                <NavigationView.PaneFooter>
+                    <NavigationViewItem x:Name="myMenu" x:Uid="my_menu" Content="我的" Tapped="NavigationViewItem_Tapped">
+                        <NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE77B;"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </NavigationView.PaneFooter>
+                <Frame
                 x:Name="frame"
                 Navigating="OnNavigatingToPage">
-                <Frame.ContentTransitions>
-                    <TransitionCollection>
-                        <NavigationThemeTransition>
-                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                                <EntranceNavigationTransitionInfo />
-                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                        </NavigationThemeTransition>
-                    </TransitionCollection>
-                </Frame.ContentTransitions>
-            </Frame>
-        </NavigationView>
-        <ProgressRing
-            Width="200"
-            Height="200"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <EntranceNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </NavigationView>
+            <ProgressRing
+                Width="200"
+                Height="200"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />
+        </Grid>
+        
     </Grid>
 </Window>

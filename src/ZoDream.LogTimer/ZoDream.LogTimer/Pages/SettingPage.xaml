@@ -55,6 +55,7 @@
                               OffContent="关" OnContent="开" Grid.Column="1" Grid.Row="2"/>
                 <TextBlock Text="系统缓存" Grid.Row="3" Style="{StaticResource InputLabel}"/>
                 <Button x:Name="CacheBtn" Grid.Row="4" Content="清除缓存" Click="CacheBtn_Click"/>
+                <ctl:IconMenuItem/>
             </Grid>
         </ScrollViewer>
     </Grid>

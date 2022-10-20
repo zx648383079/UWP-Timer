@@ -1,6 +1,7 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
     xmlns:local="using:ZoDream.LogTimer">
 
     <ResourceDictionary.MergedDictionaries>
@@ -17,4 +18,6 @@
         <ResourceDictionary Source="ms-appx:///Themes/Micro.xaml"/>
         <ResourceDictionary Source="ms-appx:///Themes/CameraPreview.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+
+  
 </ResourceDictionary>

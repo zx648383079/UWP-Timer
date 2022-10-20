@@ -16,7 +16,7 @@ namespace ZoDream.LogTimer.Controls
 {
     [TemplatePart(Name = "ContentBox", Type = typeof(StackPanel))]
     [TemplatePart(Name = "ToggleIcon", Type = typeof(TextBlock))]
-    public sealed class PageTip : Control
+    public sealed class PageTip : ContentControl
     {
         public PageTip()
         {

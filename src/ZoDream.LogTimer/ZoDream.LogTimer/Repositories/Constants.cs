@@ -13,7 +13,7 @@ namespace ZoDream.LogTimer.Repositories
     public static class Constants
     {
         #region API配置
-#if _DEBUG
+#if DEBUG
         public const string ApiEndpoint = "<DEV URL>";
         public const string AppId = "<DEV APPID>";
         public const string Secret = "<DEV SECRET>";

@@ -52,7 +52,7 @@ namespace ZoDream.LogTimer.Pages.Member
                 App.IsLogin ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private void IconMenuItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void IconMenuItem_Tapped(object sender, RoutedEventArgs e)
         {
             var label = (sender as IconLine).Name;
             var pageType = label == "scanBtn" ? typeof(ScanPage)
@@ -85,5 +85,6 @@ namespace ZoDream.LogTimer.Pages.Member
             }
             Frame.Navigate(App.IsLogin ? typeof(ProfilePage) : typeof(Auth.LoginPage));
         }
+
     }
 }

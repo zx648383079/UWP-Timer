@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZoDream.LogTimer.Utils;
 using ZoDream.Shared.Http;
 
 namespace ZoDream.LogTimer.Repositories
@@ -11,6 +13,7 @@ namespace ZoDream.LogTimer.Repositories
     {
         public RestRepository()
         {
+            Log.Info($"Base URL: {Constants.ApiEndpoint}");
             Interceptor = new RestInterceptor(Constants.ApiEndpoint, Constants.AppId, Constants.Secret);
             Client = new RestRequest(Interceptor);
         }

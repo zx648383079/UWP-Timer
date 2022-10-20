@@ -49,6 +49,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <PRIResource Include="Images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </PRIResource>
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
     <Content Include="Images\Square150x150Logo.scale-200.png" />
@@ -56,6 +59,7 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
+    <Content Include="logo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZoDream.LogTimer\ZoDream.LogTimer.csproj">

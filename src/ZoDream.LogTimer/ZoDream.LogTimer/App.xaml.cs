@@ -20,6 +20,7 @@ namespace ZoDream.LogTimer
         public App()
         {
             this.InitializeComponent();
+            UseRest();
         }
 
         /// <summary>

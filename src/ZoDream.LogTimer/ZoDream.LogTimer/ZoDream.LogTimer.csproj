@@ -54,6 +54,7 @@
     <None Remove="Themes\CheckSkin.xaml" />
     <None Remove="Themes\Comment.xaml" />
     <None Remove="Themes\Emoji.xaml" />
+    <None Remove="Themes\Generic.xaml" />
     <None Remove="Themes\InputSkin.xaml" />
     <None Remove="Themes\LargeHeader.xaml" />
     <None Remove="Themes\Login.xaml" />
@@ -67,9 +68,6 @@
     <None Remove="Themes\PageTip.xaml" />
     <None Remove="Themes\RuleBlock.xaml" />
     <None Remove="Themes\TaskSkin.xaml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="Themes\Generic.xaml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.4" />
@@ -227,9 +225,9 @@
     <Page Update="Themes\Comment.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <None Update="Themes\Generic.xaml">
+    <Page Update="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </None>
+    </Page>
     <Page Update="Themes\InputSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>

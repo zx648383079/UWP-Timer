@@ -32,18 +32,41 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="ZoDream.LogTimer (Package)"
-        Description="ZoDream.LogTimer (Package)"
+        DisplayName="我的时间回忆薄"
+        Description="通过记录平时的有效时间，生成历史记录"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
         <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
+      <uap:ApplicationContentUriRules>
+        <uap:Rule Type="include" Match="https://*.zodream.cn" WindowsRuntimeAccess="none"/>
+      </uap:ApplicationContentUriRules>
+      <Extensions>
+        <uap:Extension Category="windows.fileTypeAssociation">
+          <uap:FileTypeAssociation Name="zodream">
+            <uap:SupportedFileTypes>
+              <uap:FileType ContentType="zodream/file">.zodream</uap:FileType>
+            </uap:SupportedFileTypes>
+            <uap:DisplayName>zodrem timer</uap:DisplayName>
+            <uap:Logo>Images\logo.png</uap:Logo>
+            <uap:EditFlags OpenIsSafe="true"/>
+          </uap:FileTypeAssociation>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="zodream">
+            <uap:Logo>Images\logo.png</uap:Logo>
+            <uap:DisplayName>zodrem timer</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <Capability Name="internetClient"/>
+    <DeviceCapability Name="webcam"/>
   </Capabilities>
 </Package>

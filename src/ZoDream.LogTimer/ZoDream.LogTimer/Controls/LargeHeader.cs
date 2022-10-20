@@ -15,7 +15,7 @@ using Microsoft.UI.Xaml.Media;
 namespace ZoDream.LogTimer.Controls
 {
     [TemplatePart(Name = "ActionBtn", Type = typeof(FrameworkElement))]
-    public sealed class LargeHeader : Control
+    public sealed class LargeHeader : ContentControl
     {
         public LargeHeader()
         {
