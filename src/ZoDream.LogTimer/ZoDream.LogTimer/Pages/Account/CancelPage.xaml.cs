@@ -14,9 +14,8 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
-using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Repositories.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -74,24 +73,23 @@ namespace ZoDream.LogTimer.Pages.Account
         private async Task cancelAsync(CancelForm form)
         {
             App.ViewModel.IsLoading = true;
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Account.CancelUserAsync(form, async res =>
+            var data = await App.Repository.Account.CancelUserAsync(form, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
 
             });
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
                 {
                     return;
                 }
-                App.Logout();
+                App.Store.Auth.LogoutAsync();
                 _ = new MessageDialog(Constants.GetString("cancel_success_tip")).ShowAsync();
                 Frame.Navigate(typeof(Plan.TodayPage));
             });

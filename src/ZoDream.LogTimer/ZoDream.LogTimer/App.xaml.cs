@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Stores;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -20,7 +21,7 @@ namespace ZoDream.LogTimer
         public App()
         {
             this.InitializeComponent();
-            UseRest();
+            InitStore();
         }
 
         /// <summary>
@@ -36,25 +37,18 @@ namespace ZoDream.LogTimer
 
         private Window m_window;
 
-        internal static MainViewModel ViewModel { get; } = new MainViewModel();
+        internal static MainViewModel ViewModel { get; private set; }
 
         internal static RestRepository Repository { get; private set; }
 
-        private static void UseRest() =>
+        internal static AppStore Store { get; private set; }
+
+        private static void InitStore()
+        {
             Repository = new RestRepository();
-
-
-
-        public static bool IsLogin => ViewModel.IsLogin;
-
-        public static void Login(User user)
-        {
-            ViewModel.Login(user);
-        }
-
-        public static void Logout()
-        {
-            ViewModel.Logout();
+            Store = new AppStore();
+            ViewModel = new MainViewModel();
+            Store.LoadAsync();
         }
     }
 }

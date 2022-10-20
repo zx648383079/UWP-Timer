@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Repositories;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,12 +36,12 @@ namespace ZoDream.LogTimer.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin)
+            if (!App.Store.Auth.IsAuthenticated)
             {
                 Frame.Navigate(typeof(Auth.LoginPage));
                 return;
             }
-            avatarImg.Source = Converters.ConverterHelper.ToImg(App.ViewModel.User.Avatar);
+            avatarImg.Source = Converters.ConverterHelper.ToImg(App.Store.Auth.User.Avatar);
             token = e.Parameter as string;
             _ = checkTokenAsync(token);
         }
@@ -52,8 +51,7 @@ namespace ZoDream.LogTimer.Pages
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(v);
             if (model == null)
             {
-                var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
@@ -73,18 +71,17 @@ namespace ZoDream.LogTimer.Pages
 
         private async Task confirm()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(token, true);
             if (model == null)
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
                 });
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 Frame.Navigate(typeof(Plan.TodayPage));
             });
@@ -92,18 +89,17 @@ namespace ZoDream.LogTimer.Pages
 
         private async Task reject()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             var model = await App.Repository.Authorize.AuthorizeQrTokenAsync(token, false, true);
             if (model == null)
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
                     Frame.GoBack();
                 });
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 Frame.GoBack();
             });

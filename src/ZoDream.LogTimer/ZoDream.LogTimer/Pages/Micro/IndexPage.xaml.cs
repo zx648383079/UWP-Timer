@@ -36,7 +36,7 @@ namespace ZoDream.LogTimer.Pages.Micro
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NewBtn.Visibility = App.IsLogin ? Visibility.Visible : Visibility.Collapsed;
+            NewBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void statusBar_SelectionChanged(object sender, SelectionChangedEventArgs e)

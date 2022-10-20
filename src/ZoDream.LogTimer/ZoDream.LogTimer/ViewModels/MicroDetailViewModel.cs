@@ -1,12 +1,14 @@
 ﻿
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.ViewModels
 {
@@ -70,7 +72,6 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             IsLoading = true;
             Queries.Id = Data.Id;
             if (Queries.Page <= page)
@@ -85,13 +86,13 @@ namespace ZoDream.LogTimer.ViewModels
                 return;
             }
             HasMore = data.Paging.More;
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 foreach (var item in data.Data)
                 {
                     CommentItems.Add(item);
                 }
-            });
+            }, null);
         }
         
     }

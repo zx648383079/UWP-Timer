@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
-using ZoDream.LogTimer.Extensions;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,7 +32,6 @@ namespace ZoDream.LogTimer.Pages.Auth
             this.InitializeComponent();
         }
 
-        private DispatcherQueue dispatcherQueue;
         private string Token = string.Empty;
         private Task timer;
         private QrStatus Status = QrStatus.NONE;
@@ -46,7 +44,6 @@ namespace ZoDream.LogTimer.Pages.Auth
             {
                 imageAnimation.TryStart(LogoImg);
             }
-            dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             _ = RefreshQrAsync();
         }
 
@@ -62,7 +59,7 @@ namespace ZoDream.LogTimer.Pages.Auth
             {
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 Token = data.Token;
                 QrImage.Source = Converters.ConverterHelper.ToImg(data.Qr);
@@ -111,10 +108,10 @@ namespace ZoDream.LogTimer.Pages.Auth
                     return;
                 }
                 changeStatus(QrStatus.SUCCESS);
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     timer = null;
-                    App.Login(data);
+                    App.Store.Auth.LoginAsync(data.Token, data);
                     Frame.BackStack.Clear();
                     Frame.Navigate(typeof(Member.IndexPage));
                 });
@@ -124,7 +121,7 @@ namespace ZoDream.LogTimer.Pages.Auth
         private void changeStatus(QrStatus status)
         {
             Status = status;
-            dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 switch (status)
                 {

@@ -17,7 +17,6 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using static System.Net.Mime.MediaTypeNames;
 using static ZXing.QrCode.Internal.Mode;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -38,12 +37,12 @@ namespace ZoDream.LogTimer.Pages.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin || App.ViewModel.User == null)
+            if (!App.Store.Auth.IsAuthenticated || App.Store.Auth.User == null)
             {
                 Frame.GoBack();
                 return;
             }
-            var user = App.ViewModel.User;
+            var user = App.Store.Auth.User;
             avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
             nameTb.Content = user.Name;
             sexTb.Content = user.SexLabel;
@@ -57,7 +56,7 @@ namespace ZoDream.LogTimer.Pages.Member
 
         private void nameTb_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (App.ViewModel.User == null)
+            if (App.Store.Auth.User == null)
             {
                 return;
             }
@@ -66,7 +65,7 @@ namespace ZoDream.LogTimer.Pages.Member
 
         private void avatar_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (App.ViewModel.User == null)
+            if (App.Store.Auth.User == null)
             {
                 return;
             }
@@ -96,11 +95,10 @@ namespace ZoDream.LogTimer.Pages.Member
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.User.LogoutAsync();
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
-                App.Logout();
+                App.Store.Auth.LogoutAsync();
                 Frame.Navigate(typeof(Plan.TodayPage));
             });
         }

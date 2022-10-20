@@ -34,11 +34,11 @@ namespace ZoDream.LogTimer.Pages.Message
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin)
+            if (!App.Store.Auth.IsAuthenticated)
             {
                 return;
             }
-            MessageBox.Sender = App.ViewModel.User.Id;
+            MessageBox.Sender = App.Store.Auth.User.Id;
         }
 
         private void commentBtn_Click(object sender, RoutedEventArgs e)

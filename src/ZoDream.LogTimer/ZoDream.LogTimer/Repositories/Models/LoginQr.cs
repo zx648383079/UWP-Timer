@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZoDream.LogTimer.Models
+namespace ZoDream.LogTimer.Repositories.Models
 {
     /// <summary>
     /// 登录二维码

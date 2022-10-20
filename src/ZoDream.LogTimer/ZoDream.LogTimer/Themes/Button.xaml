@@ -228,14 +228,37 @@
     </Style>
 
     <Style TargetType="ctl:IconMenuItem">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:IconMenuItem">
                     <Border
+                        CornerRadius="{TemplateBinding CornerRadius}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon Glyph="{TemplateBinding Icon}"/>
+                            <Grid Grid.Column="1" VerticalAlignment="Center">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{TemplateBinding Title}" FontFamily="{TemplateBinding FontFamily}"/>
+                                <TextBlock Text="{TemplateBinding Description}" Grid.Row="1" FontFamily="{TemplateBinding FontFamily}"/>
+                            </Grid>
+                            <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                              Content="{TemplateBinding Content}" Grid.Column="2"/>
+                            <FontIcon Glyph="&#xE00F;" Grid.Column="3"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

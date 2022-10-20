@@ -14,10 +14,9 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
-using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages.Auth;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Repositories.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -63,10 +62,9 @@ namespace ZoDream.LogTimer.Pages.Member
         private async Task EditPasswordAsync(PasswordForm form)
         {
             App.ViewModel.IsLoading = true;
-            var data = await App.Repository.User.PasswordUpdateAsync(form, async res =>
+            var data = await App.Repository.User.PasswordUpdateAsync(form, res =>
             {
-                var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();
@@ -78,7 +76,7 @@ namespace ZoDream.LogTimer.Pages.Member
             {
                 return;
             }
-            App.Logout();
+            App.Store.Auth.LogoutAsync();
             _ = new MessageDialog(Constants.GetString("pwd_update_success_tip")).ShowAsync();
             Frame.Navigate(typeof(LoginPage));
         }

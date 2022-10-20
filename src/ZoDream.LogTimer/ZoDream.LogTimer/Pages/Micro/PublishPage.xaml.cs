@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage.Pickers;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
@@ -107,8 +106,7 @@ namespace ZoDream.LogTimer.Pages.Micro
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 Toast.Tip("发布成功");
                 Frame.GoBack();

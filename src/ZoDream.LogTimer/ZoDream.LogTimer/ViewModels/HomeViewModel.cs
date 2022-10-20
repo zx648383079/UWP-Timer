@@ -1,12 +1,14 @@
 ﻿
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 using ZoDream.LogTimer.Utils;
 
 namespace ZoDream.LogTimer.ViewModels
@@ -80,15 +82,14 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 TaskItems.Clear();
                 foreach (var item in data.Data)
                 {
                     TaskItems.Add(item);
                 }
-            });
+            }, null);
         }
 
         public async Task AddToDay(TaskItem task)
@@ -98,8 +99,7 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 Toast.Tip("添加成功");
                 foreach (var item in Items)
@@ -111,7 +111,7 @@ namespace ZoDream.LogTimer.ViewModels
                     }
                 }
                 Items.Add(data);
-            });
+            }, null);
         }
 
     }

@@ -27,6 +27,6 @@ namespace ZoDream.LogTimer.ViewModels
         }
 
 
-        public SettingItem Settings { get; set; }
+        public UserOption Settings { get; set; }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
@@ -56,8 +57,7 @@ namespace ZoDream.LogTimer.ViewModels
         public async Task CanCheck()
         {
             var data = await App.Repository.CheckIn.GetCanCheckInAsync();
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 if (data == null || data.Data == null)
                 {
@@ -67,7 +67,7 @@ namespace ZoDream.LogTimer.ViewModels
                 }
                 IsChecked = true;
                 Tip = Constants.GetString("check_in_tip").Replace("{day}", data.Data.Running.ToString());
-            });
+            }, null);
         }
 
         public void RefreshDay()
@@ -111,11 +111,10 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 items[i++] = DateTime.Parse(item.CreatedAt).Day;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 CheckDay(items);
-            });
+            }, null);
             
         }
 
@@ -140,8 +139,7 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 IsChecked = true;
                 Tip = Constants.GetString("check_in_tip").Replace("{day}", data.Data.Running.ToString());
@@ -150,7 +148,7 @@ namespace ZoDream.LogTimer.ViewModels
                 {
                     CheckDay(DateTime.Now.Day);
                 }
-            });
+            }, null);
         }
 
         public void CheckDay(params int[] days)

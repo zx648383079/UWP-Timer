@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.ViewModels
 {
@@ -20,7 +21,7 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return Task.Run(async () =>
                 {
-                    if (!App.IsLogin)
+                    if (!App.Store.Auth.IsAuthenticated)
                     {
                         return Tuple.Create<IList<TaskLog>, bool>(null, false);
                     }

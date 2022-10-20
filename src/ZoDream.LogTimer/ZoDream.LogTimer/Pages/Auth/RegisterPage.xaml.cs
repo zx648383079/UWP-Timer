@@ -15,10 +15,9 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
-using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages.Plan;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Repositories.Models;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -87,17 +86,16 @@ namespace ZoDream.LogTimer.Pages.Auth
         {
             regBtn.IsTapEnabled = false;
             App.ViewModel.IsLoading = true;
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.User.RegisterAsync(form, async res =>
+            var data = await App.Repository.User.RegisterAsync(form, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
 
             });
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 regBtn.IsTapEnabled = true;
                 App.ViewModel.IsLoading = false;
@@ -105,7 +103,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                 {
                     return;
                 }
-                App.Login(data);
+                App.Store.Auth.LoginAsync(data.Token, data);
                 _ = new MessageDialog(Constants.GetString("login_reg_success_tip")).ShowAsync();
                 Frame.Navigate(typeof(TodayPage));
             });

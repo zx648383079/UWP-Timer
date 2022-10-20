@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.ViewModels;
@@ -34,12 +33,12 @@ namespace ZoDream.LogTimer.Pages.Plan
             this.InitializeComponent();
         }
 
-        public TaskViewModel ViewModel = new TaskViewModel();
+        public TaskViewModel ViewModel = new();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.IsLogin ? Visibility.Visible : Visibility.Collapsed;
+            addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -109,8 +108,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.BatchStopTaskAsync(items);
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -126,8 +124,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.BatchAddTaskAsync(items);
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)

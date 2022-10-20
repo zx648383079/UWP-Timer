@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZoDream.LogTimer.Models
+namespace ZoDream.LogTimer.Repositories.Models
 {
     /// <summary>
     /// 注册表单
     /// </summary>
-    public class RegisterForm: LoginForm
+    public class RegisterForm : LoginForm
     {
         [JsonProperty("name")]
         public string Name { get; set; }

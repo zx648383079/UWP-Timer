@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZoDream.LogTimer.Models
+namespace ZoDream.LogTimer.Repositories.Models
 {
     /// <summary>
     /// 分页信息
@@ -35,7 +35,7 @@ namespace ZoDream.LogTimer.Models
         public string EncryptType { get; set; }
     }
 
-    public class ResponseData<T>: BaseResponse
+    public class ResponseData<T> : BaseResponse
     {
         public IList<T> Data { get; set; }
     }

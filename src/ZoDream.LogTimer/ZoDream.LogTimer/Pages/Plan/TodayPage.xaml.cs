@@ -13,7 +13,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.ViewModels;
 
@@ -37,8 +36,8 @@ namespace ZoDream.LogTimer.Pages.Plan
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.IsLogin ? Visibility.Visible : Visibility.Collapsed;
-            if (App.IsLogin)
+            addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+            if (App.Store.Auth.IsAuthenticated)
             {
                 ViewModel.Load();
             }
@@ -86,7 +85,6 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task FastCreateAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             //var dialog = new TaskDialog();
             //dialog.Title = "快捷创建任务";
             //var result = await dialog.ShowAsync();

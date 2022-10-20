@@ -35,7 +35,7 @@ namespace ZoDream.LogTimer.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var data = App.ViewModel.GetSettings();
+            var data = App.Store.UserOption;
             vibrateTs.IsOn = data.Vibrate;
             fullScreenTs.IsOn = data.FullScreen;
             screenOnTs.IsOn = data.ScreenOn;
@@ -43,13 +43,13 @@ namespace ZoDream.LogTimer.Pages
 
         private void LargeHeader_Submited(object sender, TappedRoutedEventArgs e)
         {
-            var data = new SettingItem()
+            var data = new UserOption()
             {
                 Vibrate = vibrateTs.IsOn,
                 FullScreen = fullScreenTs.IsOn,
                 ScreenOn = screenOnTs.IsOn
             };
-            App.ViewModel.SetSettings(data);
+            App.Store.SaveAsync(data);
             _ = new MessageDialog(Constants.GetString("setting_save_success")).ShowAsync();
         }
 

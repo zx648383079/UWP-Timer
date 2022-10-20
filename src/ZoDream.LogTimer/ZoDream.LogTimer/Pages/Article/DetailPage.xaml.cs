@@ -15,7 +15,6 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.WebUI;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -46,8 +45,8 @@ namespace ZoDream.LogTimer.Pages.Article
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Article.GetArticleAsync(id);
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(async () =>
+
+            DispatcherQueue.TryEnqueue(async () =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)

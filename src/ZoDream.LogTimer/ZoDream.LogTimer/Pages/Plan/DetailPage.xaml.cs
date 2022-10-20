@@ -17,7 +17,6 @@ using Windows.System.Display;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using ZoDream.LogTimer.Controls;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
@@ -44,7 +43,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         {
             base.OnNavigatedTo(e);
             _ = LoadTask((int)e.Parameter);
-            ViewModel.Settings = App.ViewModel.GetSettings();
+            ViewModel.Settings = App.Store.UserOption;
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -59,8 +58,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.GetTaskDayDetailAsync(id);
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null || data.Task == null)
@@ -185,10 +183,9 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task checkAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Task.CheckTaskAsync(ViewModel.Today.Id, async res =>
+            var data = await App.Repository.Task.CheckTaskAsync(ViewModel.Today.Id, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     // _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -199,7 +196,7 @@ namespace ZoDream.LogTimer.Pages.Plan
                 //_ = checkAsync();
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
                 stop();
@@ -214,10 +211,9 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task startAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Task.PlayTaskAsync(ViewModel.Today.Id, async res =>
+            var data = await App.Repository.Task.PlayTaskAsync(ViewModel.Today.Id, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     //_ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -226,7 +222,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
                 begin();
@@ -235,10 +231,9 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task pauseAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Task.PauseTaskAsync(ViewModel.Today.Id, async res =>
+            var data = await App.Repository.Task.PauseTaskAsync(ViewModel.Today.Id, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -247,7 +242,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
                 ViewModel.IsRunning = false;
@@ -257,10 +252,9 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task stopAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Task.StopTaskAsync(ViewModel.Today.Id, async res =>
+            var data = await App.Repository.Task.StopTaskAsync(ViewModel.Today.Id, res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
@@ -269,7 +263,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
                 stop();

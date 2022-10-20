@@ -16,6 +16,7 @@ using Windows.Storage;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Repositories.Models;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
@@ -58,7 +59,7 @@ namespace ZoDream.LogTimer
             var label = args.InvokedItemContainer.Name;
             var pageType =
                 args.IsSettingsInvoked ? typeof(SettingPage) :
-                label == "scanMenu" ? (App.IsLogin ? typeof(ScanPage) : typeof(Pages.Auth.LoginPage)) :
+                label == "scanMenu" ? (App.Store.Auth.IsAuthenticated ? typeof(ScanPage) : typeof(Pages.Auth.LoginPage)) :
                 label == "reviewMenu" ? typeof(Pages.Plan.ReviewPage) :
                 label == "recordMenu" ? typeof(Pages.Plan.RecordPage) :
                 label == "shareMenu" ? typeof(Pages.Plan.ShareListPage) :
@@ -76,6 +77,13 @@ namespace ZoDream.LogTimer
         {
             AppFrame.Navigate(typeof(Pages.Plan.TodayPage));
             AppTitle.Text = Constants.GetString("app_name");
+            App.Store.Auth.AuthChanged += () =>
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    myMenu.Content = App.Store.Auth.IsAuthenticated ? App.Store.Auth.User.Name : Constants.GetString("my_menu.Content");
+                });
+            };
         }
 
         /// <summary>

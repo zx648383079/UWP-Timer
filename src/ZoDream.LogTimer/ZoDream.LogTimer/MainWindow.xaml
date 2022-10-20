@@ -39,7 +39,7 @@
                 <NavigationView.AutoSuggestBox>
                     <AutoSuggestBox x:Name="SearchBox" 
                                 x:Uid="search_box"
-                                ItemsSource="{x:Bind ViewModel.Tips}"
+                                ItemsSource="{x:Bind ViewModel.TipItems}"
                                 PlaceholderText="搜索帮助" 
                                 DisplayMemberPath="Name"
                                 QueryIcon="Find" 

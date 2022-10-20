@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 
@@ -58,14 +57,13 @@ namespace ZoDream.LogTimer.Pages
         private async Task save(Feedback form)
         {
             App.ViewModel.IsLoading = true;
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            var data = await App.Repository.Account.SaveFeedbackAsync(form, async res => {
-                await dispatcherQueue.EnqueueAsync(() =>
+            var data = await App.Repository.Account.SaveFeedbackAsync(form, res => {
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     _ = new MessageDialog(res.Message).ShowAsync();
                 });
             });
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 _ = new MessageDialog(Constants.GetString("fk_save_success")).ShowAsync();

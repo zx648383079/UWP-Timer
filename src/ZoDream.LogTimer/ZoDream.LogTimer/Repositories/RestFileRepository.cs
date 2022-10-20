@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Models;
 using Windows.Data.Json;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using ZoDream.Shared.Http;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.Repositories
 {

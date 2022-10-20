@@ -36,20 +36,21 @@ namespace ZoDream.LogTimer.Pages.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.IsLogin)
+            if (!App.Store.Auth.IsAuthenticated)
             {
                 nameTb.Text = Constants.GetString("member_no_login_tip");
                 avatarImg.Source = Converters.ConverterHelper.ToImg(string.Empty);
             }
-            else if (App.ViewModel.User != null)
+            else if (App.Store.Auth.User != null)
             {
-                nameTb.Text = Constants.GetString("member_hi").Replace("{name}", App.ViewModel.User.Name);
-                avatarImg.Source = Converters.ConverterHelper.ToImg(App.ViewModel.User.Avatar);
+                var user = App.Store.Auth.User;
+                nameTb.Text = Constants.GetString("member_hi").Replace("{name}", user.Name);
+                avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
             }
             bulletinBtn.Visibility =
                 checkBtn.Visibility =
                 scanBtn.Visibility =
-                App.IsLogin ? Visibility.Visible : Visibility.Collapsed;
+                App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void IconMenuItem_Tapped(object sender, RoutedEventArgs e)
@@ -79,11 +80,11 @@ namespace ZoDream.LogTimer.Pages.Member
 
         private void TapProfile()
         {
-            if (App.IsLogin)
+            if (App.Store.Auth.IsAuthenticated)
             {
                 ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", avatarImg);
             }
-            Frame.Navigate(App.IsLogin ? typeof(ProfilePage) : typeof(Auth.LoginPage));
+            Frame.Navigate(App.Store.Auth.IsAuthenticated ? typeof(ProfilePage) : typeof(Auth.LoginPage));
         }
 
     }

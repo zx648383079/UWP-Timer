@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.ViewModels
 {
@@ -111,8 +113,7 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 Categories.Clear();
                 Categories.Add(new TabItem(0, Constants.GetString("article_tab_all")));
@@ -120,7 +121,7 @@ namespace ZoDream.LogTimer.ViewModels
                 {
                     Categories.Add(new TabItem(item.Id, item.Name));
                 }
-            });
+            }, null);
         }
     }
 }

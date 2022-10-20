@@ -8,6 +8,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using ZoDream.Shared.Http;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.Repositories
 {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.ViewModels
 {

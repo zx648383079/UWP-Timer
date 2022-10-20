@@ -12,9 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
@@ -54,9 +51,9 @@ namespace ZoDream.LogTimer.Pages.Micro
             {
                 imageAnimation.TryStart(MicroView);
             }
-            if (App.IsLogin)
+            if (App.Store.Auth.IsAuthenticated)
             {
-                ViewModel.User = App.ViewModel.User;
+                ViewModel.User = App.Store.Auth.User;
             }
         }
 
@@ -64,8 +61,7 @@ namespace ZoDream.LogTimer.Pages.Micro
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Micro.GetAsync(id);
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
                 if (data == null)
@@ -113,8 +109,7 @@ namespace ZoDream.LogTimer.Pages.Micro
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            DispatcherQueue.TryEnqueue(() =>
             {
                 Toast.Tip("评论成功");
                 CommentTb.Text = "";

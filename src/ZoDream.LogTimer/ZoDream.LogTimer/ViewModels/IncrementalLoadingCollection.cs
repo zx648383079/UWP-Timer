@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Xaml.Data;
-using ZoDream.LogTimer.Extensions;
 
 namespace ZoDream.LogTimer.ViewModels
 {
@@ -51,7 +51,6 @@ namespace ZoDream.LogTimer.ViewModels
 
         protected async Task<LoadMoreItemsResult> LoadMoreItemsAsync(CancellationToken c, uint count)
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             try
             {
                 OnLoadMoreStarted?.Invoke(count);
@@ -63,13 +62,13 @@ namespace ZoDream.LogTimer.ViewModels
 
                 if (items != null)
                 {
-                    await dispatcherQueue.EnqueueAsync(() =>
+                    SynchronizationContext.Current.Post(o =>
                     {
                         foreach (var item in items)
                         {
                             Add(item);
                         }
-                    });
+                    }, null);
                 }
 
                 // 是否还有更多
@@ -82,10 +81,10 @@ namespace ZoDream.LogTimer.ViewModels
             }
             finally
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                SynchronizationContext.Current.Post(o =>
                 {
                     IsBusy = false;
-                });
+                }, null);
             }
         }
 

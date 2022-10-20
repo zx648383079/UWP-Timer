@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZoDream.LogTimer.Models
+namespace ZoDream.LogTimer.Repositories.Models
 {
     /// <summary>
     /// 搜索表单
@@ -89,7 +89,7 @@ namespace ZoDream.LogTimer.Models
         public int Status { get; set; }
     }
 
-    public class MicroQueries: Queries
+    public class MicroQueries : Queries
     {
         public int User { get; set; }
         public int Topic { get; set; }
@@ -97,7 +97,7 @@ namespace ZoDream.LogTimer.Models
         public int Status { get; set; }
     }
 
-    public class MicroCommentQueries: Queries
+    public class MicroCommentQueries : Queries
     {
         public int Id { get; set; }
     }

@@ -1,11 +1,12 @@
 ﻿
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
 
 namespace ZoDream.LogTimer.ViewModels
@@ -28,28 +29,27 @@ namespace ZoDream.LogTimer.ViewModels
 
         public async void RefreshAsync()
         {
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() => {
+            SynchronizationContext.Current.Post(o => {
                 App.ViewModel.IsLoading = true;
                 Items.Clear();
-            });
-            var data = await App.Repository.Account.GetConnectAsync(async res =>
+            }, null);
+            var data = await App.Repository.Account.GetConnectAsync(res =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                SynchronizationContext.Current.Post(o =>
                 {
                     App.ViewModel.IsLoading = false;
                     if (res.Code == 401)
                     {
-                        App.Logout();
+                        App.Store.Auth.LogoutAsync();
                     }
-                });
+                }, null);
                 
             });
             if (data == null || data.Data == null)
             {
                 return;
             }
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
              {
                  App.ViewModel.IsLoading = false;
                  foreach (var item in data.Data)
@@ -58,7 +58,7 @@ namespace ZoDream.LogTimer.ViewModels
                      item.Icon = Converters.ConverterHelper.Icon(item.Icon);
                      Items.Add(item);
                  }
-             });
+             }, null);
         }
 
     }

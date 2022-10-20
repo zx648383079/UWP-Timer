@@ -17,7 +17,6 @@ using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.System;
 using Windows.UI.Core;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Utils;
 using ZXing;
 
@@ -76,7 +75,7 @@ namespace ZoDream.LogTimer.Pages
         //    }
         //}
 
-        protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             //await CleanupCameraAsync();
         }
@@ -90,7 +89,6 @@ namespace ZoDream.LogTimer.Pages
         private async Task InitCameraAsync()
         {
             // UnsubscribeFromEvents();
-            dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
             if (CameraPreviewControl != null)
             {
                 //CameraPreviewControl.PreviewFailed += CameraPreviewControl_PreviewFailed;
@@ -106,7 +104,7 @@ namespace ZoDream.LogTimer.Pages
         //    _ = SanFrameAsync(e.VideoFrame);
         //}
 
-        private async Task SanFrameAsync(VideoFrame frame)
+        private void SanFrameAsync(VideoFrame frame)
         {
             try
             {
@@ -120,7 +118,7 @@ namespace ZoDream.LogTimer.Pages
                 //{
                 //    softwareBitmap = SoftwareBitmap.Convert(softwareBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
                 //}
-                await ScanBitmapAsync(softwareBitmap); ;
+                ScanBitmapAsync(softwareBitmap); ;
 
                 IsBusy = false;
             }
@@ -164,11 +162,11 @@ namespace ZoDream.LogTimer.Pages
         /// </summary>
         /// <param name="writeableBmp">图片</param>
         /// <returns></returns>
-        private async Task ScanBitmapAsync(SoftwareBitmap bitmap)
+        private void ScanBitmapAsync(SoftwareBitmap bitmap)
         {
             try
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     var result = barcodeReader.Decode(bitmap);
                     if (result != null)

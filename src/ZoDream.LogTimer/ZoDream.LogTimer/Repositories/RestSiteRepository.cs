@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 using ZoDream.LogTimer.Utils;
 using ZoDream.Shared.Http;
 
@@ -24,6 +25,11 @@ namespace ZoDream.LogTimer.Repositories
                 return await Client.GetAsync<string>("seo/emoji");
             });
             return data?.Data;
+        }
+
+        public async Task<BatchData> BatchAsync(IDictionary<string, object> data)
+        {
+            return await Client.PostAsync<BatchData>("open/batch", data);
         }
     }
 }

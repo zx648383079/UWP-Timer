@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 using ZoDream.Shared.Http;
 
 namespace ZoDream.LogTimer.Repositories

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using ZoDream.LogTimer.Extensions;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.ViewModels
 {
@@ -71,15 +73,14 @@ namespace ZoDream.LogTimer.ViewModels
             {
                 return;
             }
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            await dispatcherQueue.EnqueueAsync(() =>
+            SynchronizationContext.Current.Post(o =>
             {
                 UserItems.Clear();
                 foreach (var item in data.Data)
                 {
                     UserItems.Add(item);
                 }
-            });
+            }, null);
         }
 
         public void Refresh()

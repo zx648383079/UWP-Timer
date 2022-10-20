@@ -9,7 +9,7 @@ namespace ZoDream.LogTimer.Models
     /// <summary>
     /// 设置表单
     /// </summary>
-    public class SettingItem
+    public class UserOption
     {
         public bool FullScreen { get; set; } = true;
 

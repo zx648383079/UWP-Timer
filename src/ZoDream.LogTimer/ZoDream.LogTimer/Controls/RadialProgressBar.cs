@@ -13,7 +13,6 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
-using ZoDream.LogTimer.Extensions;
 using Windows.UI;
 using System.Numerics;
 
@@ -159,10 +158,9 @@ namespace ZoDream.LogTimer.Controls
                 return;
             }
             _timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
-            var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            _timer.Tick += new EventHandler<object>(async (sender, e) =>
+            _timer.Tick += new EventHandler<object>((sender, e) =>
             {
-                await dispatcherQueue.EnqueueAsync(() =>
+                DispatcherQueue.TryEnqueue(() =>
                 {
                     var diff = (DateTime.Now - _startTime).TotalSeconds;
                     if (Max > 0 && diff >= Max * 60)

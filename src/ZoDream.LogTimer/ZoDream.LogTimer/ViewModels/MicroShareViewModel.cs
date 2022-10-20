@@ -68,7 +68,7 @@ namespace ZoDream.LogTimer.ViewModels
         }
 
 
-        private ObservableCollection<MicroAttachment> fileItems = new ObservableCollection<MicroAttachment>();
+        private ObservableCollection<MicroAttachment> fileItems = new();
 
         public ObservableCollection<MicroAttachment> FileItems
         {
