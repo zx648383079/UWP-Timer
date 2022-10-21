@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,8 +16,10 @@ namespace ZoDream.LogTimer.Repositories.Models
 
     public class BatchData
     {
+        [JsonProperty(PropertyName = "seo_configs")]
         public AppOption SeoConfigs { get; set; }
 
+        [JsonProperty(PropertyName = "auth_profile")]
         public User AuthProfile { get; set; }
     }
 }

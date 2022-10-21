@@ -124,7 +124,7 @@ namespace ZoDream.LogTimer.Pages
             }
             catch (Exception ex)
             {
-                Log.Info(ex);
+                App.ViewModel.Logger.Info(ex.Message);
                 IsBusy = false;
             }
         }
@@ -177,7 +177,7 @@ namespace ZoDream.LogTimer.Pages
             }
             catch (Exception ex)
             {
-                Log.Info(ex);
+                App.ViewModel.Logger.Info(ex.Message);
                 return;
             }
         }

@@ -11,6 +11,21 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <GridView x:Name="PART_ItemPanel"/>
+                            <ListBox x:Name="PART_ItemHeader" Grid.Row="1"
+                                ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

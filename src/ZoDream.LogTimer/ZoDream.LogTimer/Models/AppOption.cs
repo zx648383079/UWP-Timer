@@ -8,6 +8,10 @@ namespace ZoDream.LogTimer.Models
 {
     public class AppOption
     {
+        public string Name { get; set; }
 
+        public string Version { get; set; }
+
+        public string Logo { get; set; }
     }
 }

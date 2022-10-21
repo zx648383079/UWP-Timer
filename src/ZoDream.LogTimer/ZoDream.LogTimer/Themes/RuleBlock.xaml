@@ -11,7 +11,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <RichTextBlock x:Name="Viewer"/>
+                        <RichTextBlock x:Name="PART_InnerBlock"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

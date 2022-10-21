@@ -14,9 +14,11 @@ using Microsoft.UI.Xaml.Media;
 
 namespace ZoDream.LogTimer.Controls
 {
-    [TemplatePart(Name = "ActionBtn", Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = ActionBtnName, Type = typeof(FrameworkElement))]
     public sealed class LargeHeader : ContentControl
     {
+        const string ActionBtnName = "PART_ActionBtn";
+
         public LargeHeader()
         {
             this.DefaultStyleKey = typeof(LargeHeader);
@@ -84,7 +86,7 @@ namespace ZoDream.LogTimer.Controls
 
         private void RefreshSubmit()
         {
-            var actionBtn = GetTemplateChild("ActionBtn") as FrameworkElement;
+            var actionBtn = GetTemplateChild(ActionBtnName) as FrameworkElement;
             actionBtn.Visibility = CanSubmit ? Visibility.Visible : Visibility.Collapsed;
         }
 

@@ -14,10 +14,12 @@ using Microsoft.UI.Xaml.Media;
 
 namespace ZoDream.LogTimer.Controls
 {
-    [TemplatePart(Name = "ContentBox", Type = typeof(StackPanel))]
-    [TemplatePart(Name = "ToggleIcon", Type = typeof(TextBlock))]
+    [TemplatePart(Name = InnerPanelName, Type = typeof(StackPanel))]
+    [TemplatePart(Name = ToggleIconName, Type = typeof(TextBlock))]
     public sealed class PageTip : ContentControl
     {
+        const string ToggleIconName = "PART_ToggleIcon";
+        const string InnerPanelName = "PART_InnerPanel";
         public PageTip()
         {
             this.DefaultStyleKey = typeof(PageTip);
@@ -26,7 +28,7 @@ namespace ZoDream.LogTimer.Controls
 
         private void PageTip_Loaded(object sender, RoutedEventArgs e)
         {
-            var toggleIcon = GetTemplateChild("ToggleIcon") as TextBlock;
+            var toggleIcon = GetTemplateChild(ToggleIconName) as TextBlock;
             if (toggleIcon != null)
             {
                 toggleIcon.Tapped += ToggleIcon_Tapped;
@@ -88,7 +90,7 @@ namespace ZoDream.LogTimer.Controls
             {
                 return;
             }
-            var contentBox = GetTemplateChild("ContentBox") as StackPanel;
+            var contentBox = GetTemplateChild(InnerPanelName) as StackPanel;
             if (contentBox == null)
             {
                 return;

@@ -19,6 +19,7 @@ namespace ZoDream.LogTimer.Stores
 
         public AuthStore Auth = new();
 
+        public TaskStore Task = new();
 
         public async void LoadAsync()
         {
@@ -27,18 +28,25 @@ namespace ZoDream.LogTimer.Stores
             {
                 UserOption = JsonConvert.DeserializeObject<UserOption>(str);
             }
+            str = AppData.GetValue<string>(Constants.TOKEN_KEY);
+            if (str != null)
+            {
+                App.ViewModel.Logger.Info($"TOKEN: {str}");
+                Auth.IsLoading = true;
+                Auth.Token = str;
+            }
             var data = await App.Repository.Site.BatchAsync(new Dictionary<string, object>()
             {
                 {"seo_configs", new { } },
                 {"auth_profile", new { } },
             });
-            if (data.SeoConfigs is not null)
+            if (data?.SeoConfigs is not null)
             {
                 SystemOption = data.SeoConfigs;
             }
-            if (data.AuthProfile is not null)
+            if (data?.AuthProfile is not null)
             {
-                Auth.LoginAsync(data.AuthProfile);
+                Auth.LoginAsync(str, data.AuthProfile);
             } else
             {
                 Auth.LogoutAsync();

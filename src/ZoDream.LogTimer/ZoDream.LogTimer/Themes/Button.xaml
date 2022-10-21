@@ -6,6 +6,8 @@
     xmlns:ctl="using:ZoDream.LogTimer.Controls">
 
     <Style TargetType="ctl:TimerLogo">
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="Height" Value="160"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:TimerLogo">
@@ -231,14 +233,51 @@
         <Setter Property="Background" Value="White"/>
         <Setter Property="CornerRadius" Value="5"/>
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="BorderBrush" Value="{ThemeResource ToggleSwitchOuterBorderBorderThemeBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Height" Value="84"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:IconMenuItem">
                     <Border
+                        x:Name="RootGrid"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPointerOver}" />
+                                    </VisualState.Setters>
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundPressed}" />
+                                    </VisualState.Setters>
+
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
+                                    </Storyboard>
+                                </VisualState>
+
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <Setter Target="RootGrid.Background" Value="{ThemeResource ButtonRevealBackgroundDisabled}" />
+                                        <Setter Target="RootGrid.BorderBrush" Value="{ThemeResource ButtonRevealBorderBrushDisabled}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
@@ -246,18 +285,19 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <FontIcon Glyph="{TemplateBinding Icon}"/>
+                            <FontIcon Glyph="{TemplateBinding Icon}" Margin="20,0,0,0" Visibility="{TemplateBinding IconVisibility}"/>
                             <Grid Grid.Column="1" VerticalAlignment="Center">
                                 <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition Height="auto"/>
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{TemplateBinding Title}" FontFamily="{TemplateBinding FontFamily}"/>
-                                <TextBlock Text="{TemplateBinding Description}" Grid.Row="1" FontFamily="{TemplateBinding FontFamily}"/>
+                                <TextBlock Text="{TemplateBinding Description}" Grid.Row="1" 
+                                           FontFamily="{TemplateBinding FontFamily}" FontSize="12" Foreground="Gray"/>
                             </Grid>
                             <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" 
                                               Content="{TemplateBinding Content}" Grid.Column="2"/>
-                            <FontIcon Glyph="&#xE00F;" Grid.Column="3"/>
+                            <FontIcon Glyph="&#xE00F;" Visibility="{TemplateBinding RightIconVisibility}" Grid.Column="3" Margin="0,0,20,0"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

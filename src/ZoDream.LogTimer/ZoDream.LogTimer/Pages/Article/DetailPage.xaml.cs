@@ -15,6 +15,7 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI.WebUI;
+using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -45,7 +46,6 @@ namespace ZoDream.LogTimer.Pages.Article
         {
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Article.GetArticleAsync(id);
-
             DispatcherQueue.TryEnqueue(async () =>
             {
                 App.ViewModel.IsLoading = false;
@@ -55,6 +55,7 @@ namespace ZoDream.LogTimer.Pages.Article
                     return;
                 }
                 ViewModel.Article = data;
+                await detailWebView.EnsureCoreWebView2Async();
                 detailWebView.NavigateToString(await RenderHtmlAsync(data.Content));
                 if (!string.IsNullOrEmpty(data.VideoUrl))
                 {
@@ -65,7 +66,6 @@ namespace ZoDream.LogTimer.Pages.Article
                 {
                     Video.Visibility = Visibility.Collapsed;
                 }
-
             });
 
         }
@@ -88,9 +88,14 @@ namespace ZoDream.LogTimer.Pages.Article
 
         private void detailWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
-            if (args.Uri != null)
+            if (args.Uri == null || args.Uri.StartsWith("data:"))
             {
-                args.Cancel = true;
+                return;
+            }
+            args.Cancel = true;
+            if (Deeplink.IsSchame(args.Uri))
+            {
+                Deeplink.OpenLink(Frame, args.Uri);
             }
         }
     }

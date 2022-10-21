@@ -16,7 +16,20 @@ namespace ZoDream.LogTimer.Stores
 
         public User User { get; set; }
 
-        public bool IsLoading { get; set; } = false;
+        private bool isLoading = false;
+
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set {
+                isLoading = value;
+                if (value)
+                {
+                    AuthChanged?.Invoke();
+                }
+            }
+        }
+
 
         public bool IsAuthenticated => !IsLoading && !string.IsNullOrEmpty(Token);
 
@@ -45,6 +58,7 @@ namespace ZoDream.LogTimer.Stores
             IsLoading = false;
             if (string.IsNullOrEmpty(Token))
             {
+                AuthChanged?.Invoke();
                 return;
             }
             Token = string.Empty;

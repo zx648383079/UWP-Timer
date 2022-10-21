@@ -11,6 +11,16 @@ namespace ZoDream.LogTimer.Utils
     {
         const string SCHAME = "zodream";
 
+        public static bool IsSchame(string uri)
+        {
+            return uri.StartsWith(SCHAME);
+        }
+
+        public static bool IsSchame(Uri uri)
+        {
+            return uri.Scheme == SCHAME;
+        }
+
         public static void OpenLink(Frame frame, string link)
         {
             if (string.IsNullOrWhiteSpace(link) || link.StartsWith('#') || link.StartsWith("javascript:"))
@@ -31,7 +41,7 @@ namespace ZoDream.LogTimer.Utils
                 // 链接
                 return;
             }
-            if (uri.Scheme != SCHAME)
+            if (!IsSchame(uri))
             {
                 return;
             }

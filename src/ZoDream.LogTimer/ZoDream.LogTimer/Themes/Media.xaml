@@ -3,6 +3,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="using:ZoDream.LogTimer.Controls">
 
+    <Style x:Key="EmptyBtn" TargetType="Control">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+
+    <Style x:Key="IconBtn" TargetType="Control" BasedOn="{StaticResource EmptyBtn}">
+        <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
+    </Style>
+    
     <Style TargetType="ctl:AudioPlayer" >
         <Setter Property="Template">
             <Setter.Value>
@@ -33,6 +42,30 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ImageViewer_ThumbBox" TargetType="ListBox">
+        <Setter Property="ScrollViewer.HorizontalScrollMode" Value="Enabled"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <Image Stretch="UniformToFill" Source="{Binding Thumb}" Width="80" Height="60"/>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <DataTemplate x:Key="ImageViewer_ImageTemplate">
+        <Image Stretch="UniformToFill" Source="{Binding Thumb}" Width="190" Height="130"/>
+    </DataTemplate>
+
     <Style TargetType="ctl:ImageViewer">
         <Setter Property="Template">
             <Setter.Value>
@@ -41,6 +74,25 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <GridView x:Name="PART_PreviewPanel" 
+                                IsItemClickEnabled="True"
+                                SelectionMode="Single"
+                                      ItemsSource="{TemplateBinding Items}"
+                                ItemTemplate="{StaticResource ImageViewer_ImageTemplate}" Visibility="{TemplateBinding PreviewVisibily}"/>
+                            <Grid Visibility="{TemplateBinding LargeVisibily}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="44"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="80"/>
+                                </Grid.RowDefinitions>
+                                <Button x:Name="PART_ToggleBtn" Content="&#xE10A;" Style="{StaticResource IconBtn}" 
+                                    Margin="0,0,20,0" Width="44"
+                                    HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
+                                <Image Source="{TemplateBinding LargeImage}" Stretch="UniformToFill" Grid.Row="1"/>
+                                <ListBox x:Name="PART_ThumbPanel" ItemsSource="{TemplateBinding Items}" Grid.Row="2" Style="{StaticResource ImageViewer_ThumbBox}"/>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -55,6 +107,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel x:Name="PART_MediaPanel">
+
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

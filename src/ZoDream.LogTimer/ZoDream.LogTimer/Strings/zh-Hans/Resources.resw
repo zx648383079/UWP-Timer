@@ -282,6 +282,9 @@
   <data name="login_btn.Content" xml:space="preserve">
     <value>登录</value>
   </data>
+  <data name="login_btn_label" xml:space="preserve">
+    <value>我的</value>
+  </data>
   <data name="login_code.PlaceholderText" xml:space="preserve">
     <value>请输入安全代码</value>
   </data>

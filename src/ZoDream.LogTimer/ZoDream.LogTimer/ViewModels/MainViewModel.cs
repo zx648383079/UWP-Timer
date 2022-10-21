@@ -11,11 +11,15 @@ using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
 using ZoDream.Shared.Http;
+using ZoDream.Shared.Loggers;
 
 namespace ZoDream.LogTimer.ViewModels
 {
     internal class MainViewModel: BindableBase
     {
+
+        public ILogger Logger { get; private set; } = new EventLogger();
+
         private bool _isLoading = false;
 
         /// <summary>
@@ -48,17 +52,5 @@ namespace ZoDream.LogTimer.ViewModels
             }, null);
         }
 
-
-        public void DefaultFailureRequest(HttpException ex)
-        {
-            if (ex.Code == 401)
-            {
-                App.Store.Auth.LogoutAsync();
-            }
-            if (!string.IsNullOrWhiteSpace(ex.Message))
-            {
-                Toast.Tip(ex.Message);
-            }
-        }
     }
 }

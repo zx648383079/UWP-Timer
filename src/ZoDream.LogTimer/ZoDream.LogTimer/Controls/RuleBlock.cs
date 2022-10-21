@@ -18,9 +18,10 @@ using ZoDream.LogTimer.Utils;
 
 namespace ZoDream.LogTimer.Controls
 {
-    [TemplatePart(Name = "Viewer", Type = typeof(RichTextBlock))]
+    [TemplatePart(Name = InnerBlockName, Type = typeof(RichTextBlock))]
     public sealed class RuleBlock : Control
     {
+        const string InnerBlockName = "PART_InnerBlock";
         public RuleBlock()
         {
             this.DefaultStyleKey = typeof(RuleBlock);
@@ -65,7 +66,7 @@ namespace ZoDream.LogTimer.Controls
 
         public void RefreshRule()
         {
-            var viewer = GetTemplateChild("Viewer") as RichTextBlock;
+            var viewer = GetTemplateChild(InnerBlockName) as RichTextBlock;
             if (viewer == null)
             {
                 return;

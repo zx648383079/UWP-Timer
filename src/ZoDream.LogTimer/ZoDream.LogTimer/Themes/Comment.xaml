@@ -4,13 +4,46 @@
     xmlns:ctl="using:ZoDream.LogTimer.Controls">
 
     <Style TargetType="ctl:CommentListItem">
+        <Setter Property="Padding" Value="0,10,0,0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:CommentListItem">
                     <Border
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
+                        BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <PersonPicture ProfilePicture="{TemplateBinding Avatar}" 
+                                           DisplayName="{TemplateBinding Nickname}"
+                                           Grid.RowSpan="3" VerticalAlignment="Top" Width="60"/>
+                            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                                <TextBlock Text="{TemplateBinding Nickname}" FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="{TemplateBinding CreatedAt}" FontSize="14" FontWeight="Light" Foreground="#999" Margin="10,5"/>
+                            </StackPanel>
+                            <ctl:RuleBlock x:Name="PART_InnerBlock" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                                <TextBlock x:Name="PART_ExpandBtn" Text="展开" Foreground="#4d93f2" FontSize="12"  Margin="5"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                                <TextBlock x:Name="PART_ReportBtn" Text="举报" Margin="5"  FontSize="12"/>
+                                <TextBlock x:Name="PART_AgreeBtn" Text="支持(0)" Margin="5"  FontSize="12"/>
+                                <TextBlock x:Name="PART_ReplyBtn" Text="回复" Margin="5"  FontSize="12"/>
+                            </StackPanel>
+                            <ctl:CommentListBox x:Name="PART_ChildrenPanel" 
+                                  Background="#fafafa"
+                                  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -25,6 +58,9 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <StackPanel x:Name="PART_MainPanel">
+
+                        </StackPanel>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

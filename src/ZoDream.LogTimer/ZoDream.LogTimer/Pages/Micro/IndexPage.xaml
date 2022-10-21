@@ -40,29 +40,32 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        <Grid x:Name="MainView">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <ListBox x:Name="statusBar" SelectionChanged="statusBar_SelectionChanged" SelectedIndex="0" Style="{StaticResource tabBox}"
+        <ScrollViewer>
+            <Grid x:Name="MainView">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ListBox x:Name="statusBar" SelectionChanged="statusBar_SelectionChanged" SelectedIndex="0" Style="{StaticResource tabBox}"
                  ItemsSource="{x:Bind ViewModel.StatusItems}">
-            </ListBox>
-            <AppBarButton x:Name="NewBtn" Grid.Column="1" Icon="Add" Label="发布" Click="NewBtn_Click"/>
-            <ListView Grid.Row="1" Grid.ColumnSpan="2" 
+                </ListBox>
+                <AppBarButton x:Name="NewBtn" Grid.Column="1" Icon="Add" Label="发布" Click="NewBtn_Click"/>
+                <ListView Grid.Row="1" Grid.ColumnSpan="2" 
                   ItemContainerStyle="{StaticResource CustomListItem}"
                   ItemsSource="{x:Bind ViewModel.Items}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ctl:MicroListItem Margin="0,0,0,10" Source="{Binding}"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ctl:MicroListItem Margin="0,0,0,10" Source="{Binding}"
                                               ActionTapped="MicroViewer_ActionTapped"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ScrollViewer>
+        
     </Grid>
 </Page>

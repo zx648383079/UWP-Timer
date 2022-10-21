@@ -13,20 +13,12 @@ namespace ZoDream.LogTimer.Repositories
     {
         public RestRepository()
         {
-            Log.Info($"Base URL: {Constants.ApiEndpoint}");
-            Interceptor = new RestInterceptor(Constants.ApiEndpoint, Constants.AppId, Constants.Secret);
+            Interceptor = new RestStoreInterceptor(Constants.ApiEndpoint, Constants.AppId, Constants.Secret);
             Client = new RestRequest(Interceptor);
         }
         private readonly RestRequest Client;
         private readonly RestInterceptor Interceptor;
 
-        public string Token
-        {
-            set
-            {
-                Interceptor.Token = value;
-            }
-        }
         /// <summary>
         /// 账户相关
         /// </summary>

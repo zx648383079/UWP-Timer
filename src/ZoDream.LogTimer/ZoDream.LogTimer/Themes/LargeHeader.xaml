@@ -23,26 +23,26 @@
                                     </VisualState>
                                     <VisualState x:Name="PointerOver">
                                         <VisualState.Setters>
-                                            <Setter Target="ActionBtn.ShadowOpacity" Value=".5" />
+                                            <Setter Target="PART_ActionBtn.ShadowOpacity" Value=".5" />
                                         </VisualState.Setters>
                                         <Storyboard>
-                                            <PointerUpThemeAnimation Storyboard.TargetName="ActionBtn" />
+                                            <PointerUpThemeAnimation Storyboard.TargetName="PART_ActionBtn" />
                                         </Storyboard>
                                     </VisualState>
                                     <VisualState x:Name="Pressed">
                                         <VisualState.Setters>
-                                            <Setter Target="ActionBtn.ShadowOpacity" Value="1" />
+                                            <Setter Target="PART_ActionBtn.ShadowOpacity" Value="1" />
                                             <Setter Target="ActionContent.Background" Value="#1d8686"/>
                                         </VisualState.Setters>
 
                                         <Storyboard>
-                                            <PointerDownThemeAnimation Storyboard.TargetName="ActionBtn" />
+                                            <PointerDownThemeAnimation Storyboard.TargetName="PART_ActionBtn" />
                                         </Storyboard>
                                     </VisualState>
 
                                     <VisualState x:Name="Disabled">
                                         <VisualState.Setters>
-                                            <Setter Target="ActionBtn.ShadowOpacity" Value="0" />
+                                            <Setter Target="PART_ActionBtn.ShadowOpacity" Value="0" />
                                             <Setter Target="ActionContent.Background" Value="#ccc"/>
                                         </VisualState.Setters>
                                     </VisualState>
@@ -64,7 +64,7 @@
                                FontSize="30" Padding="20 40 0 0"/>
                                 <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}"/>
                             </StackPanel>
-                            <Grid x:Name="ActionBtn" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
+                            <Grid x:Name="PART_ActionBtn" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2"
                                                   Background="{TemplateBinding Background}">
                                 <Border x:Name="ActionContent" CornerRadius="20" Background="{TemplateBinding Background}" Width="40">
                                     <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE001;" Foreground="{TemplateBinding Foreground}"/>

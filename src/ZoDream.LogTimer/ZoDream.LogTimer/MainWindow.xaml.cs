@@ -81,7 +81,7 @@ namespace ZoDream.LogTimer
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    myMenu.Content = App.Store.Auth.IsAuthenticated ? App.Store.Auth.User.Name : Constants.GetString("my_menu.Content");
+                    myMenu.Content = App.Store.Auth.IsAuthenticated ? App.Store.Auth.User.Name : Constants.GetString("login_btn_label");
                 });
             };
         }

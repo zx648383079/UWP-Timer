@@ -11,6 +11,11 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer x:Name="PART_ScrollBar">
+                            <StackPanel x:Name="PART_InnerPanel">
+
+                            </StackPanel>
+                        </ScrollViewer>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -25,6 +30,50 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="44"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="44"/>
+                                <ColumnDefinition Width="44"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="44"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="PART_RecordBtn" Content="&#xE1D6;" 
+                                Style="{StaticResource IconBtn}" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch"/>
+                            <TextBox x:Name="PART_InnerTb" Grid.Column="1" Style="{StaticResource CenterTextBoxStyle}"/>
+                            <Button x:Name="PART_EmojiBtn" Grid.Column="2" Content="&#xE11D;" Style="{StaticResource IconBtn}" 
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <Button x:Name="PART_MoreBtn" Grid.Column="3" Content="&#xE10C;" Style="{StaticResource IconBtn}" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch"/>
+                            <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                                <ctl:EmojiBox x:Name="PART_EmojiPanel" Visibility="{TemplateBinding EmojiVisibility}" MaxHeight="300" SelectionChanged="EmojiBox_SelectionChanged"/>
+                                <GridView x:Name="PART_MorePanel" 
+                                          Visibility="{TemplateBinding MoreVisibility}" 
+                                          ItemsSource="{TemplateBinding MoreItems}"
+                                          MaxHeight="300">
+                                    <GridView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Width="50">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="40"/>
+                                                    <RowDefinition Height="20"/>
+                                                </Grid.RowDefinitions>
+                                                <FontIcon Glyph="{Binding Icon}"/>
+                                                <TextBlock Text="{Binding Label}"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" Grid.Row="1" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </GridView.ItemTemplate>
+                                </GridView>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -39,6 +88,17 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <PersonPicture ProfilePicture="{TemplateBinding Avatar}" DisplayName="{TemplateBinding Nickname}" VerticalAlignment="Top" Width="60"/>
+                            <Border Grid.Column="1" CornerRadius="0,10,10,10" Background="White">
+                                <StackPanel x:Name="PART_InnerPanel" Margin="10"></StackPanel>
+                            </Border>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -46,6 +106,7 @@
     </Style>
 
     <Style TargetType="ctl:MessageTimeItem">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:MessageTimeItem">
@@ -53,6 +114,10 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock Text="{TemplateBinding Text}" FontFamily="{TemplateBinding FontFamily}" 
+                                   Padding="0,10"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
