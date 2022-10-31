@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:cvt="using:ZoDream.LogTimer.Converters"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    Closed="Window_Closed"
     mc:Ignorable="d">
 
     <Grid>
@@ -104,6 +105,7 @@
             <ProgressRing
                 Width="200"
                 Height="200"
+                Grid.RowSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 IsActive="{x:Bind ViewModel.IsLoading, Mode=OneWay}" />

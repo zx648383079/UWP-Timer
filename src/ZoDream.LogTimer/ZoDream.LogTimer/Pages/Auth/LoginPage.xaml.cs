@@ -14,7 +14,6 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Repositories.Models;
 
@@ -65,12 +64,12 @@ namespace ZoDream.LogTimer.Pages.Auth
             };
             if (!form.VerifyEmail())
             {
-                _ = new MessageDialog(Constants.GetString("login_email_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_email_error"));
                 return;
             }
             if (!form.VerifyPassword())
             {
-                _ = new MessageDialog(Constants.GetString("login_pwd_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_pwd_error"));
                 return;
             }
             _ = Login(form);
@@ -85,7 +84,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
 
             });

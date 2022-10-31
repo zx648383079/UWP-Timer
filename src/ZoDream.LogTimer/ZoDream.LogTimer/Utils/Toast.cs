@@ -90,8 +90,7 @@ namespace ZoDream.LogTimer.Utils
 
         public static void Tip(string msg)
         {
-            var box = new MessageDialog(msg);
-            _ = box.ShowAsync();
+            _ = App.ViewModel.ShowMessageAsync(msg);
         }
     }
 

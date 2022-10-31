@@ -36,7 +36,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+            fastBtn.Visibility = addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
             if (App.Store.Auth.IsAuthenticated)
             {
                 ViewModel.Load();

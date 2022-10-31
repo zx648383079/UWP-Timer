@@ -64,6 +64,29 @@
         </Setter>
     </Style>
 
+    <Style TargetType="ctl:CountDownButton">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ctl:CountDownButton">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                        <TextBlock Text="{TemplateBinding Label}" 
+                                   FontFamily="{TemplateBinding FontFamily}"
+                                   FontSize="{TemplateBinding FontSize}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   FontStretch="{TemplateBinding FontStretch}"
+                                   FontWeight="{TemplateBinding FontWeight}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="ctl:IconButton">
         <!--<Setter Property="Background" Value="{ThemeResource ButtonRevealBackground}" />-->
         <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
@@ -306,6 +329,7 @@
     </Style>
 
     <Style TargetType="ctl:RadialProgressBar">
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:RadialProgressBar">
@@ -314,8 +338,11 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
-                            <win2d:CanvasControl x:Name="Canvas"/>
-                            <TextBlock x:Name="ValueTb" FontSize="60" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <win2d:CanvasControl x:Name="PART_Canvas"/>
+                            <TextBlock x:Name="PART_InnerTb" FontSize="60" 
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontFamily="{TemplateBinding FontFamily}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </ControlTemplate>

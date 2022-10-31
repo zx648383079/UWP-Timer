@@ -79,8 +79,8 @@
                         Content="&#xEBDB;"
                 HorizontalAlignment="Right" Click="openComment_Click"/>
                 <ctl:RadialProgressBar 
-            TimeEnd="progressBar_TimeEnd"
-            x:Name="progressBar" Grid.Row="1"/>
+                    TimeEnd="progressBar_TimeEnd"
+                    x:Name="progressBar" Grid.Row="1"/>
                 <TextBlock x:Name="nameTb" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 

@@ -43,12 +43,12 @@ namespace ZoDream.LogTimer.Pages
             };
             if (string.IsNullOrWhiteSpace(form.Name))
             {
-                _ = new MessageDialog(Constants.GetString("fk_name_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_name_error"));
                 return;
             }
             if (string.IsNullOrWhiteSpace(form.Content))
             {
-                _ = new MessageDialog(Constants.GetString("fk_content_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_content_error"));
                 return;
             }
             _ = save(form);
@@ -60,13 +60,13 @@ namespace ZoDream.LogTimer.Pages
             var data = await App.Repository.Account.SaveFeedbackAsync(form, res => {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
-                _ = new MessageDialog(Constants.GetString("fk_save_success")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_save_success"));
                 Frame.GoBack();
             });
         }

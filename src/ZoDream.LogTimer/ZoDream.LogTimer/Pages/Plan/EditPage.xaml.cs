@@ -81,7 +81,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             };
             if (string.IsNullOrWhiteSpace(form.Name))
             {
-                _ = new MessageDialog(Constants.GetString("task_name.PlaceholderText")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_name.PlaceholderText"));
                 return;
             }
             _ = save(form);
@@ -93,13 +93,13 @@ namespace ZoDream.LogTimer.Pages.Plan
             var data = await App.Repository.Task.SaveTaskAsync(form, res => {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             DispatcherQueue.TryEnqueue(() =>
             {
                 App.ViewModel.IsLoading = false;
-                _ = new MessageDialog(Constants.GetString("task_save_success")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_save_success"));
                 Frame.GoBack();
             });
         }

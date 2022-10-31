@@ -57,7 +57,7 @@ namespace ZoDream.LogTimer.Pages.Member
             };
             if (string.IsNullOrWhiteSpace(form.Name))
             {
-                _ = new MessageDialog(Constants.GetString("edit_name_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("edit_name_error"));
                 return;
             }
             _ = EditProfileAsync(form);
@@ -71,7 +71,7 @@ namespace ZoDream.LogTimer.Pages.Member
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
 
             });

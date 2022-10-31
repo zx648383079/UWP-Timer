@@ -53,7 +53,7 @@ namespace ZoDream.LogTimer.Pages
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(Constants.GetString("qr_is_expired"));
                     Frame.GoBack();
                 });
             }
@@ -76,7 +76,7 @@ namespace ZoDream.LogTimer.Pages
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(Constants.GetString("qr_is_expired"));
                     Frame.GoBack();
                 });
                 return;
@@ -94,7 +94,7 @@ namespace ZoDream.LogTimer.Pages
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(Constants.GetString("qr_is_expired")).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(Constants.GetString("qr_is_expired"));
                     Frame.GoBack();
                 });
                 return;

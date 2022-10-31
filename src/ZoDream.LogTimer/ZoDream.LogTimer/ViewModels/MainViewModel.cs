@@ -1,4 +1,6 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Dispatching;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
@@ -17,6 +20,8 @@ namespace ZoDream.LogTimer.ViewModels
 {
     internal class MainViewModel: BindableBase
     {
+
+        public bool IsBooted { get; set; } = false;
 
         public ILogger Logger { get; private set; } = new EventLogger();
 
@@ -38,6 +43,7 @@ namespace ZoDream.LogTimer.ViewModels
             get { return tipItems; }
             set { Set(ref tipItems, value); }
         }
+        public MainWindow AppWindow { get; internal set; }
 
         public async Task LoadTipAsync(string keywords)
         {
@@ -52,5 +58,25 @@ namespace ZoDream.LogTimer.ViewModels
             }, null);
         }
 
+        public async Task ShowMessageAsync(string message, string title = "提示")
+        {
+            if (AppWindow == null)
+            {
+                return;
+            }
+            var dialog = new ContentDialog()
+            {
+                Title = title,
+                Content = message,
+                CloseButtonText = "Ok",
+                XamlRoot = AppWindow.Content.XamlRoot,
+            };
+            await dialog.ShowAsync();
+        }
+
+        public void FullScreenAsync(bool isFull)
+        {
+            
+        }
     }
 }

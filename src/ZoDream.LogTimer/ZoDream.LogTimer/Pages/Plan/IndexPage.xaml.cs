@@ -43,6 +43,11 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!App.Store.Auth.IsAuthenticated)
+            {
+                Frame.Navigate(typeof(Auth.LoginPage));
+                return;
+            }
             var label = (sender as AppBarButton).Name;
             if (label == "addBtn")
             {
@@ -64,7 +69,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             }
             if (taskBox.SelectedItems.Count < 1)
             {
-                _ = new MessageDialog(Constants.GetString("task_selected_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_selected_error"));
                 return;
             }
             var items = new int[taskBox.SelectedItems.Count];
@@ -115,7 +120,7 @@ namespace ZoDream.LogTimer.Pages.Plan
                 {
                     return;
                 }
-                _ = new MessageDialog(Constants.GetString("task_stop_success")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_stop_success"));
                 ViewModel.Refresh();
             });
         }
@@ -131,7 +136,7 @@ namespace ZoDream.LogTimer.Pages.Plan
                 {
                     return;
                 }
-                _ = new MessageDialog(Constants.GetString("task_add_today_success")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_add_today_success"));
             });
         }
     }

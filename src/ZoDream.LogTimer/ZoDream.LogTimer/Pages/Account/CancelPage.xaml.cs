@@ -42,11 +42,15 @@ namespace ZoDream.LogTimer.Pages.Account
 
         private async Task ShowConfirm()
         {
-            var dialog = new MessageDialog(Constants.GetString("cancel_confirm_content"), Constants.GetString("cancel_confirm_title"));
-            dialog.Commands.Add(new UICommand(Constants.GetString("cancel_confirm_yes"), cmd => { }, 0));
-            dialog.Commands.Add(new UICommand(Constants.GetString("cancel_confirm_no"), cmd => { }, 1));
+            var dialog = new ContentDialog()
+            {
+                Content = Constants.GetString("cancel_confirm_content"),
+                Title = Constants.GetString("cancel_confirm_title"),
+                CloseButtonText = Constants.GetString("cancel_confirm_no"),
+                PrimaryButtonText = Constants.GetString("cancel_confirm_yes"),
+            };
             var result = await dialog.ShowAsync();
-            if ((int)result.Id == 1)
+            if (result == ContentDialogResult.None)
             {
                 Frame.GoBack();
             }
@@ -56,7 +60,7 @@ namespace ZoDream.LogTimer.Pages.Account
         {
             if (string.IsNullOrEmpty(Reason))
             {
-                _ = new MessageDialog(Constants.GetString("cancel_reason_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("cancel_reason_error"));
                 return;
             }
             _ = cancelAsync(new CancelForm()
@@ -78,7 +82,7 @@ namespace ZoDream.LogTimer.Pages.Account
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
 
             });
@@ -90,7 +94,7 @@ namespace ZoDream.LogTimer.Pages.Account
                     return;
                 }
                 App.Store.Auth.LogoutAsync();
-                _ = new MessageDialog(Constants.GetString("cancel_success_tip")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("cancel_success_tip"));
                 Frame.Navigate(typeof(Plan.TodayPage));
             });
         }

@@ -15,16 +15,20 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Windows.UI;
 using System.Numerics;
+using ZoDream.LogTimer.Converters;
+using Microsoft.Graphics.Canvas.Text;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace ZoDream.LogTimer.Controls
 {
-    [TemplatePart(Name = "Canvas", Type = typeof(CanvasControl))]
-    [TemplatePart(Name = "ValueTb", Type = typeof(TextBlock))]
+    [TemplatePart(Name = CanvasName, Type = typeof(CanvasControl))]
+    [TemplatePart(Name = InnerTbName, Type = typeof(TextBlock))]
     public sealed class RadialProgressBar : Control
     {
+        const string CanvasName = "PART_Canvas";
+        const string InnerTbName = "PART_InnerTb";
         public RadialProgressBar()
         {
             DefaultStyleKey = typeof(RadialProgressBar);
@@ -39,7 +43,7 @@ namespace ZoDream.LogTimer.Controls
 
         private void RadialProgressBar_Loaded(object sender, RoutedEventArgs e)
         {
-            var canvas = GetTemplateChild("Canvas") as CanvasControl;
+            var canvas = Drawer;
             if (canvas == null)
             {
                 return;
@@ -50,6 +54,8 @@ namespace ZoDream.LogTimer.Controls
 
         private DateTime _startTime;
         private DispatcherTimer _timer;
+        private CanvasControl Drawer;
+        private TextBlock InnerTb;
 
         /// <summary>
         /// 最大值
@@ -146,6 +152,13 @@ namespace ZoDream.LogTimer.Controls
         /// </summary>
         public event RangeBaseValueChangedEventHandler TimeEnd;
 
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            Drawer = GetTemplateChild(CanvasName) as CanvasControl;
+            InnerTb = GetTemplateChild(InnerTbName) as TextBlock;
+        }
+
         /// <summary>
         /// 开始计时
         /// </summary>
@@ -204,7 +217,8 @@ namespace ZoDream.LogTimer.Controls
 
         public void RefreshView()
         {
-            (GetTemplateChild("Canvas") as CanvasControl).Invalidate();
+            Drawer?.Invalidate();
+            InnerTb.Text = ConverterHelper.FormatHour(Max > 0 ? Max - Value : Value);
         }
 
         private void Canvas_Draw(CanvasControl sender, CanvasDrawEventArgs args)
@@ -215,20 +229,18 @@ namespace ZoDream.LogTimer.Controls
             var radius = Math.Min(centerX, centerY);
             var lineRadius = radius - LineWidth;
             var inlineRadius = lineRadius - 5;
-            using (var draw = args.DrawingSession)
-            {
-                draw.FillRectangle(new Windows.Foundation.Rect(centerX - radius, centerY - radius, 2 * radius, 2 * radius),
-                    Colors.Transparent);
-                draw.FillCircle(centerX, centerY, inlineRadius, InlineBackground);
-                draw.DrawCircle(centerX, centerY, lineRadius, Outline, LineWidth);
-                var deg = (2 * Math.PI / 100 * progress)
-                    ; // 圆环的绘制
-                draw.DrawGeometry(Arc(draw, centerX, centerY, lineRadius, (float)(-.5 * Math.PI), (float)deg), Inline, LineWidth);
+            using var draw = args.DrawingSession;
+            draw.FillRectangle(new Windows.Foundation.Rect(centerX - radius, centerY - radius, 2 * radius, 2 * radius),
+                Colors.Transparent);
+            draw.FillCircle(centerX, centerY, inlineRadius, InlineBackground);
+            draw.DrawCircle(centerX, centerY, lineRadius, Outline, LineWidth);
+            var deg = (2 * Math.PI / 100 * progress)
+                ; // 圆环的绘制
+            draw.DrawGeometry(Arc(draw, centerX, centerY, lineRadius, (float)(-.5 * Math.PI), (float)deg), Inline, LineWidth);
 
-                var x = (float)(centerX + Math.Cos(Math.PI * 2 * (progress - 25) / 100) * lineRadius);
-                var y = (float)(centerY + Math.Sin(Math.PI * 2 * (progress - 25) / 100) * lineRadius);
-                draw.FillCircle(x, y, LineWidth, Inline);
-            }
+            var x = (float)(centerX + Math.Cos(Math.PI * 2 * (progress - 25) / 100) * lineRadius);
+            var y = (float)(centerY + Math.Sin(Math.PI * 2 * (progress - 25) / 100) * lineRadius);
+            draw.FillCircle(x, y, LineWidth, Inline);
         }
 
         public CanvasGeometry Arc(ICanvasResourceCreator resourceCreator, float centerX, float centerY, float radius, float startAngle, float endAngle)
@@ -247,7 +259,7 @@ namespace ZoDream.LogTimer.Controls
                 _timer.Stop();
                 _timer = null;
             }
-            var canvas = GetTemplateChild("Canvas") as CanvasControl;
+            var canvas = Drawer;
             if (canvas != null)
             {
                 canvas.RemoveFromVisualTree();

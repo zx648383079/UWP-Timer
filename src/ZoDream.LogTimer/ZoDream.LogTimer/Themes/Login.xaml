@@ -2,7 +2,44 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ctl="using:ZoDream.LogTimer.Controls">
+
+    <Style x:Key="LoginPanel_IconBtn" TargetType="Control">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontFamily" Value="{StaticResource SymbolThemeFontFamily}"/>
+    </Style>
+
+    <Style x:Key="LoginPanel_AlignCenter" TargetType="FrameworkElement">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="LoginPanel_LoginBtn" TargetType="Control">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="#f4f4f4"/>
+    </Style>
+    <Style x:Key="LoginPanel_InnerTb" TargetType="Control">
+        <Setter Property="CornerRadius" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
     <Style TargetType="ctl:LoginPanel">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="HeaderStyle">
+            <Setter.Value>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource LoginPanel_AlignCenter}">
+                    <Setter Property="Foreground" Value="Gray"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HeaderActiveStyle">
+            <Setter.Value>
+                <Style TargetType="TextBlock" BasedOn="{StaticResource LoginPanel_AlignCenter}">
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Foreground" Value="Black"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:LoginPanel">
@@ -10,6 +47,159 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="1"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock x:Name="PART_FirstTab" Text="快捷登录" Style="{TemplateBinding HeaderFirstStyle}"/>
+                                <Rectangle Fill="Gray" Grid.Column="1"/>
+                                <TextBlock x:Name="PART_LastTab" Text="账号登录" Grid.Column="2" Style="{TemplateBinding HeaderLastStyle}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Visibility="{TemplateBinding MobileCodeVisibility}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <HyperlinkButton x:Name="PART_MobilePasswordBtn" 
+                                                 Content="通过密码登录" HorizontalAlignment="Right"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xE1C9;"/>
+                                    <TextBox Text="{TemplateBinding Mobile}" 
+                                             Style="{StaticResource LoginPanel_InnerTb}"
+                                             Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xEA18;"/>
+                                    <TextBox Text="{TemplateBinding Code}" Style="{StaticResource LoginPanel_InnerTb}" Grid.Column="1"/>
+                                    <ctl:CountDownButton x:Name="PART_CodeSendBtn" Grid.Column="2"/>
+                                </Grid>
+                                <Button x:Name="PART_LoginBtn" Content="登录"  IsEnabled="{TemplateBinding IsEnabled}" Grid.Row="5" Style="{StaticResource LoginPanel_LoginBtn}"/>
+                                <Grid Grid.Row="6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox IsChecked="{TemplateBinding IsAgree}" x:Uid="login_agree_check" Content="同意" VerticalAlignment="Center" MinWidth="60"/>
+                                    <HyperlinkButton x:Uid="login_agreement" Grid.Column="1" Content="本站协议" NavigateUri="https://zodream.cn/agreement"/>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="1" Visibility="{TemplateBinding MobilePasswordVisibility}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <HyperlinkButton x:Name="PART_MobileBackBtn" Content="返回" HorizontalAlignment="Right"/>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xE1C9;"/>
+                                    <TextBox Text="{TemplateBinding Mobile}" Style="{StaticResource LoginPanel_InnerTb}" Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Row="3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xE72E;"/>
+                                    <PasswordBox Password="{TemplateBinding Password}" Style="{StaticResource LoginPanel_InnerTb}" Grid.Column="1"/>
+                                </Grid>
+                                <Button x:Name="PART_Login2Btn" IsEnabled="{TemplateBinding IsEnabled}" Content="登录" Grid.Row="5" Style="{StaticResource LoginPanel_LoginBtn}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Visibility="{TemplateBinding AccountVisibility}" 
+                                  Padding="0,40">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="40"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xE13D;"/>
+                                    <TextBox Text="{TemplateBinding Email}" Style="{StaticResource LoginPanel_InnerTb}" Grid.Column="1"/>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon Glyph="&#xE72E;"/>
+                                    <PasswordBox Password="{TemplateBinding Password}" Style="{StaticResource LoginPanel_InnerTb}" Grid.Column="1"/>
+                                </Grid>
+                                <Button x:Name="PART_Login3Btn" Content="登录"  IsEnabled="{TemplateBinding IsEnabled}" Grid.Row="4" Style="{StaticResource LoginPanel_LoginBtn}"/>
+                            </Grid>
+                            <Grid Grid.Row="1" Visibility="{TemplateBinding QrVisibility}">
+                                <Grid Width="200" Height="200" 
+                                      HorizontalAlignment="Center" 
+                                      VerticalAlignment="Center">
+                                    <Image Source="{TemplateBinding QrSource}"/>
+                                    <Grid x:Name="PART_QrRefreshBtn" Background="{StaticResource SystemControlBaseHighAcrylicElementMediumBrush}" Tapped="QrBtn_Tapped">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="2*"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <FontIcon Glyph="{TemplateBinding QrIcon}" FontSize="40"/>
+                                        <TextBlock Text="{TemplateBinding QrTip}" Grid.Row="1" HorizontalAlignment="Center"/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+
+                            <Grid Grid.Row="2" Background="Gray">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="PART_QrBtn" Content="&#xED14;" Grid.Row="6" 
+                                        Style="{StaticResource LoginPanel_IconBtn}"
+                                        HorizontalAlignment="Right"/>
+                                </StackPanel>
+                                <HyperlinkButton Grid.Column="1" Content="帮助？" Visibility="{TemplateBinding MobileCodeVisibility}"/>
+                                <Grid Grid.Column="1" Visibility="{TemplateBinding AccountVisibility}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <HyperlinkButton Content="注册" Padding="0"/>
+                                    <HyperlinkButton Grid.Row="1" Content="忘记密码？" Padding="0"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

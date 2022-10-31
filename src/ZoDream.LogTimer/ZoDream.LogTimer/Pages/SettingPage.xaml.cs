@@ -50,7 +50,7 @@ namespace ZoDream.LogTimer.Pages
                 ScreenOn = screenOnTs.IsOn
             };
             App.Store.SaveAsync(data);
-            _ = new MessageDialog(Constants.GetString("setting_save_success")).ShowAsync();
+            _ = App.ViewModel.ShowMessageAsync(Constants.GetString("setting_save_success"));
         }
 
         private void CacheBtn_Click(object sender, RoutedEventArgs e)

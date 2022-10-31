@@ -21,6 +21,8 @@ namespace ZoDream.LogTimer.Stores
 
         public TaskStore Task = new();
 
+        public event SystemBootEventHandler Booted;
+
         public async void LoadAsync()
         {
             var str = AppData.GetValue<string>(Constants.SETTING_KEY);
@@ -51,6 +53,7 @@ namespace ZoDream.LogTimer.Stores
             {
                 Auth.LogoutAsync();
             }
+            Booted?.Invoke();
         }
 
         public void SaveAsync(UserOption option)

@@ -9,10 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.UI.Popups;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages;
 using ZoDream.LogTimer.Repositories;
@@ -75,8 +77,16 @@ namespace ZoDream.LogTimer
 
         private void OnLoad()
         {
+            ViewModel.AppWindow = this;
             AppFrame.Navigate(typeof(Pages.Plan.TodayPage));
             AppTitle.Text = Constants.GetString("app_name");
+            App.Store.Booted += () =>
+            {
+                if (App.Store.Auth.IsAuthenticated)
+                {
+                    AppFrame.Navigate(AppFrame.SourcePageType);
+                }
+            };
             App.Store.Auth.AuthChanged += () =>
             {
                 DispatcherQueue.TryEnqueue(() =>
@@ -156,6 +166,11 @@ namespace ZoDream.LogTimer
         internal void NavigateWithFile(IReadOnlyList<IStorageItem> files)
         {
             _ = Share.DecodeAsync(AppFrame, files[0] as IStorageFile);
+        }
+
+        private void Window_Closed(object sender, WindowEventArgs args)
+        {
+            ViewModel.AppWindow = null;
         }
     }
 }

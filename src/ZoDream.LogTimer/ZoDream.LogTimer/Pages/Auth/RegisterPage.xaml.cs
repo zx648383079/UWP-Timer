@@ -61,22 +61,22 @@ namespace ZoDream.LogTimer.Pages.Auth
             };
             if (!form.Agree)
             {
-                _ = new MessageDialog(Constants.GetString("login_agreement_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_agreement_error"));
                 return;
             }
             if (!form.VerifyEmail())
             {
-                _ = new MessageDialog(Constants.GetString("login_email_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_email_error"));
                 return;
             }
             if (!form.VerifyPassword())
             {
-                _ = new MessageDialog(Constants.GetString("login_pwd_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_pwd_error"));
                 return;
             }
             if (form.Password != form.RePassword)
             {
-                _ = new MessageDialog(Constants.GetString("login_re_pwd_error")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_re_pwd_error"));
                 return;
             }
             _ = Register(form);
@@ -91,7 +91,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                 DispatcherQueue.TryEnqueue(() =>
                 {
                     App.ViewModel.IsLoading = false;
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
 
             });
@@ -104,7 +104,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                     return;
                 }
                 App.Store.Auth.LoginAsync(data.Token, data);
-                _ = new MessageDialog(Constants.GetString("login_reg_success_tip")).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_reg_success_tip"));
                 Frame.Navigate(typeof(TodayPage));
             });
 

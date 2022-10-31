@@ -17,6 +17,7 @@ using Windows.System.Display;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using ZoDream.LogTimer.Controls;
+using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
@@ -37,13 +38,34 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private DisplayRequest dispRequest = null;
 
-        public TodayViewModel ViewModel = new TodayViewModel();
+        public TodayViewModel ViewModel = new();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             _ = LoadTask((int)e.Parameter);
             ViewModel.Settings = App.Store.UserOption;
+            App.Store.Task.PausedChanged += Task_PausedChanged;
+            App.Store.Task.TimeUpdated += Task_TimeUpdated;
+        }
+
+        private void Task_TimeUpdated(Stores.TaskStore sender)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                progressBar.Max = sender.Duration;
+                progressBar.Value = sender.Current;
+            });
+        }
+
+        private void Task_PausedChanged(Stores.TaskStore sender)
+        {
+            if (ViewModel.Today.Id == sender.Id) 
+            {
+                ViewModel.IsRunning = !sender.Paused;
+                FullScreen(ViewModel.IsRunning);
+                ScreenOn(ViewModel.IsRunning);
+            }
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
@@ -51,11 +73,17 @@ namespace ZoDream.LogTimer.Pages.Plan
             base.OnNavigatingFrom(e);
             FullScreen(false);
             ScreenOn(false);
-            progressBar.Stop();
+            App.Store.Task.PausedChanged -= Task_PausedChanged;
+            App.Store.Task.TimeUpdated -= Task_TimeUpdated;
         }
 
         private async Task LoadTask(int id)
         {
+            if (App.Store.Task.Id == id)
+            {
+                LoadTask(App.Store.Task.Today, false);
+                return;
+            }
             App.ViewModel.IsLoading = true;
             var data = await App.Repository.Task.GetTaskDayDetailAsync(id);
             DispatcherQueue.TryEnqueue(() =>
@@ -66,20 +94,25 @@ namespace ZoDream.LogTimer.Pages.Plan
                     Frame.GoBack();
                     return;
                 }
-                ViewModel.Today = data;
-                nameTb.Text = data.Task.Name;
-                descTb.Text = data.Task.Description;
-                if (data.Log == null)
-                {
-                    return;
-                }
-                progressBar.Max = data.Task.EveryTime;
-                progressBar.Value = data.Log.Time;
-                if (data.Log != null && data.Status == 9)
-                {
-                    begin();
-                }
+                LoadTask(data);
             });
+        }
+
+        private void LoadTask(TaskDay data, bool sync = true)
+        {
+            ViewModel.Today = data;
+            nameTb.Text = data.Task.Name;
+            descTb.Text = data.Task.Description;
+            if (data.Log == null)
+            {
+                return;
+            }
+            progressBar.Max = data.Task.EveryTime;
+            progressBar.Value = data.Log.Time;
+            if (data.Log != null && data.Status == 9)
+            {
+                App.Store.Task.Play(data);
+            }
         }
 
         //private async Task ToggleVibrationAsync()
@@ -94,6 +127,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 return;
             }
+            return;
             var view = ApplicationView.GetForCurrentView();
 
             bool isInFullScreenMode = view.IsFullScreenMode;
@@ -143,7 +177,6 @@ namespace ZoDream.LogTimer.Pages.Plan
             ViewModel.IsRunning = true;
             progressBar.Max = ViewModel.Today.Task.EveryTime;
             progressBar.Value = ViewModel.Today.Log == null ? 0 : ViewModel.Today.Log.Time;
-            progressBar.Start();
         }
 
         private void stop()
@@ -161,17 +194,17 @@ namespace ZoDream.LogTimer.Pages.Plan
             var label = (sender as IconButton).Name;
             if (label == "playBtn")
             {
-                _ = startAsync();
+                _ = App.Store.Task.PlayAsync(ViewModel.Today.Id);
                 return;
             }
             if (label == "pauseBtn")
             {
-                _ = pauseAsync();
+                _ = App.Store.Task.PauseAsync();
                 return;
             }
             if (label == "stopBtn")
             {
-                _ = stopAsync();
+                _ = App.Store.Task.StopAsync();
                 return;
             }
         }
@@ -187,7 +220,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    // _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             if (data == null || data.Id < 1)
@@ -201,7 +234,7 @@ namespace ZoDream.LogTimer.Pages.Plan
                 ViewModel.Today = data;
                 stop();
                 Toast.ShowInfo(data.Tip);
-                // _ = new MessageDialog(data.Tip).ShowAsync();
+                _ = App.ViewModel.ShowMessageAsync(data.Tip);
                 if (data.Amount < 1)
                 {
                     Frame.GoBack();
@@ -215,7 +248,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    //_ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             if (data == null)
@@ -235,7 +268,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             if (data == null)
@@ -256,7 +289,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    _ = new MessageDialog(res.Message).ShowAsync();
+                    _ = App.ViewModel.ShowMessageAsync(res.Message);
                 });
             });
             if (data == null)
