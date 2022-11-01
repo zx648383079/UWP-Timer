@@ -318,5 +318,11 @@ namespace ZoDream.LogTimer.Pages.Plan
         {
             splitView.IsPaneOpen = false;
         }
+
+        private void ToggleMiniBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new MiniTimerPage();
+            window.Activate();
+        }
     }
 }

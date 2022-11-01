@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
+using ZoDream.LogTimer.Dialogs;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Repositories.Models;
 
@@ -111,28 +112,27 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task showChildAsync()
         {
-            //var dispatcherQueue = Windows.System.DispatcherQueue.GetForCurrentThread();
-            //var dialog = new TaskDialog();
-            //var result = await dialog.ShowAsync();
-            //if (result != ContentDialogResult.Primary)
-            //{
-            //    return;
-            //}
-            //if (!dialog.CheckForm())
-            //{
-            //    return;
-            //}
-            //var item = dialog.FormData();
-            //item.ParentId = id;
-            //var data = await App.Repository.Task.SaveTaskAsync(item);
-            //if (data == null)
-            //{
-            //    return;
-            //}
-            //await dispatcherQueue.EnqueueAsync(() =>
-            //{
-            //    Toast.Tip("添加成功");
-            //});
+            var dialog = new TaskDialog()
+            {
+                XamlRoot = App.ViewModel.XamlRoot
+            };
+            var result = await dialog.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            if (!dialog.CheckForm())
+            {
+                return;
+            }
+            var item = dialog.FormData();
+            item.ParentId = id;
+            var data = await App.Repository.Task.SaveTaskAsync(item);
+            if (data == null)
+            {
+                return;
+            }
+            _ = App.ViewModel.ShowMessageAsync("添加成功");
         }
 
         private void shareBtn_Click(object sender, RoutedEventArgs e)
@@ -142,25 +142,28 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private async Task showShareAsync()
         {
-            //var dialog = new TaskShareDialog();
-            //var result = await dialog.ShowAsync();
-            //if (result != ContentDialogResult.Primary)
-            //{
-            //    return;
-            //}
-            //var item = dialog.FormData();
-            //item.TaskId = id;
-            //var data = await App.Repository.Task.ShareCreateAsync(item);
-            //if (data == null)
-            //{
-            //    return;
-            //}
-            //await dispatcherQueue.EnqueueAsync(() =>
-            //{
-            //    Toast.Tip("分享成功成功");
-            //    // 显示分享链接/二维码
-            //    _ = dialog.ShowAsync();
-            //});
+            var dialog = new TaskShareDialog()
+            {
+                XamlRoot = App.ViewModel.XamlRoot
+            };
+            var result = await dialog.ShowAsync();
+            if (result != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            var item = dialog.FormData();
+            item.TaskId = id;
+            var data = await App.Repository.Task.ShareCreateAsync(item);
+            if (data == null)
+            {
+                return;
+            }
+            _ = App.ViewModel.ShowMessageAsync("分享成功");
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                // 显示分享链接/二维码
+                _ = dialog.ShowAsync();
+            });
         }
     }
 }

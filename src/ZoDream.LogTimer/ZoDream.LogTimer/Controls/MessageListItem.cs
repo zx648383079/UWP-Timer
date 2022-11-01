@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Documents;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using ZoDream.LogTimer.Converters;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages.Member;
 
@@ -37,15 +38,15 @@ namespace ZoDream.LogTimer.Controls
 
         private StackPanel InnerPanel;
 
-        public string Avatar
+        public ImageSource Avatar
         {
-            get { return (string)GetValue(AvatarProperty); }
+            get { return (ImageSource)GetValue(AvatarProperty); }
             set { SetValue(AvatarProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Avatar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvatarProperty =
-            DependencyProperty.Register("Avatar", typeof(string), typeof(MessageListItem), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Avatar", typeof(ImageSource), typeof(MessageListItem), new PropertyMetadata(null));
 
 
 
@@ -78,16 +79,17 @@ namespace ZoDream.LogTimer.Controls
         {
             base.OnApplyTemplate();
             InnerPanel = GetTemplateChild(InnerPanelName) as StackPanel;
+            RefreshView();
         }
 
         private void RefreshView()
         {
-            if (Source == null)
+            if (Source == null || InnerPanel == null)
             {
                 return;
             }
             InnerPanel.Children.Clear();
-            Avatar = Source.User.Avatar;
+            Avatar = ConverterHelper.ToImg(Source.User.Avatar);
             Nickname = Source.User.Name;
             switch (Source.Type)
             {

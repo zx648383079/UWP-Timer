@@ -11,6 +11,9 @@
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Dialogs\LoginDialog.xaml" />
+    <None Remove="Dialogs\TaskDialog.xaml" />
+    <None Remove="Dialogs\TaskShareDialog.xaml" />
     <None Remove="Pages\Account\BindPage.xaml" />
     <None Remove="Pages\Account\CancelPage.xaml" />
     <None Remove="Pages\Account\ConnectPage.xaml" />
@@ -23,6 +26,7 @@
     <None Remove="Pages\Auth\LoginPage.xaml" />
     <None Remove="Pages\Auth\QrPage.xaml" />
     <None Remove="Pages\Auth\RegisterPage.xaml" />
+    <None Remove="Pages\BrowserWindow.xaml" />
     <None Remove="Pages\CheckInPage.xaml" />
     <None Remove="Pages\FeedbackPage.xaml" />
     <None Remove="Pages\Member\AvatarPage.xaml" />
@@ -86,6 +90,26 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\ZoDream.Shared.Http\ZoDream.Shared.Http.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Pages\BrowserWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\LoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\TaskShareDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Dialogs\TaskDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Pages\NotFoundPage.xaml">

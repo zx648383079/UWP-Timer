@@ -60,7 +60,8 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ctl:MicroListItem Margin="0,0,0,10" Source="{Binding}"
-                                              ActionTapped="MicroViewer_ActionTapped"/>
+                                              ActionTapped="MicroViewer_ActionTapped"
+                                               RuleTapped="MicroListItem_RuleTapped"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

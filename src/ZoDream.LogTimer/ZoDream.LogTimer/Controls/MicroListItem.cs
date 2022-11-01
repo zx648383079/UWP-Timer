@@ -112,6 +112,10 @@ namespace ZoDream.LogTimer.Controls
             {
                 CommentBtn.Click += CommentBtn_Tapped;
             }
+            if (InnerBlock != null)
+            {
+                InnerBlock.RuleTapped += InnerBlock_RuleTapped;
+            }
             RefreshView();
         }
 
@@ -156,7 +160,7 @@ namespace ZoDream.LogTimer.Controls
             ActionTapped?.Invoke(this, new ActionArgs<MicroItem>(ActionType.Like, Source));
         }
 
-        private void MicroContent_RuleTapped(RuleBlock sender, RuleTappedArgs args)
+        private void InnerBlock_RuleTapped(RuleBlock sender, RuleTappedArgs args)
         {
             RuleTapped?.Invoke(this, args);
         }

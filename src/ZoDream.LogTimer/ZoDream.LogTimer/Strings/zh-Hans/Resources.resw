@@ -264,6 +264,12 @@
   <data name="full_screen_label.Text" xml:space="preserve">
     <value>全屏</value>
   </data>
+  <data name="full_screen_menu.Description" xml:space="preserve">
+    <value>执行任务保持全屏</value>
+  </data>
+  <data name="full_screen_menu.Title" xml:space="preserve">
+    <value>全屏</value>
+  </data>
   <data name="home_menu.Content" xml:space="preserve">
     <value>首页</value>
   </data>
@@ -384,6 +390,12 @@
   <data name="no_camera_found" xml:space="preserve">
     <value>没有发现可用摄像头哦</value>
   </data>
+  <data name="open_url_menu.Description" xml:space="preserve">
+    <value>访问外部链接，使用什么方式</value>
+  </data>
+  <data name="open_url_menu.Title" xml:space="preserve">
+    <value>访问外部链接</value>
+  </data>
   <data name="pause_status_label.Text" xml:space="preserve">
     <value>暂停中</value>
   </data>
@@ -463,6 +475,12 @@
     <value>提示：请将二维码图案放置在取景框内</value>
   </data>
   <data name="screen_on_label.Text" xml:space="preserve">
+    <value>屏幕常亮</value>
+  </data>
+  <data name="screen_on_menu.Description" xml:space="preserve">
+    <value>执行任务保持屏幕常亮</value>
+  </data>
+  <data name="screen_on_menu.Title" xml:space="preserve">
     <value>屏幕常亮</value>
   </data>
   <data name="search_box.PlaceholderText" xml:space="preserve">
@@ -559,6 +577,12 @@
     <value>未知错误</value>
   </data>
   <data name="vibrate_label.Text" xml:space="preserve">
+    <value>震动</value>
+  </data>
+  <data name="vibrate_menu.Description" xml:space="preserve">
+    <value>震动提示</value>
+  </data>
+  <data name="vibrate_menu.Title" xml:space="preserve">
     <value>震动</value>
   </data>
   <data name="wed_label.Text" xml:space="preserve">

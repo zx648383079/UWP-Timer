@@ -45,6 +45,8 @@ namespace ZoDream.LogTimer.ViewModels
         }
         public MainWindow AppWindow { get; internal set; }
 
+        public XamlRoot XamlRoot => AppWindow?.Content.XamlRoot;
+
         public async Task LoadTipAsync(string keywords)
         {
             var data = await App.Repository.Article.GetSuggestionAsync(keywords);
@@ -69,7 +71,7 @@ namespace ZoDream.LogTimer.ViewModels
                 Title = title,
                 Content = message,
                 CloseButtonText = "Ok",
-                XamlRoot = AppWindow.Content.XamlRoot,
+                XamlRoot = XamlRoot,
             };
             await dialog.ShowAsync();
         }
@@ -77,6 +79,15 @@ namespace ZoDream.LogTimer.ViewModels
         public void FullScreenAsync(bool isFull)
         {
             
+        }
+
+        public void OpenUrlAsync(string url)
+        {
+            if (AppWindow == null)
+            {
+                return;
+            }
+            Deeplink.OpenLink(AppWindow.AppFrame, url);
         }
     }
 }

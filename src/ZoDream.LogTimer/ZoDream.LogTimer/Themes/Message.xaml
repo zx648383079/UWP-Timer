@@ -4,6 +4,7 @@
     xmlns:ctl="using:ZoDream.LogTimer.Controls">
 
     <Style TargetType="ctl:MessageContainer">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:MessageContainer">
@@ -23,6 +24,7 @@
     </Style>
 
     <Style TargetType="ctl:MessageInput">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:MessageInput">
@@ -81,6 +83,7 @@
     </Style>
 
     <Style TargetType="ctl:MessageListItem">
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:MessageListItem">
@@ -94,7 +97,7 @@
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <PersonPicture ProfilePicture="{TemplateBinding Avatar}" DisplayName="{TemplateBinding Nickname}" VerticalAlignment="Top" Width="60"/>
+                            <PersonPicture ProfilePicture="{TemplateBinding Avatar}" VerticalAlignment="Top" Width="60"/>
                             <Border Grid.Column="1" CornerRadius="0,10,10,10" Background="White">
                                 <StackPanel x:Name="PART_InnerPanel" Margin="10"></StackPanel>
                             </Border>
@@ -114,7 +117,8 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock Text="{TemplateBinding Text}" FontFamily="{TemplateBinding FontFamily}" 
+                        <TextBlock Text="{TemplateBinding Text}" 
+                                   FontFamily="{TemplateBinding FontFamily}" 
                                    Padding="0,10"
                                    HorizontalAlignment="Center" 
                                    VerticalAlignment="Center"/>

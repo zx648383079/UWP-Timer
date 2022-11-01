@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZoDream.LogTimer.Pages;
 
 namespace ZoDream.LogTimer.Utils
 {
@@ -39,6 +40,9 @@ namespace ZoDream.LogTimer.Utils
             if (uri.Scheme == "http" || uri.Scheme == "https")
             {
                 // 链接
+                var page = new BrowserWindow();
+                page.Activate();
+                page.NavigateUrl(uri);
                 return;
             }
             if (!IsSchame(uri))

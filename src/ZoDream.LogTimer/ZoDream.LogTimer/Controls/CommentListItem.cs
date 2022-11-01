@@ -76,15 +76,15 @@ namespace ZoDream.LogTimer.Controls
         {
             (d as CommentListItem).RefreshChildrenView();
         }
-        public string Avatar
+        public ImageSource Avatar
         {
-            get { return (string)GetValue(AvatarProperty); }
+            get { return (ImageSource)GetValue(AvatarProperty); }
             set { SetValue(AvatarProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Avatar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvatarProperty =
-            DependencyProperty.Register("Avatar", typeof(string), typeof(CommentListItem), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Avatar", typeof(ImageSource), typeof(CommentListItem), new PropertyMetadata(null));
 
 
 
@@ -179,7 +179,7 @@ namespace ZoDream.LogTimer.Controls
             CreatedAt = ConverterHelper.Ago(Source.CreatedAt);
             if (Source.User != null)
             {
-                Avatar = Source.User.Avatar;
+                Avatar = ConverterHelper.ToImg(Source.User.Avatar);
                 Nickname = Source.User.Name;
             }
             InnerBlock.Content = Source.Content;

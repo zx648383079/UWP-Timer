@@ -78,6 +78,7 @@ namespace ZoDream.LogTimer.Controls
             base.OnApplyTemplate();
             ScrollBar = GetTemplateChild(ScrollBarName) as ScrollViewer;
             InnerPanel = GetTemplateChild(InnerPanelName) as StackPanel;
+            RefreshView();
         }
 
         public void ScrollBottom()
@@ -87,6 +88,10 @@ namespace ZoDream.LogTimer.Controls
 
         private void RefreshView()
         {
+            if (InnerPanel == null)
+            {
+                return;
+            }
             if (timer == null)
             {
                 initTimer();
@@ -101,6 +106,7 @@ namespace ZoDream.LogTimer.Controls
             DateTime lastTime = DateTime.MinValue;
             var now = DateTime.Now;
             var exist = new List<int>();
+            var beforeMessage = false;
             foreach (var item in Items)
             {
                 if (exist.IndexOf(item.Id) >= 0)
@@ -112,9 +118,16 @@ namespace ZoDream.LogTimer.Controls
                 {
                     lastTime = time;
                     InnerPanel.Children.Add(createTime(Time.FormatAgo(time, now), time));
+                    beforeMessage = false;
                 }
                 exist.Add(item.Id);
-                InnerPanel.Children.Add(createMessage(item));
+                var ele = createMessage(item);
+                if (beforeMessage)
+                {
+                    ele.Margin = new Thickness(0, 10, 0,0);
+                }
+                InnerPanel.Children.Add(ele);
+                beforeMessage = true;
             }
             timer.Start();
         }

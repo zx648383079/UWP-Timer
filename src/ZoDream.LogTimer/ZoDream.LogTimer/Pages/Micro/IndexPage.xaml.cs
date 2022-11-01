@@ -58,5 +58,13 @@ namespace ZoDream.LogTimer.Pages.Micro
                 Frame.Navigate(typeof(DetailPage), sender.Source);
             }
         }
+
+        private void MicroListItem_RuleTapped(Controls.MicroListItem sender, Controls.RuleTappedArgs args)
+        {
+            if (args.Block.Type == BlockType.LINK)
+            {
+                App.ViewModel.OpenUrlAsync(args.Block.Value.ToString());
+            }
+        }
     }
 }

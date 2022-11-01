@@ -312,6 +312,13 @@
         <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
     </Style>
 
+    <Style x:Key="HeaderLabel" TargetType="TextBlock">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+    </Style>
+
     <Style x:Key="EmptyBtn" TargetType="Control">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderThickness" Value="0"/>

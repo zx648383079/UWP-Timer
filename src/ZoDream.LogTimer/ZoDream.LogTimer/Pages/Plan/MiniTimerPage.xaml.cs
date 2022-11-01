@@ -33,6 +33,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         public MiniTimerPage()
         {
             this.InitializeComponent();
+            // Berth(this, 200);
         }
 
         /// <summary>

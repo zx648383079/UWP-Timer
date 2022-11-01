@@ -1,0 +1,53 @@
+﻿<ContentDialog
+    x:Class="ZoDream.LogTimer.Dialogs.TaskShareDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="分享"
+    PrimaryButtonText="确定"
+    SecondaryButtonText="取消"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="分享类型" Style="{StaticResource InputLabel}"/>
+        <ComboBox x:Name="typeCb" Grid.Row="1" VerticalAlignment="Stretch" SelectionChanged="typeCb_SelectionChanged">
+            <ComboBoxItem Content="公开分享"/>
+            <ComboBoxItem Content="密码分享"/>
+        </ComboBox>
+        <Grid x:Name="pwdBox" Grid.Row="2" Visibility="Collapsed" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="分享密码" Style="{StaticResource InputLabel}"/>
+            <TextBox x:Name="pwdTb" Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
+        </Grid>
+        <Grid x:Name="linkBox" Grid.Row="3" Visibility="Collapsed" Height="80">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="分享链接" Style="{StaticResource InputLabel}"/>
+            <TextBox Grid.Row="1" IsReadOnly="True" Style="{StaticResource CenterTextBoxStyle}"/>
+        </Grid>
+    </Grid>
+</ContentDialog>
