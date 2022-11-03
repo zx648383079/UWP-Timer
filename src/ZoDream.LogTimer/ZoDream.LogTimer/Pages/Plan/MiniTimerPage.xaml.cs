@@ -33,13 +33,13 @@ namespace ZoDream.LogTimer.Pages.Plan
         public MiniTimerPage()
         {
             this.InitializeComponent();
-            // Berth(this, 200);
+            Berth(this, 200);
         }
 
         /// <summary>
          /// 将窗口停靠到边缘
          /// </summary>
-         void Berth(Window window, int width = 400)
+         void Berth(Window window, int width = 200, int height = 80)
          {
              //获取窗口句柄
              var hwnd = WindowNative.GetWindowHandle(window);
@@ -49,9 +49,9 @@ namespace ZoDream.LogTimer.Pages.Plan
                 hWnd = hwnd,
                 uEdge = ABE.ABE_RIGHT//设置方向
             };
-            data.cbSize = (uint) Marshal.SizeOf(data);
-             data.rc.Top = 0;
-             data.rc.bottom = DisplayArea.Primary.OuterBounds.Height;
+             data.cbSize = (uint) Marshal.SizeOf(data);
+             data.rc.Top = 120;
+             data.rc.bottom = height;//DisplayArea.Primary.OuterBounds.Height;
              data.rc.left = DisplayArea.Primary.OuterBounds.Width - width;
              data.rc.right = DisplayArea.Primary.OuterBounds.Width;
              //调用 win32Api 设定指定位置为“AppBar”
@@ -97,5 +97,10 @@ namespace ZoDream.LogTimer.Pages.Plan
              //设置窗口大小和位置
              User32.MoveWindow(hwnd, 20, 200, 400, 400, true);
          }
+
+        private void Window_Closed(object sender, WindowEventArgs args)
+        {
+            Detach(this);
+        }
     }
 }

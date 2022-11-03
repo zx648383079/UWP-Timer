@@ -102,5 +102,10 @@ namespace ZoDream.LogTimer.Pages
             UrlTb.Text = url.ToString();
             Browser.Source = url;
         }
+
+        private void Window_Closed(object sender, WindowEventArgs args)
+        {
+            Browser.Close();
+        }
     }
 }
