@@ -17,6 +17,8 @@ using Windows.Graphics.Imaging;
 using Windows.Media;
 using Windows.System;
 using Windows.UI.Core;
+using ZoDream.LogTimer.Controls;
+using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
 using ZXing;
 
@@ -32,11 +34,10 @@ namespace ZoDream.LogTimer.Pages
     {
         BarcodeReader<SoftwareBitmap> barcodeReader;
         bool IsBusy = false;
-        DispatcherQueue dispatcherQueue;
 
         public ScanPage()
         {
-            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+            // SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Required;
             //Application.Current.Suspending += Application_Suspending;
@@ -77,7 +78,7 @@ namespace ZoDream.LogTimer.Pages
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            //await CleanupCameraAsync();
+            _ = CleanupCameraAsync();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -88,21 +89,24 @@ namespace ZoDream.LogTimer.Pages
 
         private async Task InitCameraAsync()
         {
-            // UnsubscribeFromEvents();
+            UnsubscribeFromEvents();
             if (CameraPreviewControl != null)
             {
-                //CameraPreviewControl.PreviewFailed += CameraPreviewControl_PreviewFailed;
-                //await CameraPreviewControl.StartAsync();
-                //CameraPreviewControl.CameraHelper.FrameArrived += CameraPreviewControl_FrameArrived;
-                //barcodeReader = new BarcodeReader();
+                CameraPreviewControl.PreviewFailed += CameraPreviewControl_PreviewFailed;
+                await CameraPreviewControl.StartAsync();
+                CameraPreviewControl.CameraHelper.FrameArrived += CameraPreviewControl_FrameArrived;
+                barcodeReader = new BarcodeReader<SoftwareBitmap>(o =>
+                {
+                    return new SoftwareBitmapLuminanceSource(o);
+                });
             }
 
         }
 
-        //private void CameraPreviewControl_FrameArrived(object sender, Microsoft.Toolkit.Uwp.Helpers.FrameEventArgs e)
-        //{
-        //    _ = SanFrameAsync(e.VideoFrame);
-        //}
+        private void CameraPreviewControl_FrameArrived(object sender, CameraFrameEventArgs e)
+        {
+            SanFrameAsync(e.VideoFrame);
+        }
 
         private void SanFrameAsync(VideoFrame frame)
         {
@@ -129,32 +133,32 @@ namespace ZoDream.LogTimer.Pages
             }
         }
 
-        //private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEventArgs e)
-        //{
-        //    tbkTip.Text = Constants.GetString("no_camera_found");
-        //}
+        private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEventArgs e)
+        {
+            tbkTip.Text = Constants.GetString("no_camera_found");
+        }
 
-        //private async Task CleanupCameraAsync()
-        //{
-        //    UnsubscribeFromEvents();
-        //    if (CameraPreviewControl != null)
-        //    {
-        //        CameraPreviewControl.Stop();
-        //        await CameraPreviewControl.CameraHelper?.CleanUpAsync();
-        //    }
-        //}
+        private async Task CleanupCameraAsync()
+        {
+            UnsubscribeFromEvents();
+            if (CameraPreviewControl != null)
+            {
+                CameraPreviewControl.Stop();
+                await CameraPreviewControl.CameraHelper?.CleanUpAsync();
+            }
+        }
 
-        //private void UnsubscribeFromEvents()
-        //{
-        //    if (CameraPreviewControl != null)
-        //    {
-        //        if (CameraPreviewControl.CameraHelper != null)
-        //        {
-        //            CameraPreviewControl.CameraHelper.FrameArrived -= CameraPreviewControl_FrameArrived;
-        //        }
-        //        CameraPreviewControl.PreviewFailed -= CameraPreviewControl_PreviewFailed;
-        //    }
-        //}
+        private void UnsubscribeFromEvents()
+        {
+            if (CameraPreviewControl != null)
+            {
+                if (CameraPreviewControl.CameraHelper != null)
+                {
+                    CameraPreviewControl.CameraHelper.FrameArrived -= CameraPreviewControl_FrameArrived;
+                }
+                CameraPreviewControl.PreviewFailed -= CameraPreviewControl_PreviewFailed;
+            }
+        }
 
 
         /// <summary>

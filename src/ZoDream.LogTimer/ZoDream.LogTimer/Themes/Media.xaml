@@ -20,6 +20,20 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="4*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <FontIcon x:Name="PART_ActionBtn" Glyph="&#xF5B0;" VerticalAlignment="Center"/>
+                            <Slider x:Name="PART_ProgressSlider" Grid.Column="1"/>
+                            <TextBlock x:Name="PART_ProgressTb" Text="00:00/00:00" Grid.Column="2"  VerticalAlignment="Center" FontFamily="微软雅黑"/>
+                            <FontIcon x:Name="PART_VolumnBtn" Glyph="&#xE995;" Grid.Column="3" VerticalAlignment="Center"/>
+                            <Slider x:Name="PART_VolumnSlider" Grid.Column="4"/>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -36,6 +50,26 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Target="Cover.Visibility" Value="Visible"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Playing">
+                                    <VisualState.Setters>
+                                        <Setter Target="Cover.Visibility" Value="Collapsed"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Grid>
+                            <Grid x:Name="PART_InnerBox"></Grid>
+                            <Grid x:Name="PART_CoverTb" Background="Black" Visibility="Visible">
+                                <FontIcon Glyph="&#xF5B0;" Foreground="#fff" FontSize="40"/>
+                            </Grid>
+                        </Grid>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

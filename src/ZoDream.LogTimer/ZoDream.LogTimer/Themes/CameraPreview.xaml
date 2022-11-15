@@ -8,9 +8,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:CameraPreview">
                     <Grid Background="{TemplateBinding Background}">
-                        <!--<MediaPlayerElement x:Name="MediaPlayerElementControl" HorizontalAlignment="Left">
-                        </MediaPlayerElement>-->
-                        <Button x:Name="FrameSourceGroupButton" Background="{ThemeResource SystemBaseLowColor}"
+                        <MediaPlayerElement x:Name="PART_MediaPlayer" HorizontalAlignment="Left">
+                        </MediaPlayerElement>
+                        <Button x:Name="PART_FrameSourceGroupBtn" Background="{ThemeResource SystemBaseLowColor}"
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5">
                             <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE89E;" Foreground="{ThemeResource SystemAltHighColor}" />
                         </Button>
