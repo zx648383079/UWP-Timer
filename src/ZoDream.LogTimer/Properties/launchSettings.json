@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ZoDream.LogTimer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ZoDream.LogTimer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

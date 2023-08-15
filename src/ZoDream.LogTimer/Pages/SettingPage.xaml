@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="ZoDream.LogTimer.Pages.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ZoDream.LogTimer.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Themes/InputSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ctl:LargeHeader x:Uid="setting_header" Title="设置" Submited="LargeHeader_Submited"/>
+        <ScrollViewer Grid.Row="1">
+            <StackPanel Padding="10,0,10,50">
+                <ctl:IconMenuItem x:Uid="vibrate_menu" Title="震动" Description="震动提示" Margin="0,0,0,10">
+                    <ToggleSwitch x:Name="vibrateTs" 
+                              x:Uid="toggle_switch"
+                              OffContent="关" OnContent="开"/>
+                </ctl:IconMenuItem>
+                <ctl:IconMenuItem x:Uid="screen_on_menu" Title="屏幕常亮" 
+                                  Description="执行任务保持屏幕常亮" Margin="0,0,0,10">
+                    <ToggleSwitch x:Name="screenOnTs" 
+                              x:Uid="toggle_switch"
+                              OffContent="关" OnContent="开" />
+                </ctl:IconMenuItem>
+                <ctl:IconMenuItem x:Uid="full_screen_menu" Title="全屏" 
+                                  Description="执行任务保持全屏" Margin="0,0,0,10">
+                    <ToggleSwitch x:Name="fullScreenTs" 
+                              x:Uid="toggle_switch"
+                              OffContent="关" OnContent="开"/>
+                </ctl:IconMenuItem>
+                <ctl:IconMenuItem x:Uid="open_url_menu"
+                                  Title="访问外部链接" Description="访问外部链接，使用什么方式">
+                    <ComboBox SelectedIndex="0" VerticalAlignment="Center">
+                        <ComboBoxItem>系统默认浏览器</ComboBoxItem>
+                        <ComboBoxItem>内部浏览器</ComboBoxItem>
+                        <ComboBoxItem>禁止</ComboBoxItem>
+                    </ComboBox>
+                </ctl:IconMenuItem>
+
+                <TextBlock Text="系统缓存" Grid.Row="3" Style="{StaticResource HeaderLabel}"/>
+                <Button x:Name="CacheBtn" Grid.Row="4" Content="清除缓存" Click="CacheBtn_Click"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
