@@ -54,15 +54,15 @@ namespace ZoDream.LogTimer.Controls
         // Using a DependencyProperty as the backing store for Source.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(MicroItem), typeof(MicroListItem), new PropertyMetadata(null, OnSourceChange));
-        public string Avatar
+        public ImageSource Avatar
         {
-            get { return (string)GetValue(AvatarProperty); }
+            get { return (ImageSource)GetValue(AvatarProperty); }
             set { SetValue(AvatarProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for Avatar.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvatarProperty =
-            DependencyProperty.Register("Avatar", typeof(string), typeof(MicroListItem), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Avatar", typeof(ImageSource), typeof(MicroListItem), new PropertyMetadata(default(ImageSource)));
 
 
 
@@ -133,7 +133,7 @@ namespace ZoDream.LogTimer.Controls
             CreatedAt = ConverterHelper.Ago(Source.CreatedAt);
             if (Source.User != null)
             {
-                Avatar = Source.User.Avatar;
+                Avatar = ConverterHelper.ToImg(Source.User.Avatar);
                 Nickname = Source.User.Name;
             }
             if (InnerBlock == null)
@@ -143,6 +143,22 @@ namespace ZoDream.LogTimer.Controls
             InnerBlock.Content = Source.Content;
             InnerBlock.Rules = Source.ExtraRule;
             MediaPanel.Items = Source.Attachment;
+            UpdateCounter(CollectBtn, Source.CollectCount);
+            UpdateCounter(LikeBtn, Source.RecommendCount);
+            UpdateCounter(CommentBtn, Source.CommentCount);
+            UpdateCounter(ForwardBtn, Source.ForwardCount);
+        }
+
+        private void UpdateCounter(Button parent, int amount)
+        {
+            if (parent is null || amount <= 0)
+            {
+                return;
+            }
+            if (parent.Content is IconTag t)
+            {
+                t.Label = amount.ToString();
+            }
         }
 
         private void ForwardBtn_Tapped(object sender, RoutedEventArgs e)

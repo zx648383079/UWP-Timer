@@ -45,11 +45,11 @@ namespace ZoDream.LogTimer
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            MainWindow = new MainWindow();
-            MainWindow.Activate();
+            _window = new MainWindow();
+            _window.Activate();
         }
 
-        internal static Window MainWindow;
+        private Window _window;
         internal static MainViewModel ViewModel { get; private set; }
 
         internal static RestRepository Repository { get; private set; }

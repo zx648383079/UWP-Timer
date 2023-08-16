@@ -68,7 +68,7 @@ namespace ZoDream.LogTimer.Controls
 
         // Using a DependencyProperty as the backing store for Max.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register("Max", typeof(int), typeof(RadialProgressBar), new PropertyMetadata(0, new PropertyChangedCallback(valueChangedCallback)));
+            DependencyProperty.Register("Max", typeof(int), typeof(RadialProgressBar), new PropertyMetadata(0, new PropertyChangedCallback(ValueChangedCallback)));
 
         /// <summary>
         /// 当前进度
@@ -81,10 +81,10 @@ namespace ZoDream.LogTimer.Controls
 
         // Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(int), typeof(RadialProgressBar), new PropertyMetadata(0, valueChangedCallback));
+            DependencyProperty.Register("Value", typeof(int), typeof(RadialProgressBar), new PropertyMetadata(0, ValueChangedCallback));
 
 
-        private static void valueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ValueChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as RadialProgressBar).RefreshView();
         }
@@ -243,7 +243,7 @@ namespace ZoDream.LogTimer.Controls
             draw.FillCircle(x, y, LineWidth, Inline);
         }
 
-        public CanvasGeometry Arc(ICanvasResourceCreator resourceCreator, float centerX, float centerY, float radius, float startAngle, float endAngle)
+        public static CanvasGeometry Arc(ICanvasResourceCreator resourceCreator, float centerX, float centerY, float radius, float startAngle, float endAngle)
         {
             var path = new CanvasPathBuilder(resourceCreator);
             path.BeginFigure(centerX, centerY - radius);

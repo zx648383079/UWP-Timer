@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    xmlns:cvt="using:ZoDream.LogTimer.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -60,7 +61,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <PersonPicture ProfilePicture="{x:Bind ViewModel.User.Avatar}" 
+                <PersonPicture ProfilePicture="{x:Bind cvt:ConverterHelper.ToImg(ViewModel.User.Avatar)}" 
                                DisplayName="{x:Bind ViewModel.User.Name}" 
                                Grid.RowSpan="2" Width="60"/>
                 <TextBox x:Name="CommentTb" Grid.Column="1" Grid.ColumnSpan="2" 

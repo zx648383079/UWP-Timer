@@ -49,7 +49,7 @@ namespace ZoDream.LogTimer.Pages.Micro
 
         private async void PickImage()
         {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.MainWindow);
+            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.ViewModel.AppWindow);
             var filePicker = new FileOpenPicker
             {
                 ViewMode = PickerViewMode.Thumbnail,

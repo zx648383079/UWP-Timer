@@ -33,8 +33,17 @@ namespace ZoDream.LogTimer.Pages.Plan
         public MiniTimerPage()
         {
             this.InitializeComponent();
-            Berth(this, 200);
+            //Berth(this, 200);
         }
+
+        public bool IsPaused {
+            get => FrontPanel.Visibility == Visibility.Visible;
+            set {
+                FrontPanel.Visibility = !value ? Visibility.Visible : Visibility.Collapsed;
+                BackPanel.Visibility = !value ? Visibility.Collapsed : Visibility.Visible;
+            }
+        }
+
 
         /// <summary>
         /// 将窗口停靠到边缘
@@ -78,7 +87,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         static void Detach(Window window)
          {
              //获取窗口句柄
-             var hwnd = WindowNative.GetWindowHandle(window);
+            var hwnd = WindowNative.GetWindowHandle(window);
             var data = new APPBARDATA
             {
                 hWnd = hwnd
@@ -87,7 +96,7 @@ namespace ZoDream.LogTimer.Pages.Plan
              var d = SHAppBarMessage(ABM.ABM_REMOVE, ref data);
          
              //将窗口的模式设置为普通的模式，将标题栏显示出来
-             OverlappedPresenter op = OverlappedPresenter.Create();
+             var op = OverlappedPresenter.Create();
              var wid = Win32Interop.GetWindowIdFromWindow(hwnd);
              var aw = AppWindow.GetFromWindowId(wid);
              aw.SetPresenter(op);
@@ -100,7 +109,12 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private void Window_Closed(object sender, WindowEventArgs args)
         {
-            Detach(this);
+            //Detach(this);
+        }
+
+        private void StartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            IsPaused = false;
         }
     }
 }

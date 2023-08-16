@@ -27,7 +27,7 @@ namespace ZoDream.LogTimer.ViewModels
         }
 
 
-        private User user = new User();
+        private User user = new();
 
         public User User
         {

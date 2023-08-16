@@ -5,6 +5,7 @@
 
     <Style TargetType="ctl:CommentListItem">
         <Setter Property="Padding" Value="0,10,0,0"/>
+        <Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ctl:CommentListItem">
@@ -28,20 +29,30 @@
                                            DisplayName="{TemplateBinding Nickname}"
                                            Grid.RowSpan="3" VerticalAlignment="Top" Width="60"/>
                             <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-                                <TextBlock Text="{TemplateBinding Nickname}" FontSize="20" FontWeight="Bold"/>
-                                <TextBlock Text="{TemplateBinding CreatedAt}" FontSize="14" FontWeight="Light" Foreground="#999" Margin="10,5"/>
+                                <TextBlock Text="{TemplateBinding Nickname}" 
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           FontSize="20" FontWeight="Bold"/>
+                                <TextBlock Text="{TemplateBinding CreatedAt}" 
+                                           FontFamily="{TemplateBinding FontFamily}" 
+                                           FontSize="14" FontWeight="Light" Foreground="#999" Margin="10,5"/>
                             </StackPanel>
                             <ctl:RuleBlock x:Name="PART_InnerBlock" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1"/>
                             <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-                                <TextBlock x:Name="PART_ExpandBtn" Text="展开" Foreground="#4d93f2" FontSize="12"  Margin="5"/>
+                                <TextBlock x:Name="PART_ExpandBtn" Text="展开" 
+                                           FontFamily="{TemplateBinding FontFamily}"
+                                           Foreground="#4d93f2" FontSize="12"  Margin="5"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
-                                <TextBlock x:Name="PART_ReportBtn" Text="举报" Margin="5"  FontSize="12"/>
-                                <TextBlock x:Name="PART_AgreeBtn" Text="支持(0)" Margin="5"  FontSize="12"/>
-                                <TextBlock x:Name="PART_ReplyBtn" Text="回复" Margin="5"  FontSize="12"/>
+                                <TextBlock x:Name="PART_ReportBtn" 
+                                           FontFamily="{TemplateBinding FontFamily}" Text="举报" Margin="5"  FontSize="12"/>
+                                <TextBlock x:Name="PART_AgreeBtn" Text="支持(0)" 
+                                           FontFamily="{TemplateBinding FontFamily}" Margin="5"  FontSize="12"/>
+                                <TextBlock x:Name="PART_ReplyBtn" Text="回复" 
+                                           FontFamily="{TemplateBinding FontFamily}" Margin="5"  FontSize="12"/>
                             </StackPanel>
                             <ctl:CommentListBox x:Name="PART_ChildrenPanel" 
                                   Background="#fafafa"
+                                  FontFamily="{TemplateBinding FontFamily}"
                                   Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
                         </Grid>
                     </Border>

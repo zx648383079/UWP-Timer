@@ -1,4 +1,5 @@
-﻿using Microsoft.UI.Dispatching;
+﻿using Microsoft.UI;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using WinRT.Interop;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
@@ -78,9 +80,12 @@ namespace ZoDream.LogTimer.ViewModels
 
         public void FullScreenAsync(bool isFull)
         {
-            
+            var hWnd = WindowNative.GetWindowHandle(this.AppWindow);
+            var myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
+            var win = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(myWndId);
+            win.SetPresenter(isFull ? Microsoft.UI.Windowing.AppWindowPresenterKind.FullScreen : Microsoft.UI.Windowing.AppWindowPresenterKind.Default);
         }
-
+        
         public void OpenUrlAsync(string url)
         {
             if (AppWindow == null)

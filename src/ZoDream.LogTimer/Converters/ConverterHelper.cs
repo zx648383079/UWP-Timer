@@ -97,7 +97,7 @@ namespace ZoDream.LogTimer.Converters
 
         public static BitmapImage Base64ToImg(string value)
         {
-            var str = value.Substring(value.IndexOf(',') + 1);
+            var str = value[(value.IndexOf(',') + 1)..];
             var bytes = Convert.FromBase64String(str);
             var stream = new InMemoryRandomAccessStream();
             var writer = new DataWriter(stream);

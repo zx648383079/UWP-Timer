@@ -47,7 +47,7 @@ namespace ZoDream.LogTimer.Pages.Member
             birthdayTb.MinDate = DateTime.Now.AddYears(-100);
         }
 
-        private void LargeHeader_Submited(object sender, TappedRoutedEventArgs e)
+        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
         {
             var form = new ProfileForm()
             {

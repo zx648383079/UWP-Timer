@@ -41,7 +41,7 @@ namespace ZoDream.LogTimer.Pages
             screenOnTs.IsOn = data.ScreenOn;
         }
 
-        private void LargeHeader_Submited(object sender, TappedRoutedEventArgs e)
+        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
         {
             var data = new UserOption()
             {

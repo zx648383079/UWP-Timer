@@ -47,10 +47,7 @@ namespace ZoDream.LogTimer.Pages.Micro
                 SetMicro(item);
             }
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("micro");
-            if (imageAnimation != null)
-            {
-                imageAnimation.TryStart(MicroView);
-            }
+            imageAnimation?.TryStart(MicroView);
             if (App.Store.Auth.IsAuthenticated)
             {
                 ViewModel.User = App.Store.Auth.User;

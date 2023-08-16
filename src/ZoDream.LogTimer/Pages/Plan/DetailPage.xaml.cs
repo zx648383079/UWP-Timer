@@ -123,28 +123,7 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private void FullScreen(bool isFull)
         {
-            if (!ViewModel.Settings.FullScreen)
-            {
-                return;
-            }
-            return;
-            var view = ApplicationView.GetForCurrentView();
-
-            bool isInFullScreenMode = view.IsFullScreenMode;
-
-            if (isFull == isInFullScreenMode)
-            {
-                return;
-            }
-
-            if (!isFull)
-            {
-                view.ExitFullScreenMode();
-            }
-            else
-            {
-                view.TryEnterFullScreenMode();
-            }
+            App.ViewModel.FullScreenAsync(isFull);
         }
 
         private void ScreenOn(bool isOn)
@@ -170,7 +149,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             }
         }
 
-        private void begin()
+        private void Begin()
         {
             FullScreen(true);
             ScreenOn(true);
@@ -179,7 +158,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             progressBar.Value = ViewModel.Today.Log == null ? 0 : ViewModel.Today.Log.Time;
         }
 
-        private void stop()
+        private void Stop()
         {
             FullScreen(false);
             ScreenOn(false);
@@ -211,10 +190,10 @@ namespace ZoDream.LogTimer.Pages.Plan
 
         private void progressBar_TimeEnd(object sender, RangeBaseValueChangedEventArgs e)
         {
-            _ = checkAsync();
+            _ = CheckAsync();
         }
 
-        private async Task checkAsync()
+        private async Task CheckAsync()
         {
             var data = await App.Repository.Task.CheckTaskAsync(ViewModel.Today.Id, res =>
             {
@@ -232,7 +211,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
-                stop();
+                Stop();
                 Toast.ShowInfo(data.Tip);
                 _ = App.ViewModel.ShowMessageAsync(data.Tip);
                 if (data.Amount < 1)
@@ -242,7 +221,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             });
         }
 
-        private async Task startAsync()
+        private async Task StartAsync()
         {
             var data = await App.Repository.Task.PlayTaskAsync(ViewModel.Today.Id, res =>
             {
@@ -258,11 +237,11 @@ namespace ZoDream.LogTimer.Pages.Plan
             DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
-                begin();
+                Begin();
             });
         }
 
-        private async Task pauseAsync()
+        private async Task PauseAsync()
         {
             var data = await App.Repository.Task.PauseTaskAsync(ViewModel.Today.Id, res =>
             {
@@ -283,7 +262,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             });
         }
 
-        private async Task stopAsync()
+        private async Task StopAsync()
         {
             var data = await App.Repository.Task.StopTaskAsync(ViewModel.Today.Id, res =>
             {
@@ -299,7 +278,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             DispatcherQueue.TryEnqueue(() =>
             {
                 ViewModel.Today = data;
-                stop();
+                Stop();
             });
         }
 

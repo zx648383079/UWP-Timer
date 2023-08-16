@@ -22,7 +22,7 @@
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ctl:LargeHeader x:Uid="edit_title" Title="编辑个人信息" Submited="LargeHeader_Submited"/>
+        <ctl:LargeHeader x:Uid="edit_title" Title="编辑个人信息" Submitted="LargeHeader_Submitted"/>
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10,0,10,0">
                 <Grid.RowDefinitions>

@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
         <ctl:LargeHeader x:Uid="task_new_title"
             x:Name="titleTb"
-            Title="新增任务" Submited="LargeHeader_Submited"/>
+            Title="新增任务" Submitted="LargeHeader_Submitted"/>
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10,0">
                 <Grid.RowDefinitions>

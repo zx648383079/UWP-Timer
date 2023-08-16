@@ -47,7 +47,7 @@ namespace ZoDream.LogTimer.Pages.Micro
             ViewModel.FileItems.Remove(item);
         }
 
-        private void LargeHeader_Submited(object sender, TappedRoutedEventArgs e)
+        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
         {
             _ = CreateAsync(new MicroShareForm()
             {

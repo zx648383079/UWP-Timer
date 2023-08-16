@@ -96,7 +96,7 @@ namespace ZoDream.LogTimer.Controls
 
         // Using a DependencyProperty as the backing store for Nickname.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NicknameProperty =
-            DependencyProperty.Register("Nickname", typeof(string), typeof(CommentListItem), new PropertyMetadata(default(string)));
+            DependencyProperty.Register("Nickname", typeof(string), typeof(CommentListItem), new PropertyMetadata(string.Empty));
 
         public string CreatedAt
         {
@@ -133,6 +133,10 @@ namespace ZoDream.LogTimer.Controls
             if (ReportBtn != null) 
             {
                 ReportBtn.Tapped += ReportBtn_Tapped;
+            }
+            if (Source != null)
+            {
+                RefreshView();
             }
         }
 
@@ -172,7 +176,7 @@ namespace ZoDream.LogTimer.Controls
 
         private void RefreshView()
         {
-            if (Source == null)
+            if (Source == null || InnerBlock is null)
             {
                 return;
             }

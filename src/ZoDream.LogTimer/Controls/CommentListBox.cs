@@ -50,6 +50,10 @@ namespace ZoDream.LogTimer.Controls
         {
             base.OnApplyTemplate();
             MainPanel = GetTemplateChild(MainPanelName) as Panel;
+            if (Items != null)
+            {
+                RefreshView();
+            }
         }
 
         private void RefreshView()

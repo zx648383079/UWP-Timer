@@ -22,7 +22,7 @@
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ctl:LargeHeader x:Uid="feedback_header" Title="留言反馈" Submited="LargeHeader_Submited"/>
+        <ctl:LargeHeader x:Uid="feedback_header" Title="留言反馈" Submitted="LargeHeader_Submitted"/>
         <ScrollViewer Grid.Row="1">
             <Grid Padding="10,0,10,0">
                 <Grid.RowDefinitions>

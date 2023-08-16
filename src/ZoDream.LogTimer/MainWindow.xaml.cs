@@ -110,7 +110,7 @@ namespace ZoDream.LogTimer
             }
         }
 
-        internal void NavigateWithDeeplink(Uri uri)
+        internal void NavigateWithDeepLink(Uri uri)
         {
             Deeplink.OpenLink(AppFrame, uri);
         }

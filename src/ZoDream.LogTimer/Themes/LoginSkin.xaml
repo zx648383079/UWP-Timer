@@ -8,12 +8,12 @@
     </Style>
 
     <Style x:Key="SubmitBtn" TargetType="Button" BasedOn="{StaticResource BaseBtn}">
-        <Setter Property="Background" Value="#b4282d"/>
-        <Setter Property="Foreground" Value="White"/>
+        <!--<Setter Property="Background" Value="#dc3545"/>
+        <Setter Property="Foreground" Value="White"/>-->
     </Style>
 
     <Style x:Key="ResetBtn" TargetType="Button" BasedOn="{StaticResource BaseBtn}">
-        <Setter Property="Foreground" Value="#b4282d"/>
-        <Setter Property="Background" Value="White"/>
+        <!--<Setter Property="Foreground" Value="#dc3545"/>
+        <Setter Property="Background" Value="White"/>-->
     </Style>
 </ResourceDictionary>

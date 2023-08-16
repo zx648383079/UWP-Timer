@@ -15,42 +15,18 @@ using Microsoft.UI.Xaml.Media;
 namespace ZoDream.LogTimer.Controls
 {
     [TemplatePart(Name = ActionBtnName, Type = typeof(FrameworkElement))]
+    [TemplatePart(Name = ActionBtnBodyName, Type = typeof(FrameworkElement))]
     public sealed class LargeHeader : ContentControl
     {
         const string ActionBtnName = "PART_ActionBtn";
+        const string ActionBtnBodyName = "PART_ActionContent";
 
         public LargeHeader()
         {
             this.DefaultStyleKey = typeof(LargeHeader);
-            Loaded += LargeHeader_Loaded;
-            PointerEntered += LargeHeader_PointerEntered;
-            PointerExited += LargeHeader_PointerExited;
         }
 
-        private void LargeHeader_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(this, "Normal", true);
-        }
 
-        private void LargeHeader_PointerEntered(object sender, PointerRoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(this, "PointerOver", true);
-        }
-
-        private void LargeHeader_Loaded(object sender, RoutedEventArgs e)
-        {
-            var actionBtn = GetTemplateChild("ActionBtn") as FrameworkElement;
-            if (actionBtn != null)
-            {
-                actionBtn.Tapped += ActionBtn_Tapped;
-                RefreshSubmit();
-            }
-        }
-
-        private void ActionBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            Submited?.Invoke(this, e);
-        }
 
         /// <summary>
         /// 标题
@@ -86,14 +62,56 @@ namespace ZoDream.LogTimer.Controls
 
         private void RefreshSubmit()
         {
-            var actionBtn = GetTemplateChild(ActionBtnName) as FrameworkElement;
-            actionBtn.Visibility = CanSubmit ? Visibility.Visible : Visibility.Collapsed;
+            if (ActionBtn is null)
+            {
+                return;
+            }
+            ActionBtn.Visibility = CanSubmit ? Visibility.Visible : Visibility.Collapsed;
         }
 
 
         /// <summary>
         /// 提交按钮事件
         /// </summary>
-        public event TappedEventHandler Submited;
+        public event TappedEventHandler Submitted;
+        private FrameworkElement ActionBtn;
+        private FrameworkElement ActionBodyBtn;
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            ActionBtn = GetTemplateChild(ActionBtnName) as FrameworkElement;
+            ActionBodyBtn = GetTemplateChild(ActionBtnBodyName) as FrameworkElement;
+            if (ActionBtn != null)
+            {
+                ActionBtn.Tapped += ActionBtn_Tapped;
+            }
+            RefreshSubmit();
+        }
+
+        protected override void OnPointerEntered(PointerRoutedEventArgs e)
+        {
+            base.OnPointerEntered(e);
+            VisualStateManager.GoToState(this, "PointerOver", true);
+            if (ActionBodyBtn is not null)
+            {
+                ActionBodyBtn.Translation += new System.Numerics.Vector3(0, -10, 20);
+            }
+        }
+
+        protected override void OnPointerExited(PointerRoutedEventArgs e)
+        {
+            base.OnPointerExited(e);
+            VisualStateManager.GoToState(this, "Normal", true);
+            if (ActionBodyBtn is not null)
+            {
+                ActionBodyBtn.Translation -= new System.Numerics.Vector3(0, -10, 20);
+            }
+        }
+
+        private void ActionBtn_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            Submitted?.Invoke(this, e);
+        }
     }
 }

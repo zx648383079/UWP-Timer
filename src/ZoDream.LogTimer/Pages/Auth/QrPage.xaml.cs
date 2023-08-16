@@ -33,18 +33,22 @@ namespace ZoDream.LogTimer.Pages.Auth
         }
 
         private string Token = string.Empty;
-        private Task timer;
+        private CancellationTokenSource tokenSource;
         private QrStatus Status = QrStatus.NONE;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("logo");
-            if (imageAnimation != null)
-            {
-                imageAnimation.TryStart(LogoImg);
-            }
+            imageAnimation?.TryStart(LogoImg);
+            tokenSource = new CancellationTokenSource();
             _ = RefreshQrAsync();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+            tokenSource.Cancel();
         }
 
         private void BackBtn_Click(object sender, RoutedEventArgs e)
@@ -63,20 +67,21 @@ namespace ZoDream.LogTimer.Pages.Auth
             {
                 Token = data.Token;
                 QrImage.Source = Converters.ConverterHelper.ToImg(data.Qr);
-                changeStatus(QrStatus.NONE);
-                loopCheckQr();
+                ChangeStatus(QrStatus.NONE);
+                LoopCheckQr();
             });
         }
 
-        private void loopCheckQr()
+        private void LoopCheckQr()
         {
             if (string.IsNullOrEmpty(Token))
             {
                 return;
             }
-            timer = Task.Factory.StartNew(async () =>
+            var token = tokenSource.Token;
+            Task.Factory.StartNew(async () =>
             {
-                if (string.IsNullOrEmpty(Token))
+                if (string.IsNullOrEmpty(Token) || token.IsCancellationRequested)
                 {
                     return;
                 }
@@ -84,41 +89,40 @@ namespace ZoDream.LogTimer.Pages.Auth
                 {
                     if (err.Code == 201)
                     {
-                        changeStatus(QrStatus.NONE);
+                        ChangeStatus(QrStatus.NONE);
                         Thread.Sleep(2000);
-                        loopCheckQr();
+                        LoopCheckQr();
                         return;
                     }
                     if (err.Code == 202)
                     {
-                        changeStatus(QrStatus.CONFIRM);
+                        ChangeStatus(QrStatus.CONFIRM);
                         Thread.Sleep(2000);
-                        loopCheckQr();
+                        LoopCheckQr();
                         return;
                     }
                     if (err.Code == 204)
                     {
-                        changeStatus(QrStatus.EXPIRED);
+                        ChangeStatus(QrStatus.EXPIRED);
                         return;
                     }
-                    changeStatus(QrStatus.REJECT);
+                    ChangeStatus(QrStatus.REJECT);
                 });
                 if (data == null)
                 {
                     return;
                 }
-                changeStatus(QrStatus.SUCCESS);
+                ChangeStatus(QrStatus.SUCCESS);
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    timer = null;
                     App.Store.Auth.LoginAsync(data.Token, data);
                     Frame.BackStack.Clear();
                     Frame.Navigate(typeof(Member.IndexPage));
                 });
-            });
+            }, token);
         }
 
-        private void changeStatus(QrStatus status)
+        private void ChangeStatus(QrStatus status)
         {
             Status = status;
             DispatcherQueue.TryEnqueue(() =>
