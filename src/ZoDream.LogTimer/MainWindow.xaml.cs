@@ -1,23 +1,15 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Pages;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Repositories.Models;
-using ZoDream.LogTimer.Utils;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -34,17 +26,20 @@ namespace ZoDream.LogTimer
         {
             this.InitializeComponent();
             ExtendsContentIntoTitleBar = true;
+            _navigation = App.GetService<NavigationService>();
+            _navigation.RegisterFrame(AppFrame);
             SetTitleBar(AppTitleBar);
             OnLoad();
         }
 
-        internal Frame AppFrame => frame;
-        internal MainViewModel ViewModel = App.ViewModel;
+        private NavigationService _navigation;
+        private IAuthService _auth = App.GetService<IAuthService>();
+        internal MainViewModel ViewModel = new();
         private bool isSearchChoose = false;// ×èÖ¹µã»÷ËÑË÷Ïî´¥·¢ËÑË÷
 
         private void OnNavigatingToPage(object sender, NavigatingCancelEventArgs e)
         {
-            // ApplicationView.GetForCurrentView().Title = Constants.GetString("app_name");
+            // ApplicationView.GetForCurrentView().Title = App.GetString("app_name");
             if (e.NavigationMode == NavigationMode.Back)
             {
                 if (e.SourcePageType == typeof(SettingPage))
@@ -59,7 +54,7 @@ namespace ZoDream.LogTimer
             var label = args.InvokedItemContainer.Name;
             var pageType =
                 args.IsSettingsInvoked ? typeof(SettingPage) :
-                label == "scanMenu" ? (App.Store.Auth.IsAuthenticated ? typeof(ScanPage) : typeof(Pages.Auth.LoginPage)) :
+                label == "scanMenu" ? (_auth.Authenticated ? typeof(ScanPage) : typeof(Pages.Auth.LoginPage)) :
                 label == "reviewMenu" ? typeof(Pages.Plan.ReviewPage) :
                 label == "recordMenu" ? typeof(Pages.Plan.RecordPage) :
                 label == "shareMenu" ? typeof(Pages.Plan.ShareListPage) :
@@ -69,24 +64,27 @@ namespace ZoDream.LogTimer
                 typeof(Pages.Plan.TodayPage);
             if (pageType != null && pageType != AppFrame.CurrentSourcePageType)
             {
-                AppFrame.Navigate(pageType);
+                _navigation.Navigate(pageType);
             }
         }
 
         private void OnLoad()
         {
-            ViewModel.AppWindow = this;
-            AppFrame.Navigate(typeof(Pages.Plan.TodayPage));
-            AppTitle.Text = Constants.GetString("app_name");
-            App.Store.Booted += () => {
-                if (App.Store.Auth.IsAuthenticated)
+            var app = App.GetService<AppViewModel>();
+            app.BaseWindow = this;
+            _navigation.Navigate(typeof(Pages.Plan.TodayPage));
+            AppTitle.Text = App.GetString("app_name");
+            app.Booted += () => {
+                if (_auth.Authenticated)
                 {
-                    AppFrame.Navigate(AppFrame.SourcePageType);
+                    _navigation.Navigate(AppFrame.SourcePageType);
+                    AppFrame.BackStack.Clear();
                 }
             };
-            App.Store.Auth.AuthChanged += () => {
+            _auth.AuthChanged += () => {
                 DispatcherQueue.TryEnqueue(() => {
-                    myMenu.Content = App.Store.Auth.IsAuthenticated ? App.Store.Auth.User.Name : Constants.GetString("login_btn_label");
+                    myMenu.Content = _auth.Authenticated ? 
+                    _auth.AuthenticatedUser!.Name : App.GetString("login_btn_label");
                 });
             };
         }
@@ -108,11 +106,6 @@ namespace ZoDream.LogTimer
             {
                 AppFrame.GoBack();
             }
-        }
-
-        internal void NavigateWithDeepLink(Uri uri)
-        {
-            Deeplink.OpenLink(AppFrame, uri);
         }
 
         private void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
@@ -158,14 +151,24 @@ namespace ZoDream.LogTimer
             AppFrame.Navigate(typeof(Pages.Member.IndexPage));
         }
 
+        internal void NavigateWithDeepLink(Uri uri)
+        {
+            App.GetService<Deeplink>().OpenLink(uri);
+        }
+
         internal void NavigateWithFile(IReadOnlyList<IStorageItem> files)
         {
-            _ = Share.DecodeAsync(AppFrame, files[0] as IStorageFile);
+            var share = App.GetService<ShareService>();
+            foreach (var item in files)
+            {
+                _ = share.DecodeAsync(item as IStorageFile);
+                return;
+            }
         }
 
         private void Window_Closed(object sender, WindowEventArgs args)
         {
-            ViewModel.AppWindow = null;
+            App.GetService<AppViewModel>()?.Dispose();
         }
     }
 }

@@ -20,6 +20,7 @@ using Windows.UI.Core;
 using ZoDream.LogTimer.Controls;
 using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Utils;
+using ZoDream.Shared.Loggers;
 using ZXing;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -128,14 +129,14 @@ namespace ZoDream.LogTimer.Pages
             }
             catch (Exception ex)
             {
-                App.ViewModel.Logger.Info(ex.Message);
+                App.GetService<ILogger>().Info(ex.Message);
                 IsBusy = false;
             }
         }
 
         private void CameraPreviewControl_PreviewFailed(object sender, PreviewFailedEventArgs e)
         {
-            tbkTip.Text = Constants.GetString("no_camera_found");
+            tbkTip.Text = App.GetString("no_camera_found");
         }
 
         private async Task CleanupCameraAsync()
@@ -181,7 +182,7 @@ namespace ZoDream.LogTimer.Pages
             }
             catch (Exception ex)
             {
-                App.ViewModel.Logger.Info(ex.Message);
+                App.GetService<ILogger>().Info(ex.Message);
                 return;
             }
         }

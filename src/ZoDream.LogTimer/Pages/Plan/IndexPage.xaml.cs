@@ -1,22 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using ZoDream.LogTimer.Models;
-using ZoDream.LogTimer.Repositories;
-using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,17 +18,15 @@ namespace ZoDream.LogTimer.Pages.Plan
             this.InitializeComponent();
         }
 
-        public TaskViewModel ViewModel = new();
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+            addBtn.Visibility = ViewModel.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!App.Store.Auth.IsAuthenticated)
+            if (!ViewModel.IsAuthenticated)
             {
                 Frame.Navigate(typeof(Auth.LoginPage));
                 return;
@@ -69,7 +52,7 @@ namespace ZoDream.LogTimer.Pages.Plan
             }
             if (taskBox.SelectedItems.Count < 1)
             {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_selected_error"));
+                ViewModel.Warning(App.GetString("task_selected_error"));
                 return;
             }
             var items = new int[taskBox.SelectedItems.Count];
@@ -79,10 +62,10 @@ namespace ZoDream.LogTimer.Pages.Plan
             }
             if (label == "stopTask")
             {
-                _ = StopTaskAsync(items);
+                _ = ViewModel.StopTaskAsync(items);
                 return;
             }
-            _ = AddTaskAsync(items);
+            _ = ViewModel.AddTaskAsync(items);
         }
 
         private void taskBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -109,35 +92,6 @@ namespace ZoDream.LogTimer.Pages.Plan
             enterEditBtn.Visibility = status < 2 ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private async Task StopTaskAsync(int[] items)
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.Task.BatchStopTaskAsync(items);
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                if (data == null)
-                {
-                    return;
-                }
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_stop_success"));
-                ViewModel.Refresh();
-            });
-        }
-
-        private async Task AddTaskAsync(int[] items)
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.Task.BatchAddTaskAsync(items);
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                if (data == null)
-                {
-                    return;
-                }
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("task_add_today_success"));
-            });
-        }
+        
     }
 }

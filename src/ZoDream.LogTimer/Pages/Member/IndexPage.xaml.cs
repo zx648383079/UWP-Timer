@@ -17,6 +17,7 @@ using Windows.Foundation.Collections;
 using ZoDream.LogTimer.Controls;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -36,21 +37,22 @@ namespace ZoDream.LogTimer.Pages.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.Store.Auth.IsAuthenticated)
+            var auth = App.GetService<IAuthService>();
+            if (!auth.Authenticated)
             {
-                nameTb.Text = Constants.GetString("member_no_login_tip");
+                nameTb.Text = App.GetString("member_no_login_tip");
                 avatarImg.Source = Converters.ConverterHelper.ToImg(string.Empty);
             }
-            else if (App.Store.Auth.User != null)
+            else if (auth.AuthenticatedUser != null)
             {
-                var user = App.Store.Auth.User;
-                nameTb.Text = Constants.GetString("member_hi").Replace("{name}", user.Name);
+                var user = auth.AuthenticatedUser;
+                nameTb.Text = App.GetString("member_hi").Replace("{name}", user.Name);
                 avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
             }
             bulletinBtn.Visibility =
                 checkBtn.Visibility =
                 scanBtn.Visibility =
-                App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+                auth.Authenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void IconMenuItem_Tapped(object sender, RoutedEventArgs e)
@@ -80,11 +82,12 @@ namespace ZoDream.LogTimer.Pages.Member
 
         private void TapProfile()
         {
-            if (App.Store.Auth.IsAuthenticated)
+            var auth = App.GetService<IAuthService>();
+            if (auth.Authenticated)
             {
                 ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("avatar", avatarImg);
             }
-            Frame.Navigate(App.Store.Auth.IsAuthenticated ? typeof(ProfilePage) : typeof(Auth.LoginPage));
+            Frame.Navigate(auth.Authenticated ? typeof(ProfilePage) : typeof(Auth.LoginPage));
         }
 
     }

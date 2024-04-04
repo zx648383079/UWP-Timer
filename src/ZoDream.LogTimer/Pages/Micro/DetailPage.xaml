@@ -7,8 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
     xmlns:cvt="using:ZoDream.LogTimer.Converters"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:MicroDetailViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -65,6 +68,7 @@
                                DisplayName="{x:Bind ViewModel.User.Name}" 
                                Grid.RowSpan="2" Width="60"/>
                 <TextBox x:Name="CommentTb" Grid.Column="1" Grid.ColumnSpan="2" 
+                         Text="{Binding Content,Mode=TwoWay}"
                          Style="{StaticResource CenterTextBoxStyle}"/>
                 <Button Content="&#xE11D;" Style="{StaticResource IconBtn}" Grid.Column="1" Grid.Row="1">
                     <Button.Flyout>
@@ -74,8 +78,10 @@
                     </Button.Flyout>
                 </Button>
                 <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal">
-                    <CheckBox x:Name="ForwardCheck" Content="同时转发到我的微博"/>
-                    <Button x:Name="CommentBtn" Content="评论" Click="CommentBtn_Click"/>
+                    <CheckBox x:Name="ForwardCheck" IsChecked="{Binding IsForward,Mode=TwoWay}" Content="同时转发到我的微博"/>
+                    <Button x:Name="CommentBtn" Content="评论"
+                            IsEnabled="{Binding CommentEnabled}"
+                            Command="{Binding CommentCommand}"/>
                 </StackPanel>
             </Grid>
             <ScrollViewer Grid.Row="3">

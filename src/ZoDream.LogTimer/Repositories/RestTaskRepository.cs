@@ -14,13 +14,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 任务
     /// </summary>
-    public class RestTaskRepository
+    public class RestTaskRepository(RestRequest client)
     {
-        public RestTaskRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 获取今天任务
         /// </summary>

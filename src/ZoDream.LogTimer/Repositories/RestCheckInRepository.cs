@@ -12,13 +12,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 签到
     /// </summary>
-    public class RestCheckInRepository
+    public class RestCheckInRepository(RestRequest client)
     {
-        public RestCheckInRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 判断今天是否签到
         /// </summary>

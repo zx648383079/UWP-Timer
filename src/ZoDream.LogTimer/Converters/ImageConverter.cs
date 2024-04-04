@@ -11,7 +11,7 @@ namespace ZoDream.LogTimer.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ConverterHelper.ToImg(value?.ToString());
+            return ConverterHelper.ToImg(value?.ToString()!);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -2,23 +2,13 @@
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Security.Cryptography;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using WinRT.Interop;
-using static Vanara.PInvoke.Shell32;
-using Vanara.PInvoke;
+//using static Vanara.PInvoke.Shell32;
+//using Vanara.PInvoke;
+using ZoDream.LogTimer.Services;
+using ZoDream.LogTimer.Converters;
+using Windows.UI.WindowManagement;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -33,8 +23,16 @@ namespace ZoDream.LogTimer.Pages.Plan
         public MiniTimerPage()
         {
             this.InitializeComponent();
-            //Berth(this, 200);
+            // Berth(this, 200);
+            CustomWindow();
+            _task.TaskChanged += Task_TaskChanged;
+            _task.PausedChanged += Task_PausedChanged;
+            _task.TimeUpdated += Task_TimeUpdated;
+
+
         }
+
+        private readonly TaskService _task = App.GetService<TaskService>();
 
         public bool IsPaused {
             get => FrontPanel.Visibility == Visibility.Visible;
@@ -44,7 +42,16 @@ namespace ZoDream.LogTimer.Pages.Plan
             }
         }
 
-
+        private void CustomWindow()
+        {
+            //var _baseWindowHandle = WindowNative.GetWindowHandle(this);
+            //var windowId = Win32Interop.GetWindowIdFromWindow(_baseWindowHandle);
+            //var _appWindow = AppWindow.GetFromWindowId(windowId);
+            AppWindow.MoveAndResize(new Windows.Graphics.RectInt32(200, 200, 300, 120));
+            // AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+            AppWindow.SetPresenter(OverlappedPresenter.CreateForContextMenu());
+        }
+        /*
         /// <summary>
         /// 将窗口停靠到边缘
         /// </summary>
@@ -85,7 +92,7 @@ namespace ZoDream.LogTimer.Pages.Plan
         /// 从边缘中取消停靠窗口
         /// </summary>
         static void Detach(Window window)
-         {
+        {
              //获取窗口句柄
             var hwnd = WindowNative.GetWindowHandle(window);
             var data = new APPBARDATA
@@ -106,15 +113,72 @@ namespace ZoDream.LogTimer.Pages.Plan
              //设置窗口大小和位置
              User32.MoveWindow(hwnd, 20, 200, 400, 400, true);
          }
-
+        */
         private void Window_Closed(object sender, WindowEventArgs args)
         {
-            //Detach(this);
+            // Detach(this);
+            // App.Store.MiniTimer = null;
+            _task.TaskChanged -= Task_TaskChanged;
+            _task.PausedChanged -= Task_PausedChanged;
+            _task.TimeUpdated -= Task_TimeUpdated;
         }
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
         {
-            IsPaused = false;
+            _ = _task.PlayAsync();
+        }
+
+        private void Task_TimeUpdated()
+        {
+            DispatcherQueue.TryEnqueue(() => {
+                //Duration = _task.Duration;
+                //Progress = _task.Current;
+                if (_task.Duration > 0)
+                {
+                    ProgressTb.Text = ConverterHelper.FormatHour(_task.Duration - _task.Current);
+                    ProgressBar.Value = _task.Current * 100 / _task.Duration;
+                } else
+                {
+                    ProgressTb.Text = ConverterHelper.FormatHour(_task.Current);
+                    ProgressBar.IsIndeterminate = true;
+                }
+            });
+        }
+
+        private void Task_PausedChanged()
+        {
+            DispatcherQueue.TryEnqueue(() => {
+                IsPaused = _task.Paused;
+            });
+        }
+
+        private void Task_TaskChanged()
+        {
+            DispatcherQueue.TryEnqueue(() => {
+                TimeTb.Text = _task.Duration.ToString();
+                if (_task.Today is null)
+                {
+                    return;
+                }
+                NameTb.Text = _task.Today.Task.Name;
+                DescTb.Text = _task.Today.Task.Description;
+                DescTb.Visibility = string.IsNullOrWhiteSpace(_task.Today.Task.Description) ?
+                        Visibility.Collapsed : Visibility.Visible;
+            });
+        }
+
+        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            IsPaused = _task.Paused;
+            TimeTb.Text = _task.Duration.ToString();
+            if (_task.Today is null)
+            {
+                return;
+            }
+            NameTb.Text = _task.Today.Task.Name;
+            DescTb.Text = _task.Today.Task.Description;
+            DescTb.Visibility = string.IsNullOrWhiteSpace(_task.Today.Task.Description) ?
+                    Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

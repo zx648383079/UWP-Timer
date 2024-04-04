@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
-
-namespace ZoDream.LogTimer.Repositories
+﻿namespace ZoDream.LogTimer.Repositories
 {
     /// <summary>
     /// 全局配置
@@ -17,59 +10,20 @@ namespace ZoDream.LogTimer.Repositories
         public const string ApiEndpoint = "<DEV URL>";
         public const string AppId = "<DEV APPID>";
         public const string Secret = "<DEV SECRET>";
+        public const string ApiEndpoint = "http://zodream.localhost/open/";
+        public const string AppId = "11543906547";
+        public const string Secret = "012e936d3d3653b40c6fc5a32e4ea685";
 #else
         public const string ApiEndpoint = "<PROD URL>";
         public const string AppId = "<PROD APPID>";
         public const string Secret = "<PROD SECRET>";
+        public const string ApiEndpoint = "https://zodream.cn/open/";
+        public const string AppId = "11619498261";
+        public const string Secret = "b934f7dd69d1902d4e8db1e0cb4d1d04";
 #endif
 
 
         #endregion
-
-        #region 全局键
-        /// <summary>
-        /// token 保存键
-        /// </summary>
-        public const string TOKEN_KEY = "token";
-
-        public const string USER_KEY = "user";
-        /// <summary>
-        /// 设置保存键
-        /// </summary>
-        public const string SETTING_KEY = "setting";
-        #endregion
-
-        #region 语言包获取文字
-
-        private static ResourceLoader CurrentResourceLoader
-        {
-            get { return _loader ??= new ResourceLoader("Resources"); }//ResourceLoader.GetForCurrentView("Resources"); }
-        }
-
-        private static ResourceLoader _loader;
-        private static readonly Dictionary<string, string> ResourceCache = new();
-
-        /// <summary>
-        /// 获取资源字典的值
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public static string GetString(string key)
-        {
-            if (ResourceCache.TryGetValue(key, out string s))
-            {
-                return s;
-            }
-            else
-            {
-                s = CurrentResourceLoader.GetString(key);
-                ResourceCache[key] = s;
-                return s;
-            }
-        }
-
-        #endregion
-
 
     }
 }

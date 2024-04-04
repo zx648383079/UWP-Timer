@@ -6,8 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:ProfileViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -19,13 +23,13 @@
 
     <ScrollViewer  Background="#f4f4f4">
         <StackPanel Orientation="Vertical">
-            <ctl:IconLine Label="头像" x:Name="avatarTb" Tapped="avatar_Tapped" Height="80">
-                <Image x:Name="avatarImg" Source="/Assets/Square44x44Logo.scale-200.png" Height="80"/>
+            <ctl:IconLine Label="头像" x:Name="avatarTb" Command="{Binding AvatarCommand}" Height="80">
+                <Image x:Name="avatarImg" Source="{Binding Avatar,Converter={StaticResource ImageCvt}}" Height="80"/>
             </ctl:IconLine>
 
-            <ctl:IconLine x:Uid="profile_name" Label="昵称" Content="zodream" x:Name="nameTb" Tapped="nameTb_Tapped"/>
-            <ctl:IconLine x:Uid="profile_sex" Label="性别" Content="" x:Name="sexTb" Tapped="nameTb_Tapped"/>
-            <ctl:IconLine x:Uid="profile_birth" Label="生日" Content="2019-09-09" x:Name="birthdayTb" Tapped="nameTb_Tapped" BottomBorderHeight="0"/>
+            <ctl:IconLine x:Uid="profile_name" Label="昵称" Content="{Binding Nickname}" x:Name="nameTb" Command="{Binding EditCommand}"/>
+            <ctl:IconLine x:Uid="profile_sex" Label="性别" Content="{Binding Sex}" x:Name="sexTb" Command="{Binding EditCommand}"/>
+            <ctl:IconLine x:Uid="profile_birth" Label="生日" Content="{Binding Birthday}" x:Name="birthdayTb"  Command="{Binding EditCommand}" BottomBorderHeight="0"/>
 
             <ctl:IconLine x:Uid="profile_pwd_btn" x:Name="pwdBtn" Label="修改密码" Margin="0 30 0 0" Tapped="TipMenuItem_Tapped"/>
             <ctl:IconLine x:Uid="profile_connect_btn" x:Name="connectBtn" Label="账户关联" Tapped="TipMenuItem_Tapped"/>
@@ -34,7 +38,7 @@
 
             <Button x:Uid="profile_logout"
                 x:Name="logoutBtn"
-                Tapped="logoutBtn_Tapped"
+                Command="{Binding SignOutCommand}"
                 Style="{StaticResource DangerBtn}"
                 Margin="20" Content="退出"
                 Height="40"/>

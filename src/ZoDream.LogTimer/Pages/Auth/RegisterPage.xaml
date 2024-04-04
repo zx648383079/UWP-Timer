@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <vm:RegisterViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -59,13 +64,20 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" />
 
-            <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
-            <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
+            <TextBox x:Uid="login_name" x:Name="nameTb" PlaceholderText="请输入昵称" 
+                     Text="{Binding Nickname,Mode=TwoWay}"
+                     Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+            <TextBox x:Uid="login_email" x:Name="emailTb" 
+                     InputScope="EmailNameOrAddress"
+                     Text="{Binding Account,Mode=TwoWay}"
+                     PlaceholderText="请输入邮箱" Grid.Row="3"  Style="{StaticResource CenterTextBoxStyle}"/>
             <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
                      Grid.Row="4" Style="{StaticResource CenterPasswordBoxStyle}"
+                         Password="{Binding Password,Mode=TwoWay}"
                          GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
             <PasswordBox x:Uid="login_re_pwd"  x:Name="rePwdTb" PlaceholderText="请确认密码" 
                      Grid.Row="5" Style="{StaticResource CenterPasswordBoxStyle}"
+                          Password="{Binding ConfirmPassword,Mode=TwoWay}"
                          GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
             <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
@@ -73,7 +85,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Uid="login_agree_check" x:Name="agreeTb" Content="同意" VerticalAlignment="Center" MinWidth="60"/>
+                <CheckBox x:Uid="login_agree_check" x:Name="agreeTb" Content="同意" 
+                          IsChecked="{Binding IsAgree,Mode=TwoWay}"
+                          VerticalAlignment="Center" MinWidth="60"/>
                 <HyperlinkButton x:Uid="login_agreement" Grid.Column="1" Content="本站协议" NavigateUri="https://zodream.cn/agreement"/>
                 <TextBlock x:Uid="login_back_login" x:Name="backBtn" Tapped="backBtn_Tapped" Text="返回登录" 
                    Grid.Column="2" Style="{StaticResource InputLabel}"/>
@@ -81,7 +95,8 @@
 
             <Button x:Uid="login_reg_btn" Grid.Row="7" 
                 x:Name="regBtn"
-                Tapped="regBtn_Tapped"
+                Command="{Binding SignUpCommand}"
+                    IsEnabled="{Binding BtnEnabled}"
                 Content="注册" 
                 Style="{StaticResource SubmitBtn}"/>
         </Grid>

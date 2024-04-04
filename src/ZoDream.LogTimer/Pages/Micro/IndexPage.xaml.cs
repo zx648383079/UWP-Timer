@@ -14,6 +14,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -36,7 +37,8 @@ namespace ZoDream.LogTimer.Pages.Micro
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            NewBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
+            var auth = App.GetService<IAuthService>();
+            NewBtn.Visibility = auth.Authenticated ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void statusBar_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,7 +65,7 @@ namespace ZoDream.LogTimer.Pages.Micro
         {
             if (args.Block.Type == BlockType.LINK)
             {
-                App.ViewModel.OpenUrlAsync(args.Block.Value.ToString());
+                App.GetService<Deeplink>().OpenLink(args.Block.Value.ToString());
             }
         }
     }

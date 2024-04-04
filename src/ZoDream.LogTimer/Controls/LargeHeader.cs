@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Data;
@@ -70,6 +71,19 @@ namespace ZoDream.LogTimer.Controls
         }
 
 
+
+        public ICommand Command {
+            get { return (ICommand)GetValue(CommandProperty); }
+            set { SetValue(CommandProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Command.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandProperty =
+            DependencyProperty.Register("Command", typeof(ICommand), typeof(LargeHeader), new PropertyMetadata(null));
+
+
+
+
         /// <summary>
         /// 提交按钮事件
         /// </summary>
@@ -112,6 +126,10 @@ namespace ZoDream.LogTimer.Controls
         private void ActionBtn_Tapped(object sender, TappedRoutedEventArgs e)
         {
             Submitted?.Invoke(this, e);
+            if (Command is not null && Command.CanExecute(null))
+            {
+                Command.Execute(null);
+            }
         }
     }
 }

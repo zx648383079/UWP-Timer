@@ -6,8 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:MicroShareViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -28,12 +31,13 @@
             <RowDefinition Height="150"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ctl:LargeHeader Title="有什么新鲜事想分享给大家?" Submitted="LargeHeader_Submitted"/>
-        <TextBox Grid.Row="1" Text="{x:Bind ViewModel.Content,Mode=TwoWay}"/>
-        <TextBox Grid.Row="2" Text="{x:Bind ViewModel.Title,Mode=TwoWay}"/>
-        <TextBox Grid.Row="3" Text="{x:Bind ViewModel.Url,Mode=OneWay}" IsReadOnly="True"/>
-        <TextBox Grid.Row="4" Text="{x:Bind ViewModel.Summary,Mode=TwoWay}"/>
-        <ListBox Grid.Row="5" ItemsSource="{x:Bind ViewModel.FileItems,Mode=OneWay}">
+        <ctl:LargeHeader Title="有什么新鲜事想分享给大家?" 
+                         Command="{Binding SubmitCommand}"/>
+        <TextBox Grid.Row="1" Text="{Binding Content,Mode=TwoWay}"/>
+        <TextBox Grid.Row="2" Text="{Binding Title,Mode=TwoWay}"/>
+        <TextBox Grid.Row="3" Text="{Binding Url,Mode=OneWay}" IsReadOnly="True"/>
+        <TextBox Grid.Row="4" Text="{Binding Summary,Mode=TwoWay}"/>
+        <ListBox Grid.Row="5" ItemsSource="{Binding FileItems,Mode=OneWay}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>

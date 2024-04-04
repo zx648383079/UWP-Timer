@@ -12,13 +12,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 扫码登录
     /// </summary>
-    public class RestAuthorizeRepository
+    public class RestAuthorizeRepository(RestRequest client)
     {
-        public RestAuthorizeRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 验证二维码是否有效
         /// </summary>

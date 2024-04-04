@@ -12,13 +12,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 通知
     /// </summary>
-    public class RestBulletinRepository
+    public class RestBulletinRepository(RestRequest client)
     {
-        public RestBulletinRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 获取通知列表
         /// </summary>

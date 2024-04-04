@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,11 @@ namespace ZoDream.LogTimer.Models
         public int Status { get; set; }
         [JsonProperty(PropertyName = "every_time")]
         public int EveryTime { get; set; }
+        [JsonProperty(PropertyName = "space_time")]
+        public int SpaceTime { get; set; }
+        [JsonProperty(PropertyName = "per_time")]
+        public int PerTime { get; set; }
+
         [JsonProperty(PropertyName = "time_length")]
         public int TimeLength { get; set; }
         [JsonProperty(PropertyName = "created_at")]
@@ -54,7 +60,7 @@ namespace ZoDream.LogTimer.Models
     /// <summary>
     /// 今日任务
     /// </summary>
-    public class TaskDay : ViewModels.BindableBase
+    public class TaskDay : ObservableObject
     {
         public int Id { get; set; }
         public string Today { get; set; }
@@ -63,7 +69,7 @@ namespace ZoDream.LogTimer.Models
         public int Amount
         {
             get => amount;
-            set => Set(ref amount, value);
+            set => SetProperty(ref amount, value);
         }
 
         [JsonProperty(PropertyName = "success_amount")]

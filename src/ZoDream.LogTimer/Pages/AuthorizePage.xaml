@@ -5,8 +5,13 @@
     xmlns:local="using:ZoDream.LogTimer.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <vm:AuthorizeViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -39,7 +44,7 @@
                 CornerRadius="45"
                 BorderBrush="#99e3ff" 
                     BorderThickness="1" Grid.Row="1" Grid.Column="1">
-                <Image x:Name="avatarImg" Source="/Assets/Square44x44Logo.scale-200.png"/>
+                <Image Source="{Binding Avatar,Converter={StaticResource ImageCvt}}"/>
             </Border>
 
             <TextBlock x:Uid="authorize_tip" Text="正在授权WEB端登录"
@@ -52,13 +57,13 @@
                 Margin="10 10 10 0"
                 Content="确认授权"
                 Grid.Row="1"
-                Tapped="confirmBtn_Tapped"
+                Command="{Binding ConfirmCommand}"
                 Style="{StaticResource SubmitBtn}"/>
         <Button x:Name="cancelBtn" x:Uid="cancel_btn"
                 Margin="10 10 10 0"
                 Content="取消授权"
                 Grid.Row="2" 
-                Tapped="cancelBtn_Tapped"
+                Command="{Binding RejectCommand}"
                 Style="{StaticResource ResetBtn}"/>
     </Grid>
 </Page>

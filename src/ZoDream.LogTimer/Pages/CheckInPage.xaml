@@ -7,9 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mdl="using:ZoDream.LogTimer.Models"
     xmlns:cvt="using:ZoDream.LogTimer.Converters"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <vm:CheckInViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
+    
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -35,7 +40,7 @@
                     Grid.Row="1" Content="签到" 
                     Visibility="{x:Bind cvt:ConverterHelper.CollapsedIf(ViewModel.IsChecked),Mode=OneWay}"
                     Style="{StaticResource UnCheckButton}" 
-                    Tapped="Button_Tapped"/>
+                    Command="{Binding CheckCommand}"/>
             <Button Style="{StaticResource CheckButton}" 
                     Grid.Row="1"
                     Visibility="{x:Bind cvt:ConverterHelper.VisibleIf(ViewModel.IsChecked),Mode=OneWay}">
@@ -66,11 +71,15 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="48"/>
                 </Grid.ColumnDefinitions>
-                <FontIcon x:Name="PreviousBtn" Glyph="&#xE0A6;" Tapped="PreviousBtn_Tapped"/>
+                <Button Command="{Binding PreviousCommand}" Style="{StaticResource TranBtn}">
+                    <FontIcon Glyph="&#xE0A6;"/>
+                </Button>
                 <TextBlock Text="{x:Bind ViewModel.Month, Mode=OneWay}"
                            Style="{StaticResource CenterLb}"
                            Grid.Column="1"/>
-                <FontIcon x:Name="NextBtn" Glyph="&#xE0AB;" Grid.Column="2" Tapped="NextBtn_Tapped"/>
+                <Button Grid.Column="2" Command="{Binding NextCommand}" Style="{StaticResource TranBtn}">
+                    <FontIcon Glyph="&#xE0AB;"/>
+                </Button>
                 <Grid Background="#eee" Grid.Row="1" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

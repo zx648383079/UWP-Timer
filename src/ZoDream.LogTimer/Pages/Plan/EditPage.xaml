@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    xmlns:cvt="using:ZoDream.LogTimer.Converters"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:TaskEditViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -25,7 +30,7 @@
         </Grid.RowDefinitions>
         <ctl:LargeHeader x:Uid="task_new_title"
             x:Name="titleTb"
-            Title="新增任务" Submitted="LargeHeader_Submitted"/>
+            Title="{Binding Title}" Command="{Binding SubmitCommand}"/>
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10,0">
                 <Grid.RowDefinitions>
@@ -49,24 +54,36 @@
                         HorizontalAlignment="Right" 
                         Content="&#xE122;"
                         Style="{StaticResource IconBtn}"
-                        Click="shareBtn_Click"/>
-                <TextBox x:Uid="task_name" x:Name="nameTb" Grid.Row="1" PlaceholderText="请输入任务名" Style="{StaticResource CenterTextBoxStyle}"/>
+                        Command="{Binding ShareCommand}"/>
+                <TextBox x:Uid="task_name" x:Name="nameTb" Grid.Row="1" 
+                         Text="{Binding Name, Mode=TwoWay}"
+                         PlaceholderText="请输入任务名" Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock x:Uid="task_desc_label" Grid.Row="2" Text="任务说明" Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="task_desc" x:Name="descTb" Grid.Row="3" 
                          TextWrapping="Wrap"
                          AcceptsReturn="True"
+                         Text="{Binding Description, Mode=TwoWay}"
                          PlaceholderText="请输入任务说明"/>
                 <TextBlock  x:Uid="task_time_label" Grid.Row="4" Text="单次时间" Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="task_time" x:Name="timeTb" Grid.Row="5"
                          InputScope="Number"
-                         PlaceholderText="单次时间" Text="25"  Style="{StaticResource CenterTextBoxStyle}"/>
+                         Text="{Binding EveryTime, Mode=TwoWay}"
+                         PlaceholderText="单次时间"  Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock Text="单次间隔" Grid.Row="6" Style="{StaticResource InputLabel}"/>
-                <TextBox Grid.Row="7" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox 
+                    Text="{Binding SpaceTime, Mode=TwoWay}"
+                    Grid.Row="7" Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock Text="每日次数" Grid.Row="8" Style="{StaticResource InputLabel}"/>
-                <TextBox Grid.Row="9" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox 
+                    Text="{Binding PerTime, Mode=TwoWay}"
+                    Grid.Row="9" Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock Text="开始时间" Grid.Row="10" Style="{StaticResource InputLabel}"/>
-                <CalendarDatePicker Language="zh" FontFamily="微软雅黑" PlaceholderText="选择开始时间" Grid.Row="11" />
-                <ctl:IconButton x:Name="addBtn" Grid.Row="12" Label="添加子任务" Style="{StaticResource NewButton}" Click="addBtn_Click"/>
+                <CalendarDatePicker 
+                    Date="{Binding StartAt, Mode=TwoWay}"
+                    Language="zh" FontFamily="微软雅黑" PlaceholderText="选择开始时间" Grid.Row="11" />
+                <ctl:IconButton x:Name="addBtn" Grid.Row="12" Label="添加子任务"
+                                Visibility="{x:Bind cvt:ConverterHelper.VisibleIf(ViewModel.AddEnabled)}"
+                                Style="{StaticResource NewButton}" Command="{Binding AddCommand}"/>
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -11,6 +11,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Windows.Foundation;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Repositories;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -60,7 +61,7 @@ namespace ZoDream.LogTimer.Controls
             {
                 return;
             }
-            Source = await App.Repository.Site.GetEmojiAsync();
+            Source = await App.GetService<RestSiteRepository>().GetEmojiAsync();
             if (Source == null)
             {
                 return;

@@ -1,20 +1,9 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using ZoDream.LogTimer.Repositories;
 using ZoDream.LogTimer.Repositories.Models;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -36,10 +25,7 @@ namespace ZoDream.LogTimer.Pages.Auth
         {
             base.OnNavigatedTo(e);
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
-            if (imageAnimation != null)
-            {
-                imageAnimation.TryStart(LogoImg);
-            }
+            imageAnimation?.TryStart(LogoImg);
         }
 
         private void toRegisterBtn_Tapped(object sender, TappedRoutedEventArgs e)
@@ -52,53 +38,6 @@ namespace ZoDream.LogTimer.Pages.Auth
         {
             ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("logo", LogoImg);
             Frame.Navigate(typeof(FindPage));
-        }
-
-        private void LoginBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var form = new LoginForm()
-            {
-                Email = emailTb.Text,
-                Password = pwdTb.Password,
-                Remember = true
-            };
-            if (!form.VerifyEmail())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_email_error"));
-                return;
-            }
-            if (!form.VerifyPassword())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_pwd_error"));
-                return;
-            }
-            _ = Login(form);
-        }
-
-        private async Task Login(LoginForm form)
-        {
-            App.ViewModel.IsLoading = true;
-            LoginBtn.IsTapEnabled = false;
-            var data = await App.Repository.User.LoginAsync(form, res =>
-            {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    App.ViewModel.IsLoading = false;
-                    _ = App.ViewModel.ShowMessageAsync(res.Message);
-                });
-
-            });
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                LoginBtn.IsTapEnabled = true;
-                if (data == null)
-                {
-                    return;
-                }
-                App.Store.Auth.LoginAsync(data.Token, data);
-                Frame.GoBack();
-            });
         }
 
         private void pwdTb_GotFocus(object sender, RoutedEventArgs e)

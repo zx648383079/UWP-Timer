@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
@@ -32,13 +33,10 @@ namespace ZoDream.LogTimer.Pages.Micro
             this.InitializeComponent();
         }
 
-        public MicroShareViewModel ViewModel = new MicroShareViewModel();
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var data = e.Parameter as ShareData;
-            ViewModel.Source = data;
+            ViewModel.Load(e.Parameter as ShareData);
         }
 
         private void RemoveFileBtn_Click(object sender, RoutedEventArgs e)
@@ -47,32 +45,6 @@ namespace ZoDream.LogTimer.Pages.Micro
             ViewModel.FileItems.Remove(item);
         }
 
-        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
-        {
-            _ = CreateAsync(new MicroShareForm()
-            {
-                Content = ViewModel.Content,
-                Pics = ViewModel.FileItems,
-                Title = ViewModel.Title,
-                Url = ViewModel.Url,
-                Summary = ViewModel.Summary,
-                Shareappid = ViewModel.Source.Appid,
-                Sharesource = ViewModel.Source.Sharesource,
-            });
-        }
-
-        private async Task CreateAsync(MicroShareForm form)
-        {
-            var data = await App.Repository.Micro.ShareSaveAsync(form);
-            if (data == null)
-            {
-                return;
-            }
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                Toast.Tip("发布成功");
-                Frame.GoBack();
-            });
-        }
+        
     }
 }

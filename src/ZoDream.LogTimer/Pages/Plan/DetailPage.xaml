@@ -7,8 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
     xmlns:cvt="using:ZoDream.LogTimer.Converters"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:TaskDetailViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -81,26 +85,31 @@
                          Click="openComment_Click"/>
                     <Button x:Name="ToggleMiniBtn" Style="{StaticResource IconBtn}"
                         Content="&#xE143;"
-                            Click="ToggleMiniBtn_Click"/>
+                            Command="{Binding MiniCommand}"/>
                 </StackPanel>
                 <ctl:RadialProgressBar 
-                    TimeEnd="progressBar_TimeEnd"
+                    Max="{Binding Duration}"
+                    Value="{Binding Progress}"
                     x:Name="progressBar" Grid.Row="1"/>
-                <TextBlock x:Name="nameTb" FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock x:Name="descTb" Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+                <TextBlock x:Name="nameTb" 
+                           Text="{Binding TaskName}"
+                           FontWeight="Bold" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock x:Name="descTb" 
+                           Text="{Binding TaskDescription}"
+                           Foreground="#999" Grid.Row="3" HorizontalAlignment="Center" TextWrapping="Wrap"/>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="5" HorizontalAlignment="Center">
                     <ctl:IconButton x:Uid="task_play_btn" x:Name="playBtn" Icon="&#xE102;" Label="开始计时"
-                                 Tapped="playBtn_Tapped"
+                                 Command="{Binding StartCommand}"
                                  Visibility="{x:Bind cvt:ConverterHelper.CollapsedIf(ViewModel.IsRunning), Mode=OneWay}"/>
                     <ctl:IconButton x:Uid="task_pause_btn" x:Name="pauseBtn" Icon="&#xE103;" 
                                  Label="暂停计时" 
-                                 Tapped="playBtn_Tapped"
+                                 Command="{Binding PauseCommand}"
                                  Visibility="{x:Bind cvt:ConverterHelper.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
                     <ctl:IconButton x:Uid="task_stop_btn" x:Name="stopBtn" 
                                  Icon="&#xE15B;" 
                                  Label="停止计时" 
-                                 Tapped="playBtn_Tapped"
+                                 Command="{Binding StopCommand}"
                                  Visibility="{x:Bind cvt:ConverterHelper.VisibleIf(ViewModel.IsRunning), Mode=OneWay}"/>
                 </StackPanel>
             </Grid>

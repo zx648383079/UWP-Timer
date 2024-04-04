@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    xmlns:cvt="using:ZoDream.LogTimer.Converters"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vm:FindViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -58,19 +63,27 @@
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Center" />
 
-            <TextBox x:Uid="login_email" x:Name="emailTb" PlaceholderText="请输入邮箱" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
-            <Grid Grid.Row="3" x:Name="findBox" Visibility="Collapsed">
+            <TextBox x:Uid="login_email" x:Name="emailTb" 
+                     PlaceholderText="请输入邮箱" 
+                     InputScope="EmailNameOrAddress"
+                     Text="{Binding Account,Mode=TwoWay}"
+                     Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+            <Grid Grid.Row="3" x:Name="findBox" Visibility="{x:Bind cvt:ConverterHelper.CollapsedIf(ViewModel.SendMode)}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
-                <TextBox x:Uid="login_code" x:Name="codeTb" PlaceholderText="请输入安全代码"  Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox x:Uid="login_code" x:Name="codeTb" PlaceholderText="请输入安全代码" 
+                         Text="{Binding Code,Mode=TwoWay}"
+                         Style="{StaticResource CenterTextBoxStyle}"/>
                 <PasswordBox x:Uid="login_pwd" x:Name="pwdTb" PlaceholderText="请输入密码" 
+                             Password="{Binding Password, Mode=TwoWay}"
                      Grid.Row="1"  Style="{StaticResource CenterPasswordBoxStyle}"
                              GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
                 <PasswordBox x:Uid="login_re_pwd" x:Name="rePwdTb" PlaceholderText="请确认密码" 
                      Grid.Row="2" Style="{StaticResource CenterPasswordBoxStyle}"
+                             Password="{Binding ConfirmPassword, Mode=TwoWay}"
                              GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
 
             </Grid>
@@ -79,10 +92,10 @@
                    Grid.Row="4" 
                    HorizontalAlignment="Right" Style="{StaticResource InputLabel}"/>
 
-            <Button x:Uid="login_send_email" Grid.Row="5"
+            <Button Grid.Row="5"
                 x:Name="sendBtn"
-                Tapped="sendBtn_Tapped"
-                Content="发送验证邮件" Style="{StaticResource SubmitBtn}"/>
+                Command="{Binding SendCommand}"
+                Content="{Binding BtnText}" Style="{StaticResource SubmitBtn}"/>
         </Grid>
     </Grid>
 </Page>

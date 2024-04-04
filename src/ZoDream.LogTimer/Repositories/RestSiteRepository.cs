@@ -1,28 +1,22 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories.Models;
-using ZoDream.LogTimer.Utils;
+using ZoDream.LogTimer.Services;
 using ZoDream.Shared.Http;
 
 namespace ZoDream.LogTimer.Repositories
 {
-    public class RestSiteRepository
+    public class RestSiteRepository(RestRequest client)
     {
-        public RestSiteRepository(RestRequest client)
-        {
-            Client = client;
-        }
-        private readonly RestRequest Client;
+        private readonly RestRequest Client = client;
 
         public async Task<IList<EmojiCategory>> GetEmojiAsync()
         {
-            var data = await Cache.GetOrSetAsync<ResponseData<EmojiCategory>>("emoji.json", async () =>
+            var data = await Ioc.Default.GetService<ICacheService>()?.GetOrSetAsync("emoji.json", async () =>
             {
-                return await Client.GetAsync<string>("seo/emoji");
+                return await Client.GetAsync<ResponseData<EmojiCategory>>("seo/emoji");
             });
             return data?.Data;
         }

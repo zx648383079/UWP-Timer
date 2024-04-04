@@ -6,8 +6,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <vm:HomeViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -75,8 +78,11 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ctl:IconButton x:Name="addBtn" Style="{StaticResource NewButton}" Tapped="NewButton_Tapped"/>
-                    <ctl:IconButton x:Name="fastBtn" Grid.Column="1" Style="{StaticResource NewButton}" Label="快捷创建" Tapped="fastBtn_Tapped"/>
+                    <ctl:IconButton x:Name="addBtn" Style="{StaticResource NewButton}" 
+                                    Tapped="NewButton_Tapped"/>
+                    <ctl:IconButton x:Name="fastBtn" Grid.Column="1" 
+                                    Style="{StaticResource NewButton}" Label="快捷创建" 
+                                    Command="{Binding FastCommand}"/>
                 </Grid>
                 <ListView x:Name="dayBox"
                     Grid.Row="2"

@@ -7,12 +7,8 @@ using ZoDream.Shared.Http;
 
 namespace ZoDream.LogTimer.Repositories
 {
-    public abstract class RestRepositoryBase
+    public abstract class RestRepositoryBase(RestRequest client)
     {
-        public RestRepositoryBase(RestRequest client)
-        {
-            Client = client;
-        }
-        private readonly RestRequest Client;
+        private readonly RestRequest Client = client;
     }
 }

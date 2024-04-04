@@ -6,8 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:MicroPublishViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -38,16 +42,17 @@
                 </Flyout>
             </Button.Flyout>
         </Button>
-        <ComboBox x:Name="OpenCb" Grid.Column="2" SelectedIndex="0" 
+        <ComboBox x:Name="OpenCb" Grid.Column="2" SelectedIndex="{Binding OpenType,Mode=TwoWay}" 
                   BorderThickness="0"
                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <ComboBoxItem Content="公开"/>
             <ComboBoxItem Content="吐槽"/>
             <ComboBoxItem Content="私人"/>
         </ComboBox>
-        <Button x:Name="PublishBtn" Click="PublishBtn_Click" Grid.Column="3" Content="发布" 
+        <Button x:Name="PublishBtn" Command="{Binding SubmitCommand}" 
+                IsEnabled="{Binding BtnEnabled}" Grid.Column="3" Content="发布" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <TextBox x:Name="ContentTb" Text="{x:Bind ViewModel.Content,Mode=TwoWay}" 
+        <TextBox x:Name="ContentTb" Text="{Binding Content,Mode=TwoWay}" 
             Grid.Row="1" Grid.ColumnSpan="4" TextWrapping="Wrap" AcceptsReturn="True"/>
         <Grid Grid.Row="2" Grid.ColumnSpan="4">
             <Grid.ColumnDefinitions>
@@ -55,7 +60,8 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="AddFileBtn" Content="+" FontSize="80" VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Stretch"  Style="{StaticResource EmptyBtn}" Click="AddFileBtn_Click"/>
+                    HorizontalAlignment="Stretch"  Style="{StaticResource EmptyBtn}" 
+                    Command="{Binding PickCommand}"/>
             <ListBox Grid.Column="1" ItemsSource="{x:Bind ViewModel.FileItems}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

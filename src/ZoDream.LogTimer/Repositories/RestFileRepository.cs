@@ -13,13 +13,9 @@ using ZoDream.LogTimer.Repositories.Models;
 
 namespace ZoDream.LogTimer.Repositories
 {
-    public class RestFileRepository
+    public class RestFileRepository(RestRequest client)
     {
-        public RestFileRepository(RestRequest client)
-        {
-            Client = client;
-        }
-        private readonly RestRequest Client;
+        private readonly RestRequest Client = client;
 
 
         public async Task<UploadResult> UploadImageAsync(StorageFile file, HttpExceptionFunc action = null)

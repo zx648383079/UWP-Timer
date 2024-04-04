@@ -33,52 +33,6 @@ namespace ZoDream.LogTimer.Pages.Member
             this.InitializeComponent();
         }
 
-        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
-        {
-            var form = new PasswordForm()
-            {
-                OldPassword = oldPwdTb.Password,
-                Password = pwdTb.Password,
-                RePassword = rePwdTb.Password
-            };
-            if (!form.VerifyOldPassword())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("pwd_old_error"));
-                return;
-            }
-            if (!form.VerifyPassword())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("pwd_new_error"));
-                return;
-            }
-            if (form.Password != form.RePassword)
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_re_pwd_error"));
-                return;
-            }
-            _ = EditPasswordAsync(form);
-        }
-
-        private async Task EditPasswordAsync(PasswordForm form)
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.User.PasswordUpdateAsync(form, res =>
-            {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    App.ViewModel.IsLoading = false;
-                    _ = App.ViewModel.ShowMessageAsync(res.Message);
-                });
-
-            });
-            App.ViewModel.IsLoading = false;
-            if (data == null)
-            {
-                return;
-            }
-            App.Store.Auth.LogoutAsync();
-            _ = App.ViewModel.ShowMessageAsync(Constants.GetString("pwd_update_success_tip"));
-            Frame.Navigate(typeof(LoginPage));
-        }
+        
     }
 }

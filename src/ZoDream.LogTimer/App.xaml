@@ -12,6 +12,10 @@
                 <!-- Other merged dictionaries here -->
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light" Source="ms-appx:///Themes/LightTheme.xaml" />
+                <ResourceDictionary x:Key="Dark" Source="ms-appx:///Themes/DarkTheme.xaml" />
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

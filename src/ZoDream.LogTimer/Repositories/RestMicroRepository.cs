@@ -12,13 +12,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 文章
     /// </summary>
-    public class RestMicroRepository
+    public class RestMicroRepository(RestRequest client)
     {
-        public RestMicroRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 文章列表
         /// </summary>

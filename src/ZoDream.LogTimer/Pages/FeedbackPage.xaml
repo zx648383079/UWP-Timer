@@ -6,8 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:FeedbackViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -22,7 +26,7 @@
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ctl:LargeHeader x:Uid="feedback_header" Title="留言反馈" Submitted="LargeHeader_Submitted"/>
+        <ctl:LargeHeader x:Uid="feedback_header" Title="留言反馈" Command="{Binding SubmitCommand}"/>
         <ScrollViewer Grid.Row="1">
             <Grid Padding="10,0,10,0">
                 <Grid.RowDefinitions>
@@ -38,17 +42,25 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock x:Uid="fk_name_label" Text="您的称呼" Style="{StaticResource InputLabel}"/>
-                <TextBox x:Uid="fk_name" x:Name="nameTb" PlaceholderText="请输入您的称呼" Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox x:Uid="fk_name" x:Name="nameTb" PlaceholderText="请输入您的称呼" 
+                         Text="{Binding Name,Mode=TwoWay}"
+                         Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
 
                 <TextBlock x:Uid="fk_email_label" Text="您的邮箱" Grid.Row="2"  Style="{StaticResource InputLabel}"/>
-                <TextBox x:Uid="fk_email" x:Name="emailTb" PlaceholderText="请输入您的邮箱" Grid.Row="3" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox x:Uid="fk_email" x:Name="emailTb" 
+                         Text="{Binding Email,Mode=TwoWay}"
+                         InputScope="EmailNameOrAddress"
+                         PlaceholderText="请输入您的邮箱" Grid.Row="3" Style="{StaticResource CenterTextBoxStyle}"/>
 
                 <TextBlock x:Uid="fk_phone_label" Text="您的联系方式" Grid.Row="4"  Style="{StaticResource InputLabel}"/>
-                <TextBox x:Uid="fk_phone" x:Name="phoneTb" PlaceholderText="请输入您的联系方式" Grid.Row="5" Style="{StaticResource CenterTextBoxStyle}"/>
+                <TextBox x:Uid="fk_phone" x:Name="phoneTb" 
+                         Text="{Binding Phone,Mode=TwoWay}"
+                         PlaceholderText="请输入您的联系方式" Grid.Row="5" Style="{StaticResource CenterTextBoxStyle}"/>
 
                 <TextBlock x:Uid="fk_content_label" Text="留言内容" Grid.Row="6"  Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="fk_content" x:Name="contentTb"
                     TextWrapping="Wrap" AcceptsReturn="True"
+                         Text="{Binding Content,Mode=TwoWay}"
                     PlaceholderText="请输入留言内容" Grid.Row="7"/>
             </Grid>
         </ScrollViewer>

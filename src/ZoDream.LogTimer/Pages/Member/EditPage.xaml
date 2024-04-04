@@ -6,8 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:AccountEditViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -22,7 +26,8 @@
             <RowDefinition Height="120"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ctl:LargeHeader x:Uid="edit_title" Title="编辑个人信息" Submitted="LargeHeader_Submitted"/>
+        <ctl:LargeHeader x:Uid="edit_title" Title="编辑个人信息" 
+                         Command="{Binding SubmitCommand}"/>
         <ScrollViewer Grid.Row="1">
             <Grid Margin="10,0,10,0">
                 <Grid.RowDefinitions>
@@ -36,15 +41,19 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="昵称" Style="{StaticResource InputLabel}"/>
                 <TextBox x:Uid="edit_name" x:Name="nameTb" PlaceholderText="请输入昵称" 
+                         Text="{Binding Nickname,Mode=TwoWay}"
                          Grid.Row="1" Style="{StaticResource CenterTextBoxStyle}"/>
                 <TextBlock Text="性别" Grid.Row="2" Style="{StaticResource InputLabel}"/>
-                <ComboBox x:Uid="edit_sex" x:Name="sexTb" SelectedIndex="0" Grid.Row="3">
+                <ComboBox x:Uid="edit_sex" x:Name="sexTb" SelectedIndex="{Binding Sex,Mode=TwoWay}" Grid.Row="3">
                     <ComboBoxItem x:Uid="edit_sex_0" Content="未知"/>
                     <ComboBoxItem x:Uid="edit_sex_1" Content="男"/>
                     <ComboBoxItem x:Uid="edit_sex_2" Content="女"/>
                 </ComboBox>
                 <TextBlock Text="生日" Grid.Row="4" Style="{StaticResource InputLabel}"/>
-                <CalendarDatePicker x:Uid="edit_birth" x:Name="birthdayTb" Language="zh" FontFamily="微软雅黑" PlaceholderText="选择生日" Grid.Row="5" />
+                <CalendarDatePicker x:Uid="edit_birth" x:Name="birthdayTb" Language="zh" 
+                                    Date="{Binding Birthday,Mode=TwoWay}"
+                                    FontFamily="微软雅黑" PlaceholderText="选择生日" 
+                                    Grid.Row="5" />
             </Grid>
         </ScrollViewer>
     </Grid>

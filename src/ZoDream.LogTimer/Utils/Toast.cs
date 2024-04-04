@@ -88,10 +88,6 @@ namespace ZoDream.LogTimer.Utils
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
-        public static void Tip(string msg)
-        {
-            _ = App.ViewModel.ShowMessageAsync(msg);
-        }
     }
 
     public enum NotificationAudioNames

@@ -1,27 +1,26 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZoDream.LogTimer.Services;
 using ZoDream.Shared.Http;
+using ZoDream.Shared.Loggers;
 
 namespace ZoDream.LogTimer.Repositories
 {
-    internal class RestStoreInterceptor : RestInterceptor
+    internal class RestStoreInterceptor(string apiEndpoint, string appId, string secret) : RestInterceptor(apiEndpoint, appId, secret)
     {
-        public RestStoreInterceptor(string apiEndpoint, string appId, string secret) : base(apiEndpoint, appId, secret)
-        {
-        }
-
-        public override string Token => App.Store.Auth.Token;
+        public override string Token => Ioc.Default.GetService<IAuthService>()?.Token ?? string.Empty;
 
         public override HttpException ResponseFailure(HttpException ex)
         {
             if (ex.Code == 401)
             {
-                App.Store.Auth.LogoutAsync();
+                Ioc.Default.GetService<IAuthService>()?.LogoutAsync();
             }
-            App.ViewModel.Logger.Error(ex.Message);
+            Ioc.Default.GetService<ILogger>()?.Error(ex.Message);
             return ex;
         }
     }

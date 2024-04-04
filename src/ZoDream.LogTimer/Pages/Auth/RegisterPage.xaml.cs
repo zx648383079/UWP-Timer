@@ -49,67 +49,8 @@ namespace ZoDream.LogTimer.Pages.Auth
             Frame.GoBack();
         }
 
-        private void regBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            var form = new RegisterForm()
-            {
-                Name = nameTb.Text.Trim(),
-                Email = emailTb.Text,
-                Password = pwdTb.Password,
-                RePassword = rePwdTb.Password,
-                Agree = agreeTb.IsChecked == true
-            };
-            if (!form.Agree)
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_agreement_error"));
-                return;
-            }
-            if (!form.VerifyEmail())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_email_error"));
-                return;
-            }
-            if (!form.VerifyPassword())
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_pwd_error"));
-                return;
-            }
-            if (form.Password != form.RePassword)
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_re_pwd_error"));
-                return;
-            }
-            _ = Register(form);
-        }
 
-        private async Task Register(RegisterForm form)
-        {
-            regBtn.IsTapEnabled = false;
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.User.RegisterAsync(form, res =>
-            {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    App.ViewModel.IsLoading = false;
-                    _ = App.ViewModel.ShowMessageAsync(res.Message);
-                });
-
-            });
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                regBtn.IsTapEnabled = true;
-                App.ViewModel.IsLoading = false;
-                if (data == null)
-                {
-                    return;
-                }
-                App.Store.Auth.LoginAsync(data.Token, data);
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("login_reg_success_tip"));
-                Frame.Navigate(typeof(TodayPage));
-            });
-
-        }
-
+        
         private void pwdTb_GotFocus(object sender, RoutedEventArgs e)
         {
             LogoImg.Status = Controls.LogoStatus.INIT;

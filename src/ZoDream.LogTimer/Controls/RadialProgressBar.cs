@@ -234,8 +234,7 @@ namespace ZoDream.LogTimer.Controls
                 Colors.Transparent);
             draw.FillCircle(centerX, centerY, inlineRadius, InlineBackground);
             draw.DrawCircle(centerX, centerY, lineRadius, Outline, LineWidth);
-            var deg = (2 * Math.PI / 100 * progress)
-                ; // 圆环的绘制
+            var deg = 2 * Math.PI / 100 * progress; // 圆环的绘制
             draw.DrawGeometry(Arc(draw, centerX, centerY, lineRadius, (float)(-.5 * Math.PI), (float)deg), Inline, LineWidth);
 
             var x = (float)(centerX + Math.Cos(Math.PI * 2 * (progress - 25) / 100) * lineRadius);
@@ -260,10 +259,7 @@ namespace ZoDream.LogTimer.Controls
                 _timer = null;
             }
             var canvas = Drawer;
-            if (canvas != null)
-            {
-                canvas.RemoveFromVisualTree();
-            }
+            canvas?.RemoveFromVisualTree();
         }
     }
 }

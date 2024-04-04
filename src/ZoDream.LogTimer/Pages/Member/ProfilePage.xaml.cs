@@ -1,22 +1,8 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Documents;
+﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using static System.Net.Mime.MediaTypeNames;
-using static ZXing.QrCode.Internal.Mode;
 using ZoDream.LogTimer.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -37,39 +23,12 @@ namespace ZoDream.LogTimer.Pages.Member
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.Store.Auth.IsAuthenticated || App.Store.Auth.User == null)
-            {
-                Frame.GoBack();
-                return;
-            }
-            var user = App.Store.Auth.User;
-            avatarImg.Source = Converters.ConverterHelper.ToImg(user.Avatar);
-            nameTb.Content = user.Name;
-            sexTb.Content = user.SexLabel;
-            birthdayTb.Content = user.Birthday;
-            ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
-            if (imageAnimation != null)
-            {
-                imageAnimation.TryStart(avatarImg);
-            }
-        }
-
-        private void nameTb_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if (App.Store.Auth.User == null)
+            if (!ViewModel.Load())
             {
                 return;
             }
-            Frame.Navigate(typeof(EditPage));
-        }
-
-        private void avatar_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            if (App.Store.Auth.User == null)
-            {
-                return;
-            }
-            Frame.Navigate(typeof(AvatarPage));
+            var imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("avatar");
+            imageAnimation?.TryStart(avatarImg);
         }
 
         private void TipMenuItem_Tapped(object sender, TappedRoutedEventArgs e)
@@ -86,21 +45,6 @@ namespace ZoDream.LogTimer.Pages.Member
             }
         }
 
-        private void logoutBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            _ = Logout();
-        }
-
-        private async Task Logout()
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.User.LogoutAsync();
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                App.Store.Auth.LogoutAsync();
-                Frame.Navigate(typeof(Plan.TodayPage));
-            });
-        }
+        
     }
 }

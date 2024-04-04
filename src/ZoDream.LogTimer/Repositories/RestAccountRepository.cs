@@ -12,13 +12,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 账户相关
     /// </summary>
-    public class RestAccountRepository
+    public class RestAccountRepository(RestRequest client)
     {
-        public RestAccountRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 获取账户关联列表
         /// </summary>

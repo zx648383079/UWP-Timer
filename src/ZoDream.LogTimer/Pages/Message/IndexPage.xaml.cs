@@ -13,6 +13,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.ViewModels;
 
 // To learn more about WinUI, the WinUI project structure,
@@ -34,11 +35,12 @@ namespace ZoDream.LogTimer.Pages.Message
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (!App.Store.Auth.IsAuthenticated)
+            var auth = App.GetService<IAuthService>();
+            if (!auth.Authenticated)
             {
                 return;
             }
-            MessageBox.Sender = App.Store.Auth.User.Id;
+            MessageBox.Sender = auth.AuthenticatedUser!.Id;
         }
 
         private void commentBtn_Click(object sender, RoutedEventArgs e)

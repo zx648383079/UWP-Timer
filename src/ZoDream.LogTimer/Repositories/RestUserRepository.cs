@@ -15,13 +15,9 @@ namespace ZoDream.LogTimer.Repositories
     /// <summary>
     /// 用户
     /// </summary>
-    public class RestUserRepository
+    public class RestUserRepository(RestRequest client)
     {
-        public RestUserRepository(RestRequest client)
-        {
-            http = client;
-        }
-        private readonly RestRequest http;
+        private readonly RestRequest http = client;
         /// <summary>
         /// 获取用户信息
         /// </summary>

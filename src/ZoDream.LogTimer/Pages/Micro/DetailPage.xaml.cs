@@ -1,16 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Utils;
@@ -31,98 +22,27 @@ namespace ZoDream.LogTimer.Pages.Micro
             this.InitializeComponent();
         }
 
-        public MicroDetailViewModel ViewModel = new MicroDetailViewModel();
-        private int ParentId = 0;
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var item = (MicroItem)e.Parameter;
-            if (string.IsNullOrEmpty(item.Content))
-            {
-                _ = LoadDetailAsync(item.Id);
-            }
-            else
-            {
-                SetMicro(item);
-            }
+            ViewModel.Load((MicroItem)e.Parameter);
             ConnectedAnimation imageAnimation = ConnectedAnimationService.GetForCurrentView().GetAnimation("micro");
             imageAnimation?.TryStart(MicroView);
-            if (App.Store.Auth.IsAuthenticated)
-            {
-                ViewModel.User = App.Store.Auth.User;
-            }
         }
 
-        private async Task LoadDetailAsync(int id)
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.Micro.GetAsync(id);
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                if (data == null)
-                {
-                    Frame.GoBack();
-                    return;
-                }
-                SetMicro(data);
-            });
-        }
-
-        private void SetMicro(MicroItem data)
-        {
-            ViewModel.Data = data;
-            _ = ViewModel.TapRefreshAsync();
-        }
-
+        
         private void EmojiBox_SelectionChanged(Controls.EmojiBox sender, Controls.EmojiTappedArgs args)
         {
             CommentTb.SelectedText = args.Emoji.Type > 0 ? args.Emoji.Content : $"[{args.Emoji.Name}]";
             emojiFlyout.Hide();
         }
 
-        private void CommentBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(CommentTb.Text))
-            {
-                Toast.Tip("请输入内容");
-                return;
-            }
-            CommentBtn.IsEnabled = false;
-            _ = CreateAsync(new MicroCommentForm()
-            {
-                MicroId = ViewModel.Data.Id,
-                ParentId = ParentId,
-                Conent = CommentTb.Text,
-                IsForward = (bool)ForwardCheck.IsChecked
-            });
-        }
-
-        private async Task CreateAsync(MicroCommentForm form)
-        {
-            var data = await App.Repository.Micro.CreateCommentAsync(form);
-            if (data == null)
-            {
-                return;
-            }
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                Toast.Tip("评论成功");
-                CommentTb.Text = "";
-                ParentId = 0;
-            });
-        }
 
         private void CommentListBox_ActionTapped(Controls.CommentListItem sender, ActionArgs<CommentBase> args)
         {
             if (args.Action == ActionType.REPLY)
             {
-                ParentId = args.Data.Id;
-                if (args.Data.User != null)
-                {
-                    CommentTb.Text += $"@{args.Data.User.Name} ";
-                }
+                ViewModel.ReplyCommand.Execute(args.Data);
             }
         }
     }

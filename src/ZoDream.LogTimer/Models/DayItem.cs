@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace ZoDream.LogTimer.Models
 {
     /// <summary>
     /// 签到日历天
     /// </summary>
-    public class DayItem: ViewModels.BindableBase
+    public class DayItem: ObservableObject
     {
         public int Day { get; set; }
 
@@ -18,7 +14,7 @@ namespace ZoDream.LogTimer.Models
         public bool IsChecked
         {
             get => isChecked;
-            set => Set(ref isChecked, value);
+            set => SetProperty(ref isChecked, value);
         }
 
     }

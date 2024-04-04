@@ -6,8 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.DataContext>
+        <vm:LoginViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
@@ -59,10 +64,15 @@
                 VerticalAlignment="Center" />
 
             <TextBox x:Uid="login_email" x:Name="emailTb"
-                 PlaceholderText="请输入邮箱" Grid.Row="2" Style="{StaticResource CenterTextBoxStyle}"/>
+                     InputScope="EmailNameOrAddress"
+                        PlaceholderText="请输入邮箱"
+                     Text="{Binding Account,Mode=TwoWay}"
+                     Grid.Row="2" 
+                     Style="{StaticResource CenterTextBoxStyle}"/>
             <PasswordBox x:Uid="login_pwd" 
                          x:Name="pwdTb" PlaceholderText="请输入密码" 
                         Grid.Row="3" 
+                         Password="{Binding Password,Mode=TwoWay}"
                          Style="{StaticResource CenterPasswordBoxStyle}"
                          GotFocus="pwdTb_GotFocus" LostFocus="pwdTb_LostFocus"/>
 
@@ -79,7 +89,8 @@
                    Style="{StaticResource InputLabel}"/>
 
             <Button x:Uid="login_btn" x:Name="LoginBtn" 
-                Tapped="LoginBtn_Tapped"
+                Command="{Binding SignInCommand}"
+                IsEnabled="{Binding BtnEnabled}"
                 Grid.Row="5"
                 Content="登录" 
                 Style="{StaticResource SubmitBtn}"/>

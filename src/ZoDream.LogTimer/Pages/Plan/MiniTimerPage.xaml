@@ -6,35 +6,50 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Activated="Window_Activated"
     Closed="Window_Closed">
+    <Window.SystemBackdrop>
+        <DesktopAcrylicBackdrop />
+    </Window.SystemBackdrop>
 
-    <Grid Height="80" Width="200" Background="Gray" 
-          VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Grid x:Name="FrontPanel" Visibility="Collapsed">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="5"/>
-            </Grid.RowDefinitions>
-            <TextBlock Text="00:00:00"
-                       FontSize="30"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <ProgressBar Grid.Row="1" Value="20"/>
+    <Border  Height="80" Width="200" CornerRadius="5" 
+             Background="#ccd5f0"
+             VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border.Shadow>
+            <ThemeShadow/>
+        </Border.Shadow>
+        <Grid>
+            <Grid x:Name="FrontPanel" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="ProgressTb" Text="00:00:00"
+                   FontSize="30"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <ProgressBar x:Name="ProgressBar" Grid.Row="1" Value="0"/>
+            </Grid>
+            <Grid x:Name="BackPanel">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="60"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="TimeTb" Text="5" 
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="1">
+                    <TextBlock x:Name="NameTb" Text="点击开始"/>
+                    <TextBlock x:Name="DescTb" Text="任务"/>
+                </StackPanel>
+                <Button x:Name="StartBtn" Content="&#xE00F;" FontFamily="{StaticResource SymbolThemeFontFamily}" 
+                        Background="Transparent"
+                        BorderThickness="0"
+                        VerticalAlignment="Stretch"
+                        Grid.Column="2" Click="StartBtn_Click"/>
+            </Grid>
         </Grid>
-        <Grid x:Name="BackPanel">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="5" Grid.RowSpan="2"/>
-            <TextBlock Text="点击开始" Grid.Column="1"/>
-            <TextBlock Text="任务" Grid.Column="1" Grid.Row="1"/>
-            <Button x:Name="StartBtn" Content="&#xE00F;" FontFamily="{StaticResource SymbolThemeFontFamily}" 
-                    Grid.Column="2" Grid.RowSpan="2" Click="StartBtn_Click"/>
-        </Grid>
-    </Grid>
+    </Border>
+    
 </Window>

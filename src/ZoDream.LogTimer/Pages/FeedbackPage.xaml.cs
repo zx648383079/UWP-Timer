@@ -32,43 +32,6 @@ namespace ZoDream.LogTimer.Pages
             this.InitializeComponent();
         }
 
-        private void LargeHeader_Submitted(object sender, TappedRoutedEventArgs e)
-        {
-            var form = new Feedback()
-            {
-                Email = emailTb.Text,
-                Name = nameTb.Text,
-                Phone = phoneTb.Text,
-                Content = contentTb.Text
-            };
-            if (string.IsNullOrWhiteSpace(form.Name))
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_name_error"));
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(form.Content))
-            {
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_content_error"));
-                return;
-            }
-            _ = save(form);
-        }
-
-        private async Task save(Feedback form)
-        {
-            App.ViewModel.IsLoading = true;
-            var data = await App.Repository.Account.SaveFeedbackAsync(form, res => {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    _ = App.ViewModel.ShowMessageAsync(res.Message);
-                });
-            });
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                App.ViewModel.IsLoading = false;
-                _ = App.ViewModel.ShowMessageAsync(Constants.GetString("fk_save_success"));
-                Frame.GoBack();
-            });
-        }
+        
     }
 }

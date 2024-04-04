@@ -6,9 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ctl="using:ZoDream.LogTimer.Controls"
+    xmlns:vm="using:ZoDream.LogTimer.ViewModels"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <vm:ArticleDetailViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
+    
     <Grid>
         <Pivot Title="{x:Bind ViewModel.Article.Title, Mode=OneWay}">
             <PivotItem Header="文章详情">

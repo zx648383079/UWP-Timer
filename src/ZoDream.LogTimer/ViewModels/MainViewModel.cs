@@ -1,31 +1,22 @@
-﻿using Microsoft.UI;
-using Microsoft.UI.Dispatching;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.ViewManagement;
-using WinRT.Interop;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
-using ZoDream.LogTimer.Utils;
-using ZoDream.Shared.Http;
-using ZoDream.Shared.Loggers;
+using ZoDream.LogTimer.Services;
 
 namespace ZoDream.LogTimer.ViewModels
 {
-    internal class MainViewModel: BindableBase
+    internal class MainViewModel: ObservableObject
     {
 
-        public bool IsBooted { get; set; } = false;
-
-        public ILogger Logger { get; private set; } = new EventLogger();
+        public MainViewModel()
+        {
+            var notify = App.GetService<INotificationService>();
+            notify.RegisterLoading(new RelayCommand<bool>(load => IsLoading = load));
+        }
 
         private bool _isLoading = false;
 
@@ -35,24 +26,21 @@ namespace ZoDream.LogTimer.ViewModels
         public bool IsLoading
         {
             get => _isLoading;
-            set => Set(ref _isLoading, value);
+            set => SetProperty(ref _isLoading, value);
         }
 
-        private ObservableCollection<TabItem> tipItems = new();
+        private ObservableCollection<TabItem> tipItems = [];
 
         public ObservableCollection<TabItem> TipItems
         {
             get { return tipItems; }
-            set { Set(ref tipItems, value); }
+            set { SetProperty(ref tipItems, value); }
         }
-        public MainWindow AppWindow { get; internal set; }
-
-        public XamlRoot XamlRoot => AppWindow?.Content.XamlRoot;
 
         public async Task LoadTipAsync(string keywords)
         {
-            var data = await App.Repository.Article.GetSuggestionAsync(keywords);
-            SynchronizationContext.Current.Post(o =>
+            var data = await App.GetService<RestArticleRepository>()!.GetSuggestionAsync(keywords);
+            SynchronizationContext.Current?.Post(o =>
             {
                 TipItems.Clear();
                 foreach (var item in data.Data)
@@ -62,37 +50,5 @@ namespace ZoDream.LogTimer.ViewModels
             }, null);
         }
 
-        public async Task ShowMessageAsync(string message, string title = "提示")
-        {
-            if (AppWindow == null)
-            {
-                return;
-            }
-            var dialog = new ContentDialog()
-            {
-                Title = title,
-                Content = message,
-                CloseButtonText = "Ok",
-                XamlRoot = XamlRoot,
-            };
-            await dialog.ShowAsync();
-        }
-
-        public void FullScreenAsync(bool isFull)
-        {
-            var hWnd = WindowNative.GetWindowHandle(this.AppWindow);
-            var myWndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            var win = Microsoft.UI.Windowing.AppWindow.GetFromWindowId(myWndId);
-            win.SetPresenter(isFull ? Microsoft.UI.Windowing.AppWindowPresenterKind.FullScreen : Microsoft.UI.Windowing.AppWindowPresenterKind.Default);
-        }
-        
-        public void OpenUrlAsync(string url)
-        {
-            if (AppWindow == null)
-            {
-                return;
-            }
-            Deeplink.OpenLink(AppWindow.AppFrame, url);
-        }
     }
 }

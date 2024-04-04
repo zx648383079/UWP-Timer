@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cvt="using:ZoDream.LogTimer.Converters"
     xmlns:local="using:ZoDream.LogTimer.Themes">
+
+    <cvt:ImageConverter x:Key="ImageCvt"/>
 
     <Style TargetType="TextBlock">
         <Setter Property="FontFamily" Value="微软雅黑"/>

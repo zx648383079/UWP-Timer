@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
+using ZoDream.LogTimer.Repositories;
+using ZoDream.LogTimer.Services;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,6 +37,8 @@ namespace ZoDream.LogTimer.Pages.Auth
         private string Token = string.Empty;
         private CancellationTokenSource tokenSource;
         private QrStatus Status = QrStatus.NONE;
+        private RestAuthorizeRepository _api = App.GetService<RestAuthorizeRepository>();
+        private IAuthService _auth = App.GetService<IAuthService>();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -58,7 +62,7 @@ namespace ZoDream.LogTimer.Pages.Auth
 
         private async Task RefreshQrAsync()
         {
-            var data = await App.Repository.Authorize.QrRefreshAsync();
+            var data = await _api.QrRefreshAsync();
             if (data == null)
             {
                 return;
@@ -85,7 +89,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                 {
                     return;
                 }
-                var data = await App.Repository.Authorize.QrCheckAsync(Token, err =>
+                var data = await _api.QrCheckAsync(Token, err =>
                 {
                     if (err.Code == 201)
                     {
@@ -115,7 +119,7 @@ namespace ZoDream.LogTimer.Pages.Auth
                 ChangeStatus(QrStatus.SUCCESS);
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    App.Store.Auth.LoginAsync(data.Token, data);
+                    _auth.LoginAsync(data.Token, data);
                     Frame.BackStack.Clear();
                     Frame.Navigate(typeof(Member.IndexPage));
                 });

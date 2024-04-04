@@ -1,23 +1,11 @@
-﻿using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
 using ZoDream.LogTimer.Repositories;
-using ZoDream.LogTimer.Stores;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.ViewModels;
+using ZoDream.Shared.Http;
+using ZoDream.Shared.Loggers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,33 +23,64 @@ namespace ZoDream.LogTimer
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            InitStore();
+            InitializeComponent();
+            InitializeServices();
         }
 
         /// <summary>
         /// Invoked when the application is launched.
         /// </summary>
         /// <param name="args">Details about the launch request and process.</param>
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             _window = new MainWindow();
             _window.Activate();
         }
 
-        private Window _window;
-        internal static MainViewModel ViewModel { get; private set; }
-
-        internal static RestRepository Repository { get; private set; }
-
-        internal static AppStore Store { get; private set; }
-
-        private static void InitStore()
+        private Window? _window;
+        private static void InitializeServices()
         {
-            Repository = new RestRepository();
-            Store = new AppStore();
-            ViewModel = new MainViewModel();
-            Store.LoadAsync();
+            var services = new ServiceCollection();
+            services.AddSingleton(new NavigationService());
+            services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<ISettingService, SettingService>();
+            services.AddSingleton<IAuthService, AuthService>();
+            services.AddSingleton<IThemeService, ThemeService>();
+            services.AddSingleton<ICacheService, FileCacheService>();
+            services.AddSingleton<ILogger, EventLogger>();
+            services.AddSingleton<ILocaleService, ResourceLocaleService>();
+            services.AddSingleton<Deeplink>();
+            services.AddSingleton<ShareService>();
+            services.AddSingleton<TaskService>();
+            services.AddScoped<RestAccountRepository>();
+            services.AddScoped<RestArticleRepository>();
+            services.AddScoped<RestAuthorizeRepository>();
+            services.AddScoped<RestBulletinRepository>();
+            services.AddScoped<RestCheckInRepository>();
+            services.AddScoped<RestFileRepository>();
+            services.AddScoped<RestMicroRepository>();
+            services.AddScoped<RestSiteRepository>();
+            services.AddScoped<RestTaskRepository>();
+            services.AddScoped<RestUserRepository>();
+
+            var app = new AppViewModel();
+            services.AddSingleton(app);
+            services.AddSingleton(_ => {
+                var interceptor = new RestStoreInterceptor(Constants.ApiEndpoint, Constants.AppId, Constants.Secret);
+                return new RestRequest(interceptor);
+            });
+            Ioc.Default.ConfigureServices(services.BuildServiceProvider());
+            app.LoadAsync();
+        }
+
+        public static T GetService<T>()
+        {
+            return Ioc.Default.GetService<T>();
+        }
+
+        public static string GetString(string key)
+        {
+            return GetService<ILocaleService>().Get(key);
         }
     }
 }

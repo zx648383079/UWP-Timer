@@ -33,87 +33,21 @@ namespace ZoDream.LogTimer.Pages.Micro
         {
             this.InitializeComponent();
         }
-
-        public MicroPublishViewModel ViewModel = new MicroPublishViewModel();
-
         private void RemoveFileBtn_Click(object sender, RoutedEventArgs e)
         {
             var item = (sender as Button).DataContext as MicroAttachment;
             ViewModel.FileItems.Remove(item);
         }
 
-        private void AddFileBtn_Click(object sender, RoutedEventArgs e)
-        {
-            PickImage();
-        }
 
-        private async void PickImage()
-        {
-            var hwnd = WinRT.Interop.WindowNative.GetWindowHandle(App.ViewModel.AppWindow);
-            var filePicker = new FileOpenPicker
-            {
-                ViewMode = PickerViewMode.Thumbnail,
-                SuggestedStartLocation = PickerLocationId.PicturesLibrary,
-                FileTypeFilter =
-                {
-                    ".png", ".jpg", ".jpeg"
-                }
-            };
-            WinRT.Interop.InitializeWithWindow.Initialize(filePicker, hwnd);
-            var files = await filePicker.PickMultipleFilesAsync();
-            if (files.Count < 1)
-            {
-                return;
-            }
-            var data = await App.Repository.File.UploadImagesAsync(files);
-            if (data == null)
-            {
-                return;
-            }
-            foreach (var item in data)
-            {
-                ViewModel.FileItems.Add(new MicroAttachment()
-                {
-                    Thumb = item.Thumb,
-                    File = item.Url
-                });
-            }
-        }
-
+        
         private void EmojiBox_SelectionChanged(Controls.EmojiBox sender, Controls.EmojiTappedArgs args)
         {
             ContentTb.SelectedText = args.Emoji.Type > 0 ? args.Emoji.Content : $"[{args.Emoji.Name}]";
             emojiFlyout.Hide();
         }
 
-        private void PublishBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(ViewModel.Content))
-            {
-                Toast.Tip("请输入内容");
-                return;
-            }
-            PublishBtn.IsEnabled = false;
-            _ = CreateAsync(new MicroForm()
-            {
-                Content = ViewModel.Content,
-                OpenType = OpenCb.SelectedIndex,
-                File = ViewModel.FileItems
-            });
-        }
 
-        private async Task CreateAsync(MicroForm form)
-        {
-            var data = await App.Repository.Micro.CreateAsync(form);
-            if (data == null)
-            {
-                return;
-            }
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                Toast.Tip("发布成功");
-                Frame.GoBack();
-            });
-        }
+       
     }
 }

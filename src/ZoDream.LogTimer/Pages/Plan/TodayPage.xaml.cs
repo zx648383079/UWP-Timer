@@ -1,20 +1,12 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using ZoDream.LogTimer.Dialogs;
 using ZoDream.LogTimer.Models;
+using ZoDream.LogTimer.Services;
 using ZoDream.LogTimer.Utils;
 using ZoDream.LogTimer.ViewModels;
 
@@ -33,13 +25,12 @@ namespace ZoDream.LogTimer.Pages.Plan
             this.InitializeComponent();
         }
 
-        public HomeViewModel ViewModel = new();
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            fastBtn.Visibility = addBtn.Visibility = App.Store.Auth.IsAuthenticated ? Visibility.Visible : Visibility.Collapsed;
-            if (App.Store.Auth.IsAuthenticated)
+            var auth = App.GetService<IAuthService>();
+            fastBtn.Visibility = addBtn.Visibility = auth.Authenticated ? Visibility.Visible : Visibility.Collapsed;
+            if (auth.Authenticated)
             {
                 ViewModel.Load();
             }
@@ -80,36 +71,6 @@ namespace ZoDream.LogTimer.Pages.Plan
             splitView.IsPaneOpen = false;
         }
 
-        private void fastBtn_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            _ = FastCreateAsync();
-        }
-
-        private async Task FastCreateAsync()
-        {
-            var dialog = new TaskDialog
-            {
-                Title = "快捷创建任务",
-                XamlRoot = this.XamlRoot,
-            };
-            var result = await dialog.ShowAsync();
-            if (result != ContentDialogResult.Primary)
-            {
-                return;
-            }
-            if (!dialog.CheckForm())
-            {
-                return;
-            }
-            var data = await App.Repository.Task.FastCreateAsync(dialog.FormData());
-            if (data == null)
-            {
-                return;
-            }
-            DispatcherQueue.TryEnqueue(() => {
-                Toast.Tip("添加成功");
-                ViewModel.Items.Add(data);
-            });
-        }
+        
     }
 }
