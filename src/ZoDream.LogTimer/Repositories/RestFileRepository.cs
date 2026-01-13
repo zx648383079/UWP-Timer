@@ -1,15 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Data.Json;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using ZoDream.Shared.Http;
 using ZoDream.LogTimer.Repositories.Models;
+using System.Text.Json;
 
 namespace ZoDream.LogTimer.Repositories
 {
@@ -54,11 +51,11 @@ namespace ZoDream.LogTimer.Repositories
             {
                 if (data.IndexOf("\"data\"") < 0)
                 {
-                    var res = JsonConvert.DeserializeObject<UploadResult>(data);
+                    var res = JsonSerializer.Deserialize<UploadResult>(data);
                     return new UploadResult[] { res };
                 } else
                 {
-                    var res = JsonConvert.DeserializeObject<ResponseData<UploadResult>> (data);
+                    var res = JsonSerializer.Deserialize<ResponseData<UploadResult>> (data);
                     return res.Data;
                 }
             }

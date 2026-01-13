@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Repositories.Models
 {
@@ -12,11 +7,11 @@ namespace ZoDream.LogTimer.Repositories.Models
     /// </summary>
     public class RegisterForm : LoginForm
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("confirm_password")]
+        [JsonPropertyName("confirm_password")]
         public string RePassword { get; set; }
-        [JsonProperty("agree")]
+        [JsonPropertyName("agree")]
         public bool Agree { get; set; } = true;
 
 

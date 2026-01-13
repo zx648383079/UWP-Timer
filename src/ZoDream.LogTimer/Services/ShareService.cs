@@ -1,9 +1,6 @@
-﻿using Microsoft.UI.Xaml.Controls;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
 
@@ -14,7 +11,7 @@ namespace ZoDream.LogTimer.Services
 
         public async Task EncodeAsync(ShareData data)
         {
-            var str = JsonConvert.SerializeObject(data);
+            var str = JsonSerializer.Serialize(data);
             var file = await ApplicationData.Current.LocalFolder.CreateFileAsync("share.zodream", CreationCollisionOption.ReplaceExisting);
             await FileIO.WriteTextAsync(file, str);
             await Windows.System.Launcher.LaunchFileAsync(file);
@@ -27,7 +24,7 @@ namespace ZoDream.LogTimer.Services
                 return;
             }
             var str = await FileIO.ReadTextAsync(file);
-            var data = JsonConvert.DeserializeObject<ShareData>(str);
+            var data = JsonSerializer.Deserialize<ShareData>(str);
             navigation.Navigate(typeof(Pages.Micro.SharePage), data);
         }
     }

@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -16,7 +11,7 @@ namespace ZoDream.LogTimer.Models
         public int Method { get; set; }
         public int Running { get; set; }
         public int Money { get; set; }
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
         public int Id { get; set; }
     }

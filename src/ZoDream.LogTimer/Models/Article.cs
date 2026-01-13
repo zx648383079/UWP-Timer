@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -19,20 +14,20 @@ namespace ZoDream.LogTimer.Models
         public string Description { get; set; }
 
         public string Content { get; set; }
-        [JsonProperty("comment_count")]
+        [JsonPropertyName("comment_count")]
         public int CommentCount { get; set; }
 
         public int Recommend { get; set; }
-        [JsonProperty("click_count")]
+        [JsonPropertyName("click_count")]
         public int ClickCount { get; set; }
 
         public User User { get; set; }
 
         public ArticleCategory Term { get; set; }
 
-        [JsonProperty("video_url")]
+        [JsonPropertyName("video_url")]
         public string VideoUrl { get; set; }
-        [JsonProperty("audio_url")]
+        [JsonPropertyName("audio_url")]
         public string AudioUrl { get; set; }
     }
 
@@ -46,7 +41,7 @@ namespace ZoDream.LogTimer.Models
         public string Name { get; set; }
 
         public string Thumb { get; set; }
-        [JsonProperty("blog_count")]
+        [JsonPropertyName("blog_count")]
         public int BlogCount { get; set; }
     }
 }

@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -15,19 +11,19 @@ namespace ZoDream.LogTimer.Models
 
         public string Content { get; set; }
 
-        [JsonProperty(PropertyName = "extra_rule")]
+        [JsonPropertyName("extra_rule")]
         public IEnumerable<ExtraRule> ExtraRule { get; set; }
 
-        [JsonProperty(PropertyName = "agree_count")]
+        [JsonPropertyName("agree_count")]
         public int AgreeCount { get; set; }
 
-        [JsonProperty(PropertyName = "disagree_count")]
+        [JsonPropertyName("disagree_count")]
         public int DisagreeCount { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
 
-        [JsonProperty("replies")]
+        [JsonPropertyName("replies")]
         public IList<CommentBase> Children { get; set; }
     }
 
@@ -41,7 +37,7 @@ namespace ZoDream.LogTimer.Models
 
         public string Content { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
     }
 }

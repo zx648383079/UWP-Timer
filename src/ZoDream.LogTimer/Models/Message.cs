@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -17,10 +13,10 @@ namespace ZoDream.LogTimer.Models
 
         public string Content { get; set; }
 
-        [JsonProperty(PropertyName = "extra_rule")]
+        [JsonPropertyName("extra_rule")]
         public IEnumerable<ExtraRule> ExtraRule { get; set; }
 
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
     }
 

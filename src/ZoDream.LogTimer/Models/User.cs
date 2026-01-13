@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -22,7 +17,7 @@ namespace ZoDream.LogTimer.Models
 
         public int Sex { get; set; }
 
-        [JsonProperty("sex_label")]
+        [JsonPropertyName("sex_label")]
         public string SexLabel { get; set; }
 
         public string Birthday { get; set; }

@@ -1,16 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
     public class Emoji
     {
         public int Id { get; set; }
-        [JsonProperty(PropertyName = "cat_id")]
+        [JsonPropertyName("cat_id")]
         public int CatId { get; set; }
         public string Name { get; set; }
         public int Type { get; set; }

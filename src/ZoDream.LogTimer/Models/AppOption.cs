@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -15,10 +10,10 @@ namespace ZoDream.LogTimer.Models
 
         public string Logo { get; set; } = string.Empty;
 
-        [JsonProperty(PropertyName = "site_close")]
+        [JsonPropertyName("site_close")]
         public bool SiteClose { get; set; }
 
-        [JsonProperty(PropertyName = "site_close_tip")]
+        [JsonPropertyName("site_close_tip")]
         public string SiteCloseTip { get; set; } = string.Empty;
     }
 }

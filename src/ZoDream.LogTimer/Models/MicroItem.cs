@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -14,86 +10,86 @@ namespace ZoDream.LogTimer.Models
         public UserItem User { get; set; }
 
         public string Content { get; set; }
-        [JsonProperty(PropertyName = "extra_rule")]
+        [JsonPropertyName("extra_rule")]
         public IEnumerable<ExtraRule> ExtraRule { get; set; }
 
         public IEnumerable<MicroAttachment> Attachment { get; set; }
-        [JsonProperty(PropertyName = "user_id")]
+        [JsonPropertyName("user_id")]
         public int UserId { get; set; }
-        [JsonProperty(PropertyName = "open_type")]
+        [JsonPropertyName("open_type")]
         public int OpenType { get; set; }
-        [JsonProperty(PropertyName = "recommend_count")]
+        [JsonPropertyName("recommend_count")]
         public int RecommendCount { get; set; }
-        [JsonProperty(PropertyName = "collect_count")]
+        [JsonPropertyName("collect_count")]
         public int CollectCount { get; set; }
-        [JsonProperty(PropertyName = "forward_count")]
+        [JsonPropertyName("forward_count")]
         public int ForwardCount { get; set; }
-        [JsonProperty(PropertyName = "comment_count")]
+        [JsonPropertyName("comment_count")]
         public int CommentCount { get; set; }
-        [JsonProperty(PropertyName = "forward_id")]
+        [JsonPropertyName("forward_id")]
         public int ForwardId { get; set; }
         public string Source { get; set; }
-        [JsonProperty(PropertyName = "updated_at")]
+        [JsonPropertyName("updated_at")]
         public string UpdatedAt { get; set; }
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
         public bool Editable { get; set; }
-        [JsonProperty(PropertyName = "is_recommended")]
+        [JsonPropertyName("is_recommended")]
         public bool IsRecommended { get; set; }
-        [JsonProperty(PropertyName = "is_collected")]
+        [JsonPropertyName("is_collected")]
         public bool IsCollected { get; set; }
     }
 
     public class MicroAttachment
     {
-        [JsonProperty(PropertyName = "id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
-        [JsonProperty(PropertyName = "thumb")]
+        [JsonPropertyName("thumb")]
         public string Thumb { get; set; }
-        [JsonProperty(PropertyName = "file")]
+        [JsonPropertyName("file")]
         public string File { get; set; }
     }
 
     public class MicroForm
     {
-        [JsonProperty(PropertyName = "content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
-        [JsonProperty(PropertyName = "open_type")]
+        [JsonPropertyName("open_type")]
         public int OpenType { get; set; }
-        [JsonProperty(PropertyName = "file")]
+        [JsonPropertyName("file")]
         public IList<MicroAttachment> File { get; set; }
     }
 
     public class MicroCommentForm
     {
-        [JsonProperty(PropertyName = "content")]
+        [JsonPropertyName("content")]
         public string Conent { get; set; }
-        [JsonProperty(PropertyName = "micro_id")]
+        [JsonPropertyName("micro_id")]
         public int MicroId { get; set; }
-        [JsonProperty(PropertyName = "parent_id")]
+        [JsonPropertyName("parent_id")]
         public int ParentId { get; set; }
-        [JsonProperty(PropertyName = "is_forward")]
+        [JsonPropertyName("is_forward")]
         public bool IsForward { get; set; }
     }
 
     public class MicroShareForm
     {
-        [JsonProperty(PropertyName = "shareappid")]
+        [JsonPropertyName("shareappid")]
         public string Shareappid { get; set; }
-        [JsonProperty(PropertyName = "title")]
+        [JsonPropertyName("title")]
         public string Title { get; set; }
-        [JsonProperty(PropertyName = "summary")]
+        [JsonPropertyName("summary")]
         public string Summary { get; set; }
-        [JsonProperty(PropertyName = "url")]
+        [JsonPropertyName("url")]
         public string Url { get; set; }
-        [JsonProperty(PropertyName = "pics")]
+        [JsonPropertyName("pics")]
         public IList<MicroAttachment> Pics { get; set; }
-        [JsonProperty(PropertyName = "sharesource")]
+        [JsonPropertyName("sharesource")]
         public string Sharesource { get; set; }
-        [JsonProperty(PropertyName = "content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
 
-        [JsonProperty(PropertyName = "open_type")]
+        [JsonPropertyName("open_type")]
         public int OpenType { get; set; }
     }
 }

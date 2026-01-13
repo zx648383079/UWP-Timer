@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ZoDream.LogTimer.Repositories.Models
+﻿namespace ZoDream.LogTimer.Repositories.Models
 {
     /// <summary>
     /// 登录二维码

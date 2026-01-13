@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Windows.Storage;
 using ZoDream.LogTimer.Utils;
@@ -42,7 +42,7 @@ namespace ZoDream.LogTimer.Services
             try
             {
                 var file = await RootFolder.GetFileAsync(name);
-                return JsonConvert.DeserializeObject<T>(await FileIO.ReadTextAsync(file));
+                return JsonSerializer.Deserialize<T>(await FileIO.ReadTextAsync(file));
             }
             catch (FileNotFoundException)
             {
@@ -55,7 +55,7 @@ namespace ZoDream.LogTimer.Services
             try
             {
                 var file = await RootFolder.GetFileAsync(name);
-                return JsonConvert.DeserializeObject<T>(await FileIO.ReadTextAsync(file));
+                return JsonSerializer.Deserialize<T>(await FileIO.ReadTextAsync(file));
             }
             catch (FileNotFoundException)
             {
@@ -72,7 +72,7 @@ namespace ZoDream.LogTimer.Services
         public async Task SetAsync<T>(string name, T data)
         {
             var file = await RootFolder.CreateFileAsync(name, CreationCollisionOption.ReplaceExisting);
-            await FileIO.WriteTextAsync(file, JsonConvert.SerializeObject(data));
+            await FileIO.WriteTextAsync(file, JsonSerializer.Serialize(data));
         }
     }
 }

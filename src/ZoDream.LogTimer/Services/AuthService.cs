@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 using ZoDream.LogTimer.Models;
 using ZoDream.LogTimer.Repositories;
 
@@ -40,7 +40,7 @@ namespace ZoDream.LogTimer.Services
             Authenticating = false;
             AuthenticatedUser = user;
             Token = token;
-            setting.Set(USER_KEY, JsonConvert.SerializeObject(user));
+            setting.Set(USER_KEY, JsonSerializer.Serialize(user));
             setting.Set(TOKEN_KEY, Token);
             AuthChanged?.Invoke();
         }
@@ -49,7 +49,7 @@ namespace ZoDream.LogTimer.Services
         {
             Authenticating = false;
             AuthenticatedUser = user;
-            setting.Set(USER_KEY, JsonConvert.SerializeObject(user));
+            setting.Set(USER_KEY, JsonSerializer.Serialize(user));
             AuthChanged?.Invoke();
         }
 

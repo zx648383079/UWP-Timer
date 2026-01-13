@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -12,13 +7,13 @@ namespace ZoDream.LogTimer.Models
     /// </summary>
     public class Feedback
     {
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("email")]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
-        [JsonProperty("phone")]
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
-        [JsonProperty("content")]
+        [JsonPropertyName("content")]
         public string Content { get; set; }
     }
 }

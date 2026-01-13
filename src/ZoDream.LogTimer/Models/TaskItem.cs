@@ -1,10 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace ZoDream.LogTimer.Models
 {
@@ -14,28 +9,28 @@ namespace ZoDream.LogTimer.Models
     public class TaskItem
     {
         public int Id { get; set; }
-        [JsonProperty(PropertyName = "parent_id")]
+        [JsonPropertyName("parent_id")]
         public int ParentId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Status { get; set; }
-        [JsonProperty(PropertyName = "every_time")]
+        [JsonPropertyName("every_time")]
         public int EveryTime { get; set; }
-        [JsonProperty(PropertyName = "space_time")]
+        [JsonPropertyName("space_time")]
         public int SpaceTime { get; set; }
-        [JsonProperty(PropertyName = "per_time")]
+        [JsonPropertyName("per_time")]
         public int PerTime { get; set; }
 
-        [JsonProperty(PropertyName = "time_length")]
+        [JsonPropertyName("time_length")]
         public int TimeLength { get; set; }
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
-        [JsonProperty(PropertyName = "updated_at")]
+        [JsonPropertyName("updated_at")]
         public string UpdatedAt { get; set; }
-        [JsonProperty(PropertyName = "start_at")]
+        [JsonPropertyName("start_at")]
         public string StartAt { get; set; }
 
-        [JsonProperty(PropertyName = "last_at")]
+        [JsonPropertyName("last_at")]
         public int LastAt { get; set; }
     }
     /// <summary>
@@ -45,16 +40,16 @@ namespace ZoDream.LogTimer.Models
     {
         public int Id { get; set; }
         public int Status { get; set; }
-        [JsonProperty(PropertyName = "outage_time")]
+        [JsonPropertyName("outage_time")]
         public int OutageTime { get; set; }
-        [JsonProperty(PropertyName = "end_at")]
+        [JsonPropertyName("end_at")]
         public int EndAt { get; set; }
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
         public int Time { get; set; }
 
         public TaskItem Task { get; set; }
-        [JsonProperty(PropertyName = "start_at")]
+        [JsonPropertyName("start_at")]
         public int StartAt { get; set; }
     }
     /// <summary>
@@ -72,16 +67,16 @@ namespace ZoDream.LogTimer.Models
             set => SetProperty(ref amount, value);
         }
 
-        [JsonProperty(PropertyName = "success_amount")]
+        [JsonPropertyName("success_amount")]
         public int SuccessAmount { get; set; }
-        [JsonProperty(PropertyName = "pause_amount")]
+        [JsonPropertyName("pause_amount")]
         public int PauseAmount { get; set; }
-        [JsonProperty(PropertyName = "failure_amount")]
+        [JsonPropertyName("failure_amount")]
         public int FailureAmount { get; set; }
         public int Status { get; set; }
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
-        [JsonProperty(PropertyName = "updated_at")]
+        [JsonPropertyName("updated_at")]
         public string UpdatedAt { get; set; }
         public TaskItem Task { get; set; }
         public TaskLog Log { get; set; }
@@ -101,7 +96,7 @@ namespace ZoDream.LogTimer.Models
 
         public string ShareRule { get; set; }
 
-        [JsonProperty(PropertyName = "created_at")]
+        [JsonPropertyName("created_at")]
         public string CreatedAt { get; set; }
     }
 }
